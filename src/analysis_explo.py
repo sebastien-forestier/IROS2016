@@ -28,10 +28,10 @@ def main(log_dir, config):
     #     raise NotImplementedError
     
     
-    trials = range(9, 10)
+    trials = range(1, 2)
     n_logs = 1
     
-    n = 100000
+    n = 20000
     p = 100
     
     gss = [0, 10, 100, 20, 10, 6, 5, 4, 3, 3]
@@ -79,16 +79,16 @@ def main(log_dir, config):
     explo['hand'] = {}
     explo['stick_1'] = {}
     explo['stick_2'] = {}
-    explo['obj'] = {}
-    explo['box'] = {}
+    explo['obj1'] = {}
+    explo['obj2'] = {}
     
 
     
     explo['hand'][config] = {}
     explo['stick_1'][config] = {}
-    explo['obj'][config] = {}
-    explo['box'][config] = {}
     explo['stick_2'][config] = {}
+    explo['obj1'][config] = {}
+    explo['obj2'][config] = {}
         
     for trial in trials:
         print trial
@@ -116,11 +116,11 @@ def main(log_dir, config):
                         hand=[2,5],
                         stick_1=[11, 14],
                         stick_2=[17, 20],
-                        obj=[21, 22],
-                        box=[23])
+                        obj1=[23, 26],
+                        obj2=[29, 32])
             
-            mins = np.array([-2.] * (7 * 3) + [-2., -2., 1., 0.])
-            maxs = np.array([2.] * (7 * 3) + [2., 2., 11., 2.])
+            mins = np.array([-2.] * (19 * 3))
+            maxs = np.array([2.] * (19 * 3))
             
         
         
@@ -143,25 +143,22 @@ def main(log_dir, config):
                 
                 #Object exploration
                 fig, ax = plt.subplots()
-                fig.canvas.set_window_title('Object exploration')            
-                sx = data[:,dims['obj'][0]]
-                sy = data[:,dims['obj'][1]]            
+                fig.canvas.set_window_title('Object exploration')        
+                    
+                sx = data[:,dims['obj1'][0]]
+                sy = data[:,dims['obj1'][1]]            
 #                 plt.xlabel('X', fontsize = 16)
 #                 plt.ylabel('Y', fontsize = 16)   
-                #ax.add_patch(plt.Rectangle((-0.1, 1.1), 0.1, 0.1, fc='y', alpha=0.5))
-                ax.add_patch(plt.Rectangle((-1.5, -0.1), 0.2, 0.2, fc="none", alpha=0.5, lw=4))
-                ax.add_patch(plt.Rectangle((-1.2, 1.), 0.2, 0.2, fc="none", alpha=0.5, lw=4))
-                ax.add_patch(plt.Rectangle((-0.1, 1.3), 0.2, 0.2, fc="none", alpha=0.5, lw=4))
-                ax.add_patch(plt.Rectangle((1., 1.), 0.2, 0.2, fc="none", alpha=0.5, lw=4))
-                ax.add_patch(plt.Rectangle((1.3, -0.1), 0.2, 0.2, fc="none", alpha=0.5, lw=4))
-                ax.add_patch(plt.Rectangle((-1., -0.1), 0.2, 0.2, fc="none", alpha=0.5, lw=4))
-                ax.add_patch(plt.Rectangle((-0.7, 0.5), 0.2, 0.2, fc="none", alpha=0.5, lw=4))
-                ax.add_patch(plt.Rectangle((-0.1, 0.8), 0.2, 0.2, fc="none", alpha=0.5, lw=4))
-                ax.add_patch(plt.Rectangle((0.5, 0.5), 0.2, 0.2, fc="none", alpha=0.5, lw=4))
-                ax.add_patch(plt.Rectangle((0.8, -0.1), 0.2, 0.2, fc="none", alpha=0.5, lw=4))
-                
                 color=matplotlib.colors.ColorConverter().to_rgba('b', alpha=0.1)
                 ax.scatter(sx, sy, s=3, color=color, rasterized=True)
+                
+                sx = data[:,dims['obj2'][0]]
+                sy = data[:,dims['obj2'][1]]            
+#                 plt.xlabel('X', fontsize = 16)
+#                 plt.ylabel('Y', fontsize = 16)   
+                color=matplotlib.colors.ColorConverter().to_rgba('r', alpha=0.1)
+                ax.scatter(sx, sy, s=3, color=color, rasterized=True)
+                
                 ax.set_xticklabels([])
                 ax.set_yticklabels([])
                 plt.gca().xaxis.set_major_locator(plt.NullLocator())
@@ -169,8 +166,8 @@ def main(log_dir, config):
                 plt.xlim(-1.7, 1.7)
                 plt.ylim(-0.8, 1.7)
                 ax.set_aspect('equal')            
-                plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/obj-explo.pdf", format='pdf', dpi=100, bbox_inches='tight')
-                #plt.savefig(log_dir + "img/" + config + '-log{}-obj-explo.pdf'.format(trial), format='pdf', dpi=100, bbox_inches='tight')
+                #plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/obj-explo.pdf", format='pdf', dpi=100, bbox_inches='tight')
+                plt.savefig(log_dir + "img/" + config + '-log{}-obj-explo.pdf'.format(trial), format='pdf', dpi=100, bbox_inches='tight')
                 plt.close(fig)
         
         except IOError:

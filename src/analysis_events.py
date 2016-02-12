@@ -132,10 +132,10 @@ def main(log_dir, config):
                         events_margins['hand'][config][trial].append([i, events_margins['hand'][config][trial][-1][-1] + 1])
               
                      
-                if abs(s[21] - (-0.)) > 0.01:
+                if abs(s[26] - (1.1)) > 0.01 or abs(s[32] - (1.1)) > 0.01:
                     events['object'][config][trial].append([i, events['object'][config][trial][-1][-1] + 1])
                 else:
-                    if abs(s[11] - (-1.17)) > 0.01 or abs(s[17] - (0.96)) > 0.01:
+                    if abs(s[14] - (-0.603)) > 0.02 or abs(s[20] - (0.603)) > 0.02:
                         events['stick'][config][trial].append([i, events['stick'][config][trial][-1][-1] + 1])          
                     else:
                         events['hand'][config][trial].append([i, events['hand'][config][trial][-1][-1] + 1])

@@ -16,6 +16,7 @@ class Config(object):
                  supervisor_n_explo_points = 0,
                  supervisor_ccm="competence", 
                  supervisor_ccl="local", 
+                 sm_model='NN',
                  tdd=False,
                  ns=False,
                  perturbation=None,
@@ -26,7 +27,7 @@ class Config(object):
     
         self.name = name or 'Experiment'
         self.init_rest_trial = False
-        self.bootstrap = 2
+        self.bootstrap = 0
         self.bootstrap_range_div = 1.
         self.iter = iterations or 50
         self.log_each = self.iter #must be <= iter
@@ -74,11 +75,12 @@ class Config(object):
         
         self.sms = {
             'NN': (NonParametric, {'fwd': 'NN', 'inv': 'NN', 'sigma_explo_ratio':0.01}),
-            'LWLR-BFGS': (NonParametric, {'fwd': 'LWLR', 'k':10, 'sigma':0.1, 'sigma_explo_ratio':0.01, 'inv': 'L-BFGS-B'}),
+            'LWLR-BFGS': (NonParametric, {'fwd': 'LWLR', 'k':10, 'sigma':0.1, 'sigma_explo_ratio':0.01, 'inv': 'L-BFGS-B', 'maxfun':10, 'ftol':0, 'gtol':0}),
             'LWLR-CMAES': (NonParametric, {'fwd': 'LWLR', 'k':10, 'sigma':0.1, 'inv': 'CMAES', 'cmaes_sigma':0.05, 'sigma_explo_ratio':0.01, 'maxfevals':20}),
         }
           
-        sm = 'LWLR-CMAES'
+        self.sm_model = sm_model
+        sm = self.sm_model
         im_mode = 'sg'
         self.std_range = [-1.,1.]
         
@@ -310,13 +312,17 @@ configs = {}
 
 #################### EXPERIMENT  ####################
 
-iterations = 1000
+iterations = 20000
 
 config_list = {"xp1":["F-RmB",
                       "F-RGB",
                       "M-RMB",
                       "M-P-AMB",
                       "M-GR-AMB",
+                      "F-RGB-LWR",
+                      "M-RMB-LWR",
+                      "M-P-AMB-LWR",
+                      "M-GR-AMB-LWR",
                       ]}
 
 config = Config(name="F-RmB", hierarchy_type=0, babbling_name="motor", iterations=iterations)
@@ -332,4 +338,17 @@ config = Config(name="M-RMB", hierarchy_type=1, supervisor_name="random", iterat
 configs[config.name] = config
 
 config = Config(name="M-GR-AMB", hierarchy_type=1, supervisor_name="interest_greedy", iterations=iterations)
+configs[config.name] = config
+
+
+config = Config(name="F-RGB-LWR", sm_model='LWLR-BFGS', hierarchy_type=0, iterations=iterations)
+configs[config.name] = config
+
+config = Config(name="M-P-AMB-LWR", sm_model='LWLR-BFGS', hierarchy_type=1, supervisor_name="interest", iterations=iterations)
+configs[config.name] = config
+
+config = Config(name="M-RMB-LWR", sm_model='LWLR-BFGS', hierarchy_type=1, supervisor_name="random", iterations=iterations)
+configs[config.name] = config
+
+config = Config(name="M-GR-AMB-LWR", sm_model='LWLR-BFGS', hierarchy_type=1, supervisor_name="interest_greedy", iterations=iterations)
 configs[config.name] = config
