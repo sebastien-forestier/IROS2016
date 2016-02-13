@@ -178,8 +178,8 @@ class Supervisor(Observable):
         interests = {}
         for mid in self.modules.keys():
             interests[mid] = self.modules[mid].interest()
-            self.emit('interest_' + mid, [self.t, interests[mid]])
-            self.emit('competence_' + mid, [self.t, self.modules[mid].competence()])
+        self.emit('interests', [self.t, interests])
+            #self.emit('competence_' + mid, [self.t, self.modules[mid].competence()])
         max_progress = max(interests.values())
         
 #         self.emit('babbling_module', "mod2")
@@ -283,7 +283,7 @@ class Supervisor(Observable):
                 
     def update_sensorimotor_models(self, m, s):
         ms = self.set_ms(m, s)
-        self.emit('agentM', m)
+        #self.emit('agentM', m)
         self.emit('agentS', s)
         for mod in self.modules.values():
             mod.update_sm(mod.get_m(ms), mod.get_s(ms))    
@@ -344,7 +344,7 @@ class Supervisor(Observable):
                 i = i + len(space)
                 children.append(self.choose_space_child(space, s, mode, local))         
         self.last_space_children_choices[mid].put(children)     
-        self.emit('chidren_choice_' + mid, [self.t, children])
+        #self.emit('chidren_choice_' + mid, [self.t, children])
         #print "Choice of children of mid", mid, children 
         return children
     
@@ -538,7 +538,7 @@ class Supervisor(Observable):
         for m, s in zip(self.m_seq, s_seq):
             ms = self.set_ms(m, s)
             self.ms_seq.append(ms)
-            self.emit('agentM', m)
+            #self.emit('agentM', m)
             self.emit('agentS', s)
             
         last_ms = self.ms_seq[-1]

@@ -130,6 +130,17 @@ class DynamicEnvironment(Environment):
             self.plot()
         return bounds_min_max(s, self.conf.s_mins, self.conf.s_maxs)    
         
+    def update(self, m_ag, reset=True, log=False):
+        if reset:
+            self.reset()
+        if len(np.array(m_ag).shape) == 1:
+            s = self.one_update(m_ag, log)
+        else:
+            s = []
+            for m in m_ag:
+                s.append(self.one_update(m, log))
+            s = np.array(s)
+        return s
         
     def plot(self, **kwargs):
 #         l = [0, 16, 32, 49]

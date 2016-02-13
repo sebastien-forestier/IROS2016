@@ -115,7 +115,7 @@ class HierarchicallyCombinedEnvironment(Environment):
                 #print "No", isinstance(results_lower[0], list), results_lower[0], results_lower, np.array(results_lower).shape
                 s_lower = results_lower
                 s_lower_upd = self.fun_s_lower(m, s_lower)
-        top_upd = list(self.top_env.update(s_lower_upd, reset=False))
+        top_upd = list(self.top_env.update(s_lower_upd, reset=False, log=False))
         
         s = self.fun_s_top(m, s_lower, top_upd)
         #print "HC len(s)", len(s), "len(m)", len(m), "len(s_lower)", len(s_lower), "len(top_upd)", len(top_upd)

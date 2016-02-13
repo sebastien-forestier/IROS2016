@@ -140,13 +140,17 @@ def main(log_dir, config):
                     else:
                         events['hand'][config][trial].append([i, events['hand'][config][trial][-1][-1] + 1])
               
-            logs_c = {}
+            #logs_c = {}
              
+            get_data_topic("interests")
             for mid in babbling_module.keys():
-                get_data_topic("interest_" + mid)
-                log_p[config][trial][mid] = np.array(data["interest_" + mid])
-                get_data_topic("competence_" + mid)
-                logs_c[mid] = data["competence_" + mid]
+                log_p[config][trial][mid] = []
+            for i in data["interests"]:
+                interests = i[1]
+                for mid in babbling_module.keys():
+                    log_p[config][trial][mid].append(interests[mid])
+                #get_data_topic("competence_" + mid)
+                #logs_c[mid] = data["competence_" + mid]
         
             if True:
                 #Plot competences

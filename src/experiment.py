@@ -48,8 +48,9 @@ class ToolsExperiment(Experiment):
             
         self.ag.subscribe('agentM', self)
         self.ag.subscribe('agentS', self)
+        self.ag.subscribe('interests', self)
         self.ag.subscribe('babbling_module', self)
-        self.ag.subscribe_topics_mod(['interest', 'competence', 'chidren_choice'], self)
+        #self.ag.subscribe_topics_mod(['competence', 'chidren_choice'], self)
             
         self.n_trials = n_trials
         self.trial = 0
@@ -63,8 +64,9 @@ class ToolsExperiment(Experiment):
         self.evaluate_at(self.config.eval_at, self.testcases)
         self.ag.subscribe('agentM', self)
         self.ag.subscribe('agentS', self)
+        self.ag.subscribe('interests', self)
         self.ag.subscribe('babbling_module', self)
-        self.ag.subscribe_topics_mod(['interest', 'competence', 'chidren_choice'], self)
+        #self.ag.subscribe_topics_mod(['competence', 'chidren_choice'], self)
         
     @classmethod
     def from_log(cls, config, log_dir, from_log_dir, from_log_trial, n_logs=1, forward_im=False):

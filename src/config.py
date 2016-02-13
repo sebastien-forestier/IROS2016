@@ -312,7 +312,7 @@ configs = {}
 
 #################### EXPERIMENT  ####################
 
-iterations = 100000
+iterations = 30000
 
 config_list = {"xp1":["F-RmB",
                       "F-RGB",
