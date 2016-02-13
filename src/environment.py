@@ -232,9 +232,9 @@ class ScratchObject(Environment):
     def compute_sensori_effect(self, m):
         #print "SceneObject m", m
         if self.move == 2 or (m[2] - self.pos[0]) ** 2 + (m[3] - self.pos[1]) ** 2 < self.object_tol2_sq:
-            self.pos = m[0:2]
+            self.pos = m[2:4]
             self.move = 2
-            #print "OBJECT PUSHED BY TOOL 1!"
+            #print "OBJECT PUSHED BY TOOL 2!"
         self.logs.append([self.pos,
                           self.move])
         return list(self.pos)

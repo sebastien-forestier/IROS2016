@@ -32,7 +32,7 @@ def n_behavior_change(x, smoothing=10, th=10):
 def main(log_dir, config):
 
     
-    trials = range(1, 101)
+    trials = range(1, 11)
     n_logs = 1
     
     n = 100000
@@ -132,21 +132,21 @@ def main(log_dir, config):
                         events_margins['hand'][config][trial].append([i, events_margins['hand'][config][trial][-1][-1] + 1])
               
                      
-                if abs(s[26] - (1.1)) > 0.01 or abs(s[32] - (1.1)) > 0.01:
+                if abs(s[26] - (1.1)) > 0.0001 or abs(s[32] - (1.1)) > 0.0001:
                     events['object'][config][trial].append([i, events['object'][config][trial][-1][-1] + 1])
                 else:
-                    if abs(s[14] - (-0.603)) > 0.02 or abs(s[20] - (0.603)) > 0.02:
+                    if abs(s[14] - (0.60355)) > 0.0001 or abs(s[20] - (0.60355)) > 0.0001:
                         events['stick'][config][trial].append([i, events['stick'][config][trial][-1][-1] + 1])          
                     else:
                         events['hand'][config][trial].append([i, events['hand'][config][trial][-1][-1] + 1])
               
             logs_c = {}
              
-#             for mid in babbling_module.keys():
-#                 get_data_topic("interest_" + mid)
-#                 log_p[config][trial][mid] = np.array(data["interest_" + mid])
-#                 get_data_topic("competence_" + mid)
-#                 logs_c[mid] = data["competence_" + mid]
+            for mid in babbling_module.keys():
+                get_data_topic("interest_" + mid)
+                log_p[config][trial][mid] = np.array(data["interest_" + mid])
+                get_data_topic("competence_" + mid)
+                logs_c[mid] = data["competence_" + mid]
         
             if True:
                 #Plot competences
@@ -161,23 +161,23 @@ def main(log_dir, config):
 #                 plt.close(fig)
                 
                 # Plot progresses
-#                 fig, ax = plt.subplots()
-#                 fig.canvas.set_window_title('Interests')
-#                 for mid in babbling_module.keys():
-#                     #print "Plot", mid, logs_p, logs_p[mid], np.array(logs_p[mid])[:,0]
-#                     ax.plot(log_p[config][trial][mid][:,0], log_p[config][trial][mid][:,1], label=mid, lw=2, rasterized=True)
-#                 handles, labels = ax.get_legend_handles_labels()
-#                 ax.legend(handles, labels, fontsize=18)                        
-#                 plt.tick_params(labelsize=18)                                        
-#                 x_ticks = np.arange(0, 100001, 50000)                                                               
-#                 ax.set_xticks(x_ticks)                                        
-#                 y_ticks = np.arange(0, 0.181, 0.06)                                                               
-#                 ax.set_yticks(y_ticks)       
-#                 
-#                 #plt.savefig(log_dir + "img/" + config + '-log{}-interests-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=1000, bbox_inches='tight')
-#                 #plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/" + config + '-log{}-interests-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=100, bbox_inches='tight')
-#                 
-#                 plt.close(fig)
+                fig, ax = plt.subplots()
+                fig.canvas.set_window_title('Interests')
+                for mid in babbling_module.keys():
+                    #print "Plot", mid, logs_p, logs_p[mid], np.array(logs_p[mid])[:,0]
+                    ax.plot(log_p[config][trial][mid][:,0], log_p[config][trial][mid][:,1], label=mid, lw=2, rasterized=True)
+                handles, labels = ax.get_legend_handles_labels()
+                ax.legend(handles, labels, fontsize=18)                        
+                plt.tick_params(labelsize=18)                                        
+                x_ticks = np.arange(0, 100001, 50000)                                                               
+                ax.set_xticks(x_ticks)                                        
+                y_ticks = np.arange(0, 0.181, 0.06)                                                               
+                ax.set_yticks(y_ticks)       
+                 
+                plt.savefig(log_dir + "img/" + config + '-log{}-interests-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=1000, bbox_inches='tight')
+                #plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/" + config + '-log{}-interests-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=100, bbox_inches='tight')
+                 
+                plt.close(fig)
                 
                 # plot events against time
                 fig, ax = plt.subplots(figsize=(8,5))
@@ -187,7 +187,7 @@ def main(log_dir, config):
                     mean,_ = mean_std({"1":events[event][config][trial]})
                     res = np.append([0], np.diff(mean))
                      
-                    nbc[event][trial] = n_behavior_change(res)
+                    #nbc[event][trial] = n_behavior_change(res)
                      
                     if sw > 1:
                         ax.plot(x[:-(sw-1)], runningMeanFast(res, sw), label=event, lw=3, color=colors_config[event])
@@ -203,8 +203,8 @@ def main(log_dir, config):
                 ax.set_yticks(y_ticks)   
                 plt.ylim([0,100])    
                 
-                plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/" + config + '-log{}-events-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=100, bbox_inches='tight')               
-                #plt.savefig(log_dir + "img/" + config + '-log{}-events-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=1000, bbox_inches='tight')
+                #plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/" + config + '-log{}-events-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=100, bbox_inches='tight')               
+                plt.savefig(log_dir + "img/" + config + '-log{}-events-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=1000, bbox_inches='tight')
                 plt.close(fig)
                 
                 # plot events_margins against time
@@ -228,7 +228,7 @@ def main(log_dir, config):
 
 
 
-                print nbc
+                #print nbc
 
 
                 
@@ -239,18 +239,18 @@ def main(log_dir, config):
         except IOError:
             print "File not found for trial", trial
             
-#     
-#     with open(log_dir + config + '/analysis_events.pickle', 'wb') as f:
-#         cPickle.dump(log_p, f)
-#     
-#     with open(log_dir + config + '/analysis_events.pickle', 'wb') as f:
-#         cPickle.dump(events, f)
-#     with open(log_dir + config + '/analysis_events_margins.pickle', 'wb') as f:
-#         cPickle.dump(events_margins, f)
-#     with open(log_dir + config + '/analysis_nbc.pickle', 'wb') as f:
-#         cPickle.dump(nbc, f)
-#         
-    print "nbc", nbc
+     
+    with open(log_dir + config + '/analysis_events.pickle', 'wb') as f:
+        cPickle.dump(log_p, f)
+     
+    with open(log_dir + config + '/analysis_events.pickle', 'wb') as f:
+        cPickle.dump(events, f)
+    with open(log_dir + config + '/analysis_events_margins.pickle', 'wb') as f:
+        cPickle.dump(events_margins, f)
+    with open(log_dir + config + '/analysis_nbc.pickle', 'wb') as f:
+        cPickle.dump(nbc, f)
+         
+    #print "nbc", nbc
         
 if __name__ == "__main__":
     
