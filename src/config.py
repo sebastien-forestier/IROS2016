@@ -319,10 +319,10 @@ config_list = {"xp1":["F-RmB",
                       "M-RMB",
                       "M-P-AMB",
                       "M-GR-AMB",
-                      "F-RGB-LWR",
-                      "M-RMB-LWR",
-                      "M-P-AMB-LWR",
-                      "M-GR-AMB-LWR",
+#                       "F-RGB-LWR",
+#                       "M-RMB-LWR",
+#                       "M-P-AMB-LWR",
+#                       "M-GR-AMB-LWR",
                       ]}
 
 config = Config(name="F-RmB", hierarchy_type=0, babbling_name="motor", iterations=iterations)
