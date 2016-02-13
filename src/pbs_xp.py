@@ -55,6 +55,7 @@ iter_list = range(1,n_iter + 1)
 for xp_name in xp_list:
     os.mkdir(log_dir + xp_name + "/")
     os.mkdir(log_dir + xp_name + "/" + "pbs")
+    os.mkdir(log_dir + xp_name + "/" + "img")
     os.mkdir(log_dir + xp_name + "/" + "logs")
     os.mkdir(log_dir + xp_name + "/" + "configs")
     
