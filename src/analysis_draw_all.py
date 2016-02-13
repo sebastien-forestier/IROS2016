@@ -94,7 +94,7 @@ def mean_std_dic(d, add_0=False):
     return mean, std
     
 xp_name = "xp1"
-d = "2016-01-26_14-37-37-Tools-cogsci-xp1"
+d = "2016-02-13_18-17-16-TOOL2-iros-xp1"
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
     pref = ""
@@ -106,7 +106,6 @@ log_dirs = {"xp1":pref + '/scratch/sforestier001/logs/' + d
 
     
 log_dir = log_dirs[xp_name] + '/'
-#log_dir = '/home/sforesti/scm/Flowers/explaupoppydiva/scripts/cogsci2016/test_20/'
 
 events = {}
 events_margins = {}
@@ -176,11 +175,11 @@ if "events" in modes:
         fig1, ax = plt.subplots()
         fig1.canvas.set_window_title(event)
         for config in events[event].keys():
-            color_cycle = ax._get_lines.color_cycle
-            next_color = next(color_cycle)
+            #color_cycle = ax.get_
+            #next_color = next(color_cycle)
             mean,std = mean_std_dic(events[event][config], add_0=True)
-            ax.plot(x_events[:-(sw-1)], runningMeanFast(mean, sw), label=config, color=next_color)
-            ax.fill_between(x_events[:-(sw-1)], runningMeanFast(mean-std, sw), runningMeanFast(mean+std, sw), alpha=0.2, label = config, color=next_color)
+            ax.plot(x_events[:-(sw-1)], runningMeanFast(mean, sw), label=config)
+            #ax.fill_between(x_events[:-(sw-1)], runningMeanFast(mean-std, sw), runningMeanFast(mean+std, sw), alpha=0.2, label = config, color=next_color)
         handles, labels = ax.get_legend_handles_labels()
         ax.legend(handles, labels, loc='upper left')
         plt.xlim(xmin=0)
@@ -192,87 +191,87 @@ if "events" in modes:
         
         
         
-    analysis_nbc = {}
-    for config in config_list[xp_name]:
-        analysis_nbc[config] = []
-        for trial in range(1,101):
-            analysis_nbc[config].append(nbc["hand"][config][trial] + nbc["stick"][config][trial] + nbc["object"][config][trial])
+#     analysis_nbc = {}
+#     for config in config_list[xp_name]:
+#         analysis_nbc[config] = []
+#         for trial in range(1,101):
+#             analysis_nbc[config].append(nbc["hand"][config][trial] + nbc["stick"][config][trial] + nbc["object"][config][trial])
 
-    
-    fig = figure()
-    ax = fig.add_subplot(111)
-    fig.canvas.set_window_title("Number of abrupt behavioral changes")    
-    
-    bp = ax.boxplot([analysis_nbc[config] for config in config_list[xp_name]], notch=0, sym='', vert=1, whis=0, 
-                 positions=None, widths=0.6)
-
-    
-    for i in range(len(bp['boxes'])):
-        box = bp['boxes'][i]
-        box.set_linewidth(0)
-        boxX = []
-        boxY = []
-        for j in range(5):
-            boxX.append(box.get_xdata()[j])
-            boxY.append(box.get_ydata()[j])
-            boxCoords = zip(boxX,boxY)
-            boxPolygon = Polygon(boxCoords, facecolor = colors[i % len(colors)], linewidth=0)
-            ax.add_patch(boxPolygon)
-    
-    for i in range(0, len(bp['boxes'])):
-        bp['boxes'][i].set_color(colors[i % len(colors)])
-        # we have two whiskers!
-        bp['whiskers'][i*2].set_color(colors[i % len(colors)])
-        bp['whiskers'][i*2 + 1].set_color(colors[i % len(colors)])
-        bp['whiskers'][i*2].set_linewidth(2)
-        bp['whiskers'][i*2 + 1].set_linewidth(2)
-        # top and bottom fliers
-        bp['fliers'][i * 2].set(markerfacecolor=colors[i % len(colors)],
-                        marker='o', alpha=0.75, markersize=6,
-                        markeredgecolor='none')
-        bp['fliers'][i * 2 + 1].set(markerfacecolor=colors[i % len(colors)],
-                        marker='o', alpha=0.75, markersize=6,
-                        markeredgecolor='none')
-        bp['medians'][i].set_color('black')
-        bp['medians'][i].set_linewidth(3)
-        # and 4 caps to remove
-        for c in bp['caps']:
-            c.set_linewidth(0)
-    
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_visible(False)
-    ax.get_xaxis().tick_bottom()
-    ax.get_yaxis().tick_left()
-    ax.tick_params(axis='x', direction='out')
-    ax.tick_params(axis='y', length=0)
-    
-    ax.grid(axis='y', color="0.9", linestyle='-', linewidth=1)
-    ax.set_axisbelow(True)
-    
-    #ax.set_xticklabels(explo[s_space].keys())
-    plt.yticks(fontsize = 16) # work on current fig
-    plt.gca().xaxis.set_major_locator(plt.NullLocator())
-    
-    
-    # draw temporary red and blue lines and use them to create a legend
-    h0, = plot([1,1], color=colors[0], lw=3)
-    h1, = plot([1,1], color=colors[1], lw=3)
-    h2, = plot([1,1], color=colors[2], lw=3)
-    h3, = plot([1,1], color=colors[3], lw=3)
-    h4, = plot([1,1], color=colors[4], lw=3)
-    h5, = plot([1,1], color=colors[5], lw=3)
-    l = legend((h0, h1, h2, h3, h4, h5),tuple(config_list[xp_name]), loc=2, fontsize=18)
-    h0.set_visible(False)
-    h1.set_visible(False)
-    h2.set_visible(False)
-    h3.set_visible(False)
-    h4.set_visible(False)
-    h5.set_visible(False)
-    
-    l.get_frame().set_linewidth(2)
-    
-    #plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/nbc.pdf", format='pdf', dpi=1000, bbox_inches='tight')
+#     
+#     fig = plt.figure()
+#     ax = fig.add_subplot(111)
+#     fig.canvas.set_window_title("Number of abrupt behavioral changes")    
+#     
+#     bp = ax.boxplot([analysis_nbc[config] for config in config_list[xp_name]], notch=0, sym='', vert=1, whis=0, 
+#                  positions=None, widths=0.6)
+# 
+#     
+#     for i in range(len(bp['boxes'])):
+#         box = bp['boxes'][i]
+#         box.set_linewidth(0)
+#         boxX = []
+#         boxY = []
+#         for j in range(5):
+#             boxX.append(box.get_xdata()[j])
+#             boxY.append(box.get_ydata()[j])
+#             boxCoords = zip(boxX,boxY)
+#             boxPolygon = plt.Polygon(boxCoords, facecolor = colors[i % len(colors)], linewidth=0)
+#             ax.add_patch(boxPolygon)
+#     
+#     for i in range(0, len(bp['boxes'])):
+#         bp['boxes'][i].set_color(colors[i % len(colors)])
+#         # we have two whiskers!
+#         bp['whiskers'][i*2].set_color(colors[i % len(colors)])
+#         bp['whiskers'][i*2 + 1].set_color(colors[i % len(colors)])
+#         bp['whiskers'][i*2].set_linewidth(2)
+#         bp['whiskers'][i*2 + 1].set_linewidth(2)
+#         # top and bottom fliers
+#         bp['fliers'][i * 2].set(markerfacecolor=colors[i % len(colors)],
+#                         marker='o', alpha=0.75, markersize=6,
+#                         markeredgecolor='none')
+#         bp['fliers'][i * 2 + 1].set(markerfacecolor=colors[i % len(colors)],
+#                         marker='o', alpha=0.75, markersize=6,
+#                         markeredgecolor='none')
+#         bp['medians'][i].set_color('black')
+#         bp['medians'][i].set_linewidth(3)
+#         # and 4 caps to remove
+#         for c in bp['caps']:
+#             c.set_linewidth(0)
+#     
+#     ax.spines['top'].set_visible(False)
+#     ax.spines['right'].set_visible(False)
+#     ax.spines['left'].set_visible(False)
+#     ax.get_xaxis().tick_bottom()
+#     ax.get_yaxis().tick_left()
+#     ax.tick_params(axis='x', direction='out')
+#     ax.tick_params(axis='y', length=0)
+#     
+#     ax.grid(axis='y', color="0.9", linestyle='-', linewidth=1)
+#     ax.set_axisbelow(True)
+#     
+#     #ax.set_xticklabels(explo[s_space].keys())
+#     plt.yticks(fontsize = 16) # work on current fig
+#     plt.gca().xaxis.set_major_locator(plt.NullLocator())
+#     
+#     
+#     # draw temporary red and blue lines and use them to create a legend
+#     h0, = ax.plot([1,1], color=colors[0], lw=3)
+#     h1, = ax.plot([1,1], color=colors[1], lw=3)
+#     h2, = ax.plot([1,1], color=colors[2], lw=3)
+#     h3, = ax.plot([1,1], color=colors[3], lw=3)
+#     h4, = ax.plot([1,1], color=colors[4], lw=3)
+#     h5, = ax.plot([1,1], color=colors[5], lw=3)
+#     l = ax.legend((h0, h1, h2, h3, h4, h5),tuple(config_list[xp_name]), loc=2, fontsize=18)
+#     h0.set_visible(False)
+#     h1.set_visible(False)
+#     h2.set_visible(False)
+#     h3.set_visible(False)
+#     h4.set_visible(False)
+#     h5.set_visible(False)
+#     
+#     l.get_frame().set_linewidth(2)
+#     
+#     #plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/nbc.pdf", format='pdf', dpi=1000, bbox_inches='tight')
 
 
  
@@ -307,11 +306,11 @@ if "legend" in modes:
         'text.usetex': False,
         'figure.figsize': [2.5, 4.5]
     }
-    rcParams.update(params)
+    plt.rcParams.update(params)
     
     
     # LEGEND
-    fig = figure(figsize=(20, 2))
+    fig = plt.figure(figsize=(20, 2))
     ax = fig.add_subplot(111)
     plt.gca().set_aspect('equal', adjustable='box')
     ax.set_xlim([0, 6.])
@@ -325,8 +324,8 @@ if "legend" in modes:
         ax.add_patch(plt.Rectangle((i, 0), 0.3, 0.15, facecolor = colors[i % len(colors)]))
         ax.text(i + 0.35, 0.05, "" + config_names[config_list[xp_name][i]], fontsize=17) 
         
-    #plt.savefig(log_dir + xp_name + '-explo-legend.pdf', format='pdf', dpi=1000, bbox_inches='tight')
-    plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/" + xp_name + '-explo-legend.pdf', format='pdf', dpi=1000, bbox_inches='tight')
+    plt.savefig(log_dir + xp_name + '-explo-legend.pdf', format='pdf', dpi=1000, bbox_inches='tight')
+    #plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/" + xp_name + '-explo-legend.pdf', format='pdf', dpi=1000, bbox_inches='tight')
     
     
 if "explo" in modes:
@@ -344,7 +343,7 @@ if "explo" in modes:
     
     for s_space in explo.keys():
         print s_space
-        fig = figure()
+        fig = plt.figure()
         ax = fig.add_subplot(111)
         fig.canvas.set_window_title(s_space)    
         
@@ -360,7 +359,7 @@ if "explo" in modes:
                 boxX.append(box.get_xdata()[j])
                 boxY.append(box.get_ydata()[j])
                 boxCoords = zip(boxX,boxY)
-                boxPolygon = Polygon(boxCoords, facecolor = colors[i % len(colors)], linewidth=0)
+                boxPolygon = plt.Polygon(boxCoords, facecolor = colors[i % len(colors)], linewidth=0)
                 ax.add_patch(boxPolygon)
         
         for i in range(0, len(bp['boxes'])):
