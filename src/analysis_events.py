@@ -146,9 +146,13 @@ def main(log_dir, config):
             for mid in babbling_module.keys():
                 log_p[config][trial][mid] = []
             for i in data["interests"]:
+                t = i[0]
                 interests = i[1]
                 for mid in babbling_module.keys():
-                    log_p[config][trial][mid].append(interests[mid])
+                    log_p[config][trial][mid].append([t,interests[mid]])
+            for mid in babbling_module.keys():
+                log_p[config][trial][mid] = np.array(log_p[config][trial][mid])
+            
                 #get_data_topic("competence_" + mid)
                 #logs_c[mid] = data["competence_" + mid]
         

@@ -3,12 +3,10 @@ from config import config_list
 from multiprocessing import Process
 from analysis_explo import main as main_explo
 from analysis_events import main as main_events
-from analysis_choice import main as main_choice
 
 
 
-d = "2016-01-25_11-33-06-Tools-cogsci-xp1"
-d = "2016-01-26_14-37-37-Tools-cogsci-xp1"
+d = "2016-02-13_18-17-16-TOOL2-iros-xp1"
 
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
@@ -35,7 +33,6 @@ except:
 for config in config_list["xp1"]:        
     processes.append(Process(target = main_explo, args=(log_dir, config)))
     processes.append(Process(target = main_events, args=(log_dir, config)))
-    processes.append(Process(target = main_choice, args=(log_dir, config)))
 
 print "Begin Explo and Events analysis"
 for p in processes:
