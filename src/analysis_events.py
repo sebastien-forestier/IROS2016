@@ -219,6 +219,7 @@ def main(log_dir, config):
                 plt.savefig(log_dir + "img/" + config + '-log{}-events-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=1000, bbox_inches='tight')
                 plt.close(fig)
                 
+                print events_margins
                 # plot events_margins against time
                 fig, ax = plt.subplots()
                 fig.canvas.set_window_title('Interests')
@@ -234,6 +235,7 @@ def main(log_dir, config):
                 handles, labels = ax.get_legend_handles_labels()
                 ax.legend(handles, labels)
                            
+                plt.ylim([0,100])    
                 plt.savefig(log_dir + "img/" + config + '-log{}-events_margins-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=1000, bbox_inches='tight')
                 plt.close(fig)
 
