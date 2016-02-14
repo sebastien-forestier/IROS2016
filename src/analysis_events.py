@@ -103,7 +103,7 @@ def main(log_dir, config):
                 else:
                     babbling_module[mid] = babbling_module[mid] + 1
                      
-            print config, "# babbling modules", babbling_module
+            print config, trial, "babbling modules", babbling_module
              
              
              
