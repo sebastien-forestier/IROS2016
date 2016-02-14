@@ -173,7 +173,7 @@ def main(log_dir, config):
                 fig.canvas.set_window_title('Interests')
                 for mid in babbling_module.keys():
                     #print "Plot", mid, logs_p, logs_p[mid], np.array(logs_p[mid])[:,0]
-                    ax.plot(x[:-(sw-1)], runningMeanFast(log_p[config][trial][mid][x,1], sw), label=mid, lw=2, rasterized=True)
+                    ax.plot(log_p[config][trial][mid][x,0], log_p[config][trial][mid][x,1], label=mid, lw=2, rasterized=True)
                 handles, labels = ax.get_legend_handles_labels()
                 ax.legend(handles, labels, fontsize=18)                        
                 plt.tick_params(labelsize=18)                                        
