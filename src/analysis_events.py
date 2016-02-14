@@ -121,7 +121,7 @@ def main(log_dir, config):
                 return (x - 0.3)**2. + (y - 1.1)**2. < margin*margin
                  
             def near_one_stick(x, y, margin=0.3):
-                return (x- (-1.1))**2. + (y - 0.6)**2. < margin*margin or (x- (1.1))**2. + (y - 0.6)**2. < margin*margin
+                return (x- (-0.75))**2. + (y - 0.25)**2. < margin*margin or (x- (0.75))**2. + (y - 0.25)**2. < margin*margin
                  
              
             for i,s in zip(range(1, len(data['agentS'])+1), data['agentS']):
@@ -232,7 +232,8 @@ def main(log_dir, config):
                         ax.plot(x, res, label=event, lw=3, color=colors_config[event])
                     events_margins[event][config][trial] = res # log only result
                 handles, labels = ax.get_legend_handles_labels()
-                ax.legend(handles, labels)
+                ax.legend(handles, labels, fontsize=22)                        
+                plt.tick_params(labelsize=18)               
                            
                 plt.ylim([0,100])    
                 plt.savefig(log_dir + "img/" + config + '-log{}-events_margins-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=1000, bbox_inches='tight')
