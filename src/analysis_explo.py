@@ -31,7 +31,7 @@ def main(log_dir, config):
     trials = range(1, 11)
     n_logs = 1
     
-    n = 100000
+    n = 200000
     p = 100
     
     gss = [0, 10, 100, 20, 10, 6, 5, 4, 3, 3]
