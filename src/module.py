@@ -29,15 +29,18 @@ class Module(Agent):
         
         #print self.mconf['m'], self.mconf['s'], self.conf
         self.im_dims = self.conf.m_dims if self.mconf['babbling_name'] == 'motor' else self.conf.s_dims        
-        self.im = InterestModel.from_configuration(self.conf, 
-                                                   self.im_dims, 
-                                                   self.mconf['im_name'])
+#         self.im = InterestModel.from_configuration(self.conf, 
+#                                                    self.im_dims, 
+#                                                    self.mconf['im_name'])
 
         self.im_mode = self.mconf["im_mode"]
         self.s = None
         self.sp = None
         self.snn = None
         self.su = None
+        
+        im_cls, kwargs = config.ims[self.mconf['im_name']]
+        self.im = im_cls(self.conf, self.im_dims, **kwargs)
         
         sm_cls, kwargs = config.sms[self.mconf['sm_name']]
         self.sm = sm_cls(self.conf, **kwargs)

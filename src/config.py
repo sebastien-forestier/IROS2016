@@ -2,6 +2,7 @@ import numpy as np
 
 from explauto.utils.config import make_configuration
 from explauto.sensorimotor_model.non_parametric import NonParametric
+from explauto.interest_model.random import MiscRandomInterest, competence_dist
 from supervisor import Supervisor
 from environment import IROS2016Environment
 
@@ -70,8 +71,14 @@ class Config(object):
         self.sensori_dims = range(self.motor_n_dims, self.motor_n_dims + self.s_n_dims)
         self.used_dims = self.motor_n_dims + self.s_n_dims
         
-        self.im_name = 'miscRandom_local'
         self.choose_children_local = (supervisor_ccl == 'local')
+        
+        self.ims = {'miscRandom_local': (MiscRandomInterest, {'competence_measure': competence_dist,
+                                   'win_size': 20,
+                                   'competence_mode': 'knn',
+                                   'k': 20,
+                                   'progress_mode': 'local'}),
+        }
         
         self.sms = {
             'NN': (NonParametric, {'fwd': 'NN', 'inv': 'NN', 'sigma_explo_ratio':0.01}),
@@ -80,6 +87,9 @@ class Config(object):
         }
           
         self.sm_model = sm_model
+        self.im_model = 'miscRandom_local'
+        self.im_name = self.im_model
+        
         sm = self.sm_model
         im_mode = 'sg'
         self.std_range = [-1.,1.]
