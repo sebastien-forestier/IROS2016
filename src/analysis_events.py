@@ -130,7 +130,7 @@ def main(log_dir, config):
                 if abs(s[26] - (1.1)) > 0.0001 or abs(s[32] - (1.1)) > 0.0001 or near_obj1(s[9], s[12]) or near_obj1(s[10], s[13]) or near_obj1(s[11], s[14]) or near_obj2(s[15], s[18]) or near_obj2(s[16], s[19] or near_obj2(s[17], s[20])) :
                     events_margins['object'][config][trial].append([i, events_margins['object'][config][trial][-1][-1] + 1])
                 else:
-                    if abs(s[11] - (-1.17)) > 0.01 or abs(s[17] - (0.96)) > 0.01 or near_one_stick(s[0], s[3]) or near_one_stick(s[1], s[4]) or near_one_stick(s[2], s[5]):
+                    if abs(s[14] - (0.60355)) > 0.0001 or abs(s[20] - (0.60355)) > 0.0001 or near_one_stick(s[0], s[3]) or near_one_stick(s[1], s[4]) or near_one_stick(s[2], s[5]):
                         events_margins['stick'][config][trial].append([i, events_margins['stick'][config][trial][-1][-1] + 1])          
                     else:
                         events_margins['hand'][config][trial].append([i, events_margins['hand'][config][trial][-1][-1] + 1])
@@ -219,7 +219,6 @@ def main(log_dir, config):
                 plt.savefig(log_dir + "img/" + config + '-log{}-events-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=1000, bbox_inches='tight')
                 plt.close(fig)
                 
-                print events_margins
                 # plot events_margins against time
                 fig, ax = plt.subplots()
                 fig.canvas.set_window_title('Interests')
