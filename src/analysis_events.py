@@ -173,7 +173,7 @@ def main(log_dir, config):
                 fig.canvas.set_window_title('Interests')
                 for mid in babbling_module.keys():
                     #print "Plot", mid, logs_p, logs_p[mid], np.array(logs_p[mid])[:,0]
-                    ax.plot(log_p[config][trial][mid][:,0], log_p[config][trial][mid][:,1], label=mid, lw=2, rasterized=True)
+                    ax.plot(log_p[config][trial][mid][x,0], log_p[config][trial][mid][x,1], label=mid, lw=2, rasterized=True)
                 handles, labels = ax.get_legend_handles_labels()
                 ax.legend(handles, labels, fontsize=18)                        
                 plt.tick_params(labelsize=18)                                        
@@ -182,7 +182,7 @@ def main(log_dir, config):
                 y_ticks = np.arange(0, 0.181, 0.06)                                                               
                 ax.set_yticks(y_ticks)       
                  
-                plt.savefig(log_dir + "img/" + config + '-log{}-interests-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=1000, bbox_inches='tight')
+                plt.savefig(log_dir + "img/" + config + '-log{}-interests-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=300, bbox_inches='tight')
                 #plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/" + config + '-log{}-interests-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=100, bbox_inches='tight')
                  
                 plt.close(fig)
