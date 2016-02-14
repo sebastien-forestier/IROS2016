@@ -114,16 +114,20 @@ def main(log_dir, config):
             events_margins['stick'][config][trial] = [[0,0]]
             events_margins['object'][config][trial] = [[0,0]]
              
-            def near_obj(x, y, margin=0.3):
-                return (x)**2. + (y - 1.2)**2. < margin*margin
+            def near_obj1(x, y, margin=0.3):
+                return (x + 0.3)**2. + (y - 1.1)**2. < margin*margin
+            
+            def near_obj2(x, y, margin=0.3):
+                return (x - 0.3)**2. + (y - 1.1)**2. < margin*margin
                  
             def near_one_stick(x, y, margin=0.3):
-                return (x- (-1.17))**2. + (y - 0.67)**2. < margin*margin or (x- (0.96))**2. + (y - 0.46)**2. < margin*margin
+                return (x- (-1.1))**2. + (y - 0.6)**2. < margin*margin or (x- (1.1))**2. + (y - 0.6)**2. < margin*margin
+                 
              
             for i,s in zip(range(1, len(data['agentS'])+1), data['agentS']):
                 #print i, s
                  
-                if abs(s[21] - (-0.)) > 0.01 or near_obj(s[9], s[12]) or near_obj(s[10], s[13]) or near_obj(s[11], s[14]) or near_obj(s[15], s[18]) or near_obj(s[16], s[19] or near_obj(s[17], s[20])) :
+                if abs(s[26] - (1.1)) > 0.0001 or abs(s[32] - (1.1)) > 0.0001 or near_obj1(s[9], s[12]) or near_obj1(s[10], s[13]) or near_obj1(s[11], s[14]) or near_obj2(s[15], s[18]) or near_obj2(s[16], s[19] or near_obj2(s[17], s[20])) :
                     events_margins['object'][config][trial].append([i, events_margins['object'][config][trial][-1][-1] + 1])
                 else:
                     if abs(s[11] - (-1.17)) > 0.01 or abs(s[17] - (0.96)) > 0.01 or near_one_stick(s[0], s[3]) or near_one_stick(s[1], s[4]) or near_one_stick(s[2], s[5]):
