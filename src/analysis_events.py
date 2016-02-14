@@ -227,9 +227,9 @@ def main(log_dir, config):
                     mean,_ = mean_std({"1":events_margins[event][config][trial]})
                     res = np.append([0], np.diff(mean))
                     if sw > 1:
-                        ax.plot(x[:-(sw-1)], runningMeanFast(res, sw), label=event)
+                        ax.plot(x[:-(sw-1)], runningMeanFast(res, sw), label=event, lw=3, color=colors_config[event])
                     else:
-                        ax.plot(x, res, label=event)
+                        ax.plot(x, res, label=event, lw=3, color=colors_config[event])
                     events_margins[event][config][trial] = res # log only result
                 handles, labels = ax.get_legend_handles_labels()
                 ax.legend(handles, labels)
