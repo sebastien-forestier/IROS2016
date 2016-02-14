@@ -325,7 +325,7 @@ configs = {}
 iterations = 200000
 
 config_list = {"xp1":["F-RmB",
-                      "F-RGB",
+                      #"F-RGB",
                       "M-RMB",
                       "M-P-AMB",
                       "M-GR-AMB",

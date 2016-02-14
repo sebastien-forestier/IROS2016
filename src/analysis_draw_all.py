@@ -37,7 +37,7 @@ print "modes", modes
 
 n_logs = 1
 
-n = 100000
+n = 200000
 p = 100
 p_events = 100
 

@@ -216,22 +216,22 @@ def main(log_dir, config):
                 plt.close(fig)
                 
                 # plot events_margins against time
-#                 fig, ax = plt.subplots()
-#                 fig.canvas.set_window_title('Interests')
-#                 for event in events_margins.keys():
-#                     #print "Plot", mid, logs_p, logs_p[mid], np.array(logs_p[mid])[:,0]
-#                     mean,_ = mean_std({"1":events_margins[event][config][trial]})
-#                     res = np.append([0], np.diff(mean))
-#                     if sw > 1:
-#                         ax.plot(x[:-(sw-1)], runningMeanFast(res, sw), label=event)
-#                     else:
-#                         ax.plot(x, res, label=event)
-#                     events_margins[event][config][trial] = res # log only result
-#                 handles, labels = ax.get_legend_handles_labels()
-#                 ax.legend(handles, labels)
-#                           
-#                 plt.savefig(log_dir + "img/" + config + '-log{}-events_margins-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=1000, bbox_inches='tight')
-#                 plt.close(fig)
+                fig, ax = plt.subplots()
+                fig.canvas.set_window_title('Interests')
+                for event in events_margins.keys():
+                    #print "Plot", mid, logs_p, logs_p[mid], np.array(logs_p[mid])[:,0]
+                    mean,_ = mean_std({"1":events_margins[event][config][trial]})
+                    res = np.append([0], np.diff(mean))
+                    if sw > 1:
+                        ax.plot(x[:-(sw-1)], runningMeanFast(res, sw), label=event)
+                    else:
+                        ax.plot(x, res, label=event)
+                    events_margins[event][config][trial] = res # log only result
+                handles, labels = ax.get_legend_handles_labels()
+                ax.legend(handles, labels)
+                           
+                plt.savefig(log_dir + "img/" + config + '-log{}-events_margins-'.format(trial)+str(n)+'.pdf', format='pdf', dpi=1000, bbox_inches='tight')
+                plt.close(fig)
 
 
 
