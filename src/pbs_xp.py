@@ -28,7 +28,6 @@ def write_pbs(config_name, trial, log_dir):
 #PBS -e {}logs/log-{}-{}.error
 
 cd {}
-git pull
 time python run.py {} {} {}
 
 """.format(config_name, trial, log_dir, config_name, trial, log_dir, config_name, trial, path, log_dir, config_name, trial)
