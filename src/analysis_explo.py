@@ -145,15 +145,15 @@ def main(log_dir, config):
                 fig, ax = plt.subplots()
                 fig.canvas.set_window_title('Object exploration')        
                     
-                sx = data[:,dims['obj1'][0]]
-                sy = data[:,dims['obj1'][1]]            
+                sx = data[:,dims['obj1'][2]]
+                sy = data[:,dims['obj1'][5]]            
 #                 plt.xlabel('X', fontsize = 16)
 #                 plt.ylabel('Y', fontsize = 16)   
                 color=matplotlib.colors.ColorConverter().to_rgba('b', alpha=0.1)
                 ax.scatter(sx, sy, s=3, color=color, rasterized=True)
                 
-                sx = data[:,dims['obj2'][0]]
-                sy = data[:,dims['obj2'][1]]            
+                sx = data[:,dims['obj2'][2]]
+                sy = data[:,dims['obj2'][5]]            
 #                 plt.xlabel('X', fontsize = 16)
 #                 plt.ylabel('Y', fontsize = 16)   
                 color=matplotlib.colors.ColorConverter().to_rgba('r', alpha=0.1)
