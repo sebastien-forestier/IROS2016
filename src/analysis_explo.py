@@ -113,11 +113,11 @@ def main(log_dir, config):
             
         
             dims = dict(
-                        hand=[2,5],
-                        stick_1=[11, 14],
-                        stick_2=[17, 20],
-                        obj1=[23, 26],
-                        obj2=[29, 32])
+                        hand=range(9),
+                        stick_1=range(9,15),
+                        stick_2=range(15,21),
+                        obj1=range(21,27),
+                        obj2=range(27,33))
             
             mins = np.array([-2.] * (19 * 3))
             maxs = np.array([2.] * (19 * 3))
