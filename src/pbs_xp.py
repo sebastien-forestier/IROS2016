@@ -66,23 +66,23 @@ for xp_name in xp_list:
     
     
 
-
-class NumpyEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, np.ndarray):
-            return obj.tolist() # or map(int, obj)
-        return json.JSONEncoder.default(self, obj)
-    
-    
-    
-for xp_name in xp_list:
-    for config_name in config_list[xp_name]: 
-        filename = 'config-{}.pickle'.format(config_name)
-        with open(log_dir + xp_name + "/" + "configs/" + filename, 'wb') as f:
-            cPickle.dump(configs[config_name], f)
-        filename = 'config-{}.json'.format(config_name)
-        with open(log_dir + xp_name + "/" + "configs/" + filename, 'wb') as f:
-            json.dump(configs[config_name].__dict__, f, cls=NumpyEncoder, default=lambda obj:[])
+# 
+# class NumpyEncoder(json.JSONEncoder):
+#     def default(self, obj):
+#         if isinstance(obj, np.ndarray):
+#             return obj.tolist() # or map(int, obj)
+#         return json.JSONEncoder.default(self, obj)
+#     
+#     
+#     
+# for xp_name in xp_list:
+#     for config_name in config_list[xp_name]: 
+#         filename = 'config-{}.pickle'.format(config_name)
+#         with open(log_dir + xp_name + "/" + "configs/" + filename, 'wb') as f:
+#             cPickle.dump(configs[config_name], f)
+#         filename = 'config-{}.json'.format(config_name)
+#         with open(log_dir + xp_name + "/" + "configs/" + filename, 'wb') as f:
+#             json.dump(configs[config_name].__dict__, f, cls=NumpyEncoder, default=lambda obj:[])
         
         
 for xp_name in xp_list:
