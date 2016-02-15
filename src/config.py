@@ -2,7 +2,7 @@ import numpy as np
 
 from explauto.utils.config import make_configuration
 from explauto.sensorimotor_model.non_parametric import NonParametric
-from explauto.interest_model.random import MiscRandomInterest, competence_dist
+from explauto.interest_model.random import MiscRandomInterest, competence_dist, competence_exp
 from supervisor import Supervisor
 from environment import IROS2016Environment
 
@@ -73,7 +73,7 @@ class Config(object):
         
         self.choose_children_local = (supervisor_ccl == 'local')
         
-        self.ims = {'miscRandom_local': (MiscRandomInterest, {'competence_measure': competence_dist,
+        self.ims = {'miscRandom_local': (MiscRandomInterest, {'competence_measure': lambda target, reached:competence_exp(target, reached, dist_min=0.01, power=4.),
                                    'win_size': 20,
                                    'competence_mode': 'knn',
                                    'k': 20,
@@ -325,7 +325,7 @@ configs = {}
 iterations = 200000
 
 config_list = {"xp1":["F-RmB",
-                      #"F-RGB",
+                      "F-RGB",
                       "M-RMB",
                       "M-P-AMB",
                       "M-GR-AMB",
