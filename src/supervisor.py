@@ -9,6 +9,8 @@ from hierarchy import Hierarchy
 from module import Module
 from action import Action
 
+np.set_printoptions(precision=3)
+
 
 class Supervisor(Observable):
     def __init__(self, config, environment, choice="prop", llb=False, explo="babbling", n_explo_points=0, choose_children_mode='competence', choose_children_local=True):
@@ -84,7 +86,8 @@ class Supervisor(Observable):
         elif mode == 'prop':
             mids = interests.keys()
             w = interests.values()
-            #print "progresses", w
+#             if self.t % 100 == 0:
+#                 print "interests", np.array(w), 'iteration', self.t, "competences", np.array([self.modules[mid].competence() for mid in self.modules.keys()]), int((w[3] + w[4] / sum(w))*100), "%"
             #print "competences", [mod.competence() for mod in self.modules.values()]
             if weight_by_level:
                 levels = self.hierarchy.module_levels()
@@ -93,6 +96,13 @@ class Supervisor(Observable):
                     w[i] = w[i] * np.power(f, max(levels.values()) - levels[mids[i]])
             #print w
             mid = mids[prop_choice(w, eps=0.1)]
+            
+        elif mode == 'prop-min':
+            mids = interests.keys()
+            w = interests.values()
+#             if self.t % 100 == 0:
+#                 print "interests", np.array(w), 'iteration', self.t, "competences", np.array([self.modules[mid].competence() for mid in self.modules.keys()]), int(((w[3] + w[4]-2*min(w)) / sum(np.array(w)-min(w)))*100), "%"
+            mid = mids[prop_choice(np.array(w)-min(w), eps=0.1)]
         
         self.chosen_modules[mid] = self.chosen_modules[mid] + 1
         #print self.chosen_modules

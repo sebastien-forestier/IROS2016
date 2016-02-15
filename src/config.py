@@ -5,6 +5,7 @@ from explauto.sensorimotor_model.non_parametric import NonParametric
 from explauto.interest_model.random import MiscRandomInterest, competence_dist, competence_exp
 from supervisor import Supervisor
 from environment import IROS2016Environment
+from explauto.interest_model.competences import competence_dist
 
 
 class Config(object):
@@ -73,12 +74,14 @@ class Config(object):
         
         self.choose_children_local = (supervisor_ccl == 'local')
         
-        self.ims = {'miscRandom_local': (MiscRandomInterest, {'competence_measure': lambda target, reached:competence_exp(target, reached, dist_min=0.01, power=4.),
+        self.ims = {'miscRandom_local': (MiscRandomInterest, {
+                                  'competence_measure': competence_dist,
+                                  #'competence_measure': lambda target, reached, dist_max:competence_exp(target, reached, dist_min=0.01, dist_max=dist_max, power=20.),
                                    'win_size': 20,
                                    'competence_mode': 'knn',
                                    'k': 20,
                                    'progress_mode': 'local'}),
-        }
+            }
         
         self.sms = {
             'NN': (NonParametric, {'fwd': 'NN', 'inv': 'NN', 'sigma_explo_ratio':0.01}),
@@ -253,6 +256,14 @@ class Config(object):
                                           n_explo_points=self.supervisor_n_explo_points,
                                           choose_children_mode=self.supervisor_ccm,
                                           choose_children_local=self.supervisor_ccl)
+        elif self.supervisor_name == "interest-pmin":
+            self.supervisor_cls = Supervisor
+            self.supervisor_config = dict(choice="prop-min",
+                                          llb=False,
+                                          explo=self.supervisor_explo,
+                                          n_explo_points=self.supervisor_n_explo_points,
+                                          choose_children_mode=self.supervisor_ccm,
+                                          choose_children_local=self.supervisor_ccl)
         elif self.supervisor_name == "interest_greedy":
             self.supervisor_cls = Supervisor
             self.supervisor_config = dict(choice="greedy",
@@ -328,6 +339,7 @@ config_list = {"xp1":["F-RmB",
                       "F-RGB",
                       "M-RMB",
                       "M-P-AMB",
+                      "M-PMIN-AMB",
                       "M-GR-AMB",
 #                       "F-RGB-LWR",
 #                       "M-RMB-LWR",
@@ -342,6 +354,9 @@ config = Config(name="F-RGB", hierarchy_type=0, iterations=iterations)
 configs[config.name] = config
 
 config = Config(name="M-P-AMB", hierarchy_type=1, supervisor_name="interest", iterations=iterations)
+configs[config.name] = config
+
+config = Config(name="M-PMIN-AMB", hierarchy_type=1, supervisor_name="interest-pmin", iterations=iterations)
 configs[config.name] = config
 
 config = Config(name="M-RMB", hierarchy_type=1, supervisor_name="random", iterations=iterations)
