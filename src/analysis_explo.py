@@ -28,7 +28,7 @@ def main(log_dir, config):
     #     raise NotImplementedError
     
     
-    trials = range(1, 11)
+    trials = range(1, 101)
     n_logs = 1
     
     n = 200000
