@@ -332,22 +332,23 @@ if "explo" in modes:
     
     
     
-    
     stats_pairs = {
-                   'hand':[(2,3), (3,4), (3,5)],
-                   'stick_1':[(3,4), (3,5)],
-                   'stick_2':[(3,4), (3,5)],
-                   'obj':[(2,3), (3,4), (3,5)],
-                   'box':[(3,4), (3,5)]
+                   'hand':[(1,2)],
+                   'stick_1':[(1,2)],
+                   'stick_2':[(1,2)],
+                   'obj1':[(1,2)],
+                   'obj2':[(1,2)],
                    }
     
     for s_space in explo.keys():
         print s_space
+        
         fig = plt.figure()
         ax = fig.add_subplot(111)
         fig.canvas.set_window_title(s_space)    
         
-        print "explo", explo[s_space][config]
+#         print config_list[xp_name], explo[s_space].keys()
+#         print "explo", [explo[s_space][config] for config in config_list[xp_name]]
         bp = ax.boxplot([[explo[s_space][config][trial][-1] for trial in explo[s_space][config].keys()] for config in config_list[xp_name]])#, notch=0, sym='', vert=1, whis=0, positions=None, widths=0.6)
         
         for i in range(len(bp['boxes'])):
@@ -396,17 +397,17 @@ if "explo" in modes:
         #ax.set_xticklabels(explo[s_space].keys())
         plt.gca().xaxis.set_major_locator(plt.NullLocator())
 #         
-#         if stats_pairs.has_key(s_space):
-#             for pair in stats_pairs[s_space]:
-#                 # the stars
-#                 print "Stat", pair
-#                 data1 = explo[s_space][config_list[xp_name][pair[0]]]
-#                 data2 = explo[s_space][config_list[xp_name][pair[1]]]
-#                 print "data1", data1
-#                 print "data2", data2
-#                 z, p = scipy.stats.mannwhitneyu(data1, data2)
-#                 p_value = p * 2
-#                 print p
+        if stats_pairs.has_key(s_space):
+            for pair in stats_pairs[s_space]:
+                # the stars
+                print "Stat", pair
+                data1 = [explo[s_space][config_list[xp_name][pair[0]]][trial][-1] for trial in explo[s_space][config_list[xp_name][pair[0]]].keys()]
+                data2 = [explo[s_space][config_list[xp_name][pair[1]]][trial][-1] for trial in explo[s_space][config_list[xp_name][pair[1]]].keys()]
+                print "data1", data1
+                print "data2", data2
+                z, p = scipy.stats.mannwhitneyu(data1, data2)
+                p_value = p * 2
+                print p
 #                 s = stars(p)
 #                 y_max = np.max((np.max(bp['boxes'][pair[0]].get_ydata()), 
 #                                np.max(bp['boxes'][pair[1]].get_ydata())))
@@ -419,7 +420,7 @@ if "explo" in modes:
 #                 ax.text((pair[0]+pair[1])/2.+1, y_max + abs(y_max - y_min)*0.05, stars(p_value),
 #                         horizontalalignment='center',
 #                         verticalalignment='center') 
-#                  
+#                   
 #                 fig.subplots_adjust(left=0.2)
 #         
         plt.show(block=False)
