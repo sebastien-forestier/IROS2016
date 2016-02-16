@@ -335,10 +335,10 @@ configs = {}
 
 iterations = 100000
 
-config_list = {"xp1":[#"F-RmB",
+config_list = {"xp1":["F-RmB",
                       "F-RGB",
-                      #"M-RMB",
-                      #"M-P-AMB",
+                      "M-RMB",
+                      "M-P-AMB",
 #                     "M-PMIN-AMB",
 #                     "M-GR-AMB",
 #                     "F-RGB-LWR",
