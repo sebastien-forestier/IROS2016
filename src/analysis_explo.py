@@ -28,10 +28,10 @@ def main(log_dir, config):
     #     raise NotImplementedError
     
     
-    trials = range(1, 11)
+    trials = range(1, 101)
     n_logs = 1
     
-    n = 100000
+    n = 200000
     p = 100
     
     gss = [0, 10, 100, 20, 10, 6, 5, 4, 3, 3]
@@ -170,8 +170,8 @@ def main(log_dir, config):
                 plt.savefig(log_dir + "img/" + config + '-log{}-obj-explo.pdf'.format(trial), format='pdf', dpi=100, bbox_inches='tight')
                 plt.close(fig)
         
-        except IOError:
-            print "File not found for trial", trial
+        except:
+            print "Error loading files for trial", trial
             
     with open(log_dir + config + '/analysis_explo.pickle', 'wb') as f:
         cPickle.dump(explo, f)

@@ -32,10 +32,10 @@ def n_behavior_change(x, smoothing=10, th=10):
 def main(log_dir, config):
 
     
-    trials = range(1, 11)
+    trials = range(1, 101)
     n_logs = 1
     
-    n = 100000
+    n = 200000
     p = 100
     x = np.array(range(n/p)) * p
     
@@ -250,8 +250,8 @@ def main(log_dir, config):
 
 
 
-        except IOError:
-            print "File not found for trial", trial
+        except:
+            print "Error loading files for trial", trial
             
      
     with open(log_dir + config + '/analysis_events.pickle', 'wb') as f:
