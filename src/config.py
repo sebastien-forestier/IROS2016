@@ -314,8 +314,8 @@ class Config(object):
         self.m_mins = [-1.] * (self.n_dyn_motors * (self.n_bfs+1))
         self.m_maxs = [1.] * (self.n_dyn_motors * (self.n_bfs+1))
         
-        self.s_mins = [-2.] * 19 * 3
-        self.s_maxs = [2.] * 19 * 3
+        self.s_mins = [-1.5] * 19 * 3
+        self.s_maxs = [1.5] * 19 * 3
         
         
         ################################### Process CONFIG ###################################
@@ -333,13 +333,12 @@ configs = {}
 
 #################### EXPERIMENT  ####################
 
-iterations = 100000
+iterations = 200000
 
-config_list = {"xp1":[
-                      #"F-RmB",
+config_list = {"xp1":["F-RmB",
                       "F-RGB",
-#                       "M-RMB",
-#                       "M-P-AMB",
+                      "M-RMB",
+                      "M-P-AMB",
 #                     "M-PMIN-AMB",
 #                     "M-GR-AMB",
 #                     "F-RGB-LWR",
