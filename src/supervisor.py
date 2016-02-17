@@ -87,7 +87,7 @@ class Supervisor(Observable):
             mids = interests.keys()
             w = interests.values()
 #             if self.t % 100 == 0:
-#                 print "interests", np.array(w), 'iteration', self.t, "competences", np.array([self.modules[mid].competence() for mid in self.modules.keys()]), int((w[3] + w[4] / sum(w))*100), "%"
+#                 print "interests", np.array(w), 'iteration', self.t, "competences", np.array([self.modules[mid].competence() for mid in self.modules.keys()]), int(((w[3] + w[4]) / sum(w))*100), "%"
             #print "competences", [mod.competence() for mod in self.modules.values()]
             if weight_by_level:
                 levels = self.hierarchy.module_levels()
