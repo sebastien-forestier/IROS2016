@@ -434,6 +434,20 @@ class IROS2016Environment(DynamicEnvironment):
                           object_tol1 = 0.25, 
                           rest_state = [-0.3, 1.1])
         
+        mag_object2_cfg = dict(m_mins = list([-1.] * 4), 
+                          m_maxs = list([1.] * 4), 
+                          s_mins = [-2., -2.], # new pos
+                          s_maxs = [2., 2.],
+                          object_tol1 = 0., 
+                          rest_state = [-0.5, 1.5])
+        
+        mag_object3_cfg = dict(m_mins = list([-1.] * 4), 
+                          m_maxs = list([1.] * 4), 
+                          s_mins = [-2., -2.], # new pos
+                          s_maxs = [2., 2.],
+                          object_tol1 = 0., 
+                          rest_state = [-0.3, 1.5])
+        
         scratch_object_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
                           s_mins = [-2., -2.], # new pos
@@ -441,12 +455,26 @@ class IROS2016Environment(DynamicEnvironment):
                           object_tol2 = 0.25, 
                           rest_state = [0.3, 1.1])
         
+        scratch_object2_cfg = dict(m_mins = list([-1.] * 4), 
+                          m_maxs = list([1.] * 4), 
+                          s_mins = [-2., -2.], # new pos
+                          s_maxs = [2., 2.],
+                          object_tol2 = 0., 
+                          rest_state = [0.3, 1.5])
+        
+        scratch_object3_cfg = dict(m_mins = list([-1.] * 4), 
+                          m_maxs = list([1.] * 4), 
+                          s_mins = [-2., -2.], # new pos
+                          s_maxs = [2., 2.],
+                          object_tol2 = 0., 
+                          rest_state = [0.5, 1.5])
+        
         cat_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
                           s_mins = [-2., -2.], # new pos
                           s_maxs = [2., 2.],
                           species= "cat", 
-                          noise = 0.02, 
+                          noise = 0.01, 
                           rest_state = [-0.1, 1.1])
         
         dog_cfg = dict(m_mins = list([-1.] * 4), 
@@ -454,7 +482,7 @@ class IROS2016Environment(DynamicEnvironment):
                           s_mins = [-2., -2.], # new pos
                           s_maxs = [2., 2.],
                           species= "dog", 
-                          noise = 0.02, 
+                          noise = 0.01, 
                           rest_state = [0.1, 1.1])
         
         static1_cfg = dict(m_mins = list([-1.] * 4), 
@@ -462,34 +490,48 @@ class IROS2016Environment(DynamicEnvironment):
                           s_mins = [-2., -2.], # new pos
                           s_maxs = [2., 2.],
                           object_shape = "rectangle",
-                          rest_state = [-0.5, 1.1])
+                          rest_state = [-0.7, 1.1])
         
         static2_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
                           s_mins = [-2., -2.], # new pos
                           s_maxs = [2., 2.],
                           object_shape = "rectangle",
+                          rest_state = [-0.5, 1.1])
+        
+        static3_cfg = dict(m_mins = list([-1.] * 4), 
+                          m_maxs = list([1.] * 4), 
+                          s_mins = [-2., -2.], # new pos
+                          s_maxs = [2., 2.],
+                          object_shape = "rectangle",
                           rest_state = [0.5, 1.1])
         
+        static4_cfg = dict(m_mins = list([-1.] * 4), 
+                          m_maxs = list([1.] * 4), 
+                          s_mins = [-2., -2.], # new pos
+                          s_maxs = [2., 2.],
+                          object_shape = "rectangle",
+                          rest_state = [0.7, 1.1])
+        
         objects_cfg = dict(
-                        s_mins = list([-2.]*12),
-                        s_maxs = list([2.]*12),
-                        envs_cls = [MagneticObject, ScratchObject, Animal, Animal, StaticObject, StaticObject], 
-                        envs_cfg = [mag_object_cfg, scratch_object_cfg, cat_cfg, dog_cfg, static1_cfg, static2_cfg], 
+                        s_mins = list([-2.]*24),
+                        s_maxs = list([2.]*24),
+                        envs_cls = [MagneticObject, MagneticObject, MagneticObject, ScratchObject, ScratchObject, ScratchObject, Animal, Animal, StaticObject, StaticObject, StaticObject, StaticObject], 
+                        envs_cfg = [mag_object_cfg, mag_object2_cfg, mag_object3_cfg, scratch_object_cfg, scratch_object2_cfg, scratch_object3_cfg, cat_cfg, dog_cfg, static1_cfg, static2_cfg, static3_cfg, static4_cfg], 
                         combined_s = lambda s:s
                         )
         
         arm_sticks_objects_cfg = dict(
                                            m_mins=arm_stick_cfg['m_mins'],
                                            m_maxs=arm_stick_cfg['m_maxs'],
-                                           s_mins=list([-2.] * 19),
-                                           s_maxs=list([2.] * 19), # (hand pos + gripper state + tool1 end pos + tool2 end pos + last objects pos
+                                           s_mins=list([-2.] * 31),
+                                           s_maxs=list([2.] * 31), # (hand pos + gripper state + tool1 end pos + tool2 end pos + last objects pos
                                            top_env_cls=CombinedEnvironment, 
                                            lower_env_cls=HierarchicallyCombinedEnvironment, 
                                            top_env_cfg=objects_cfg, 
                                            lower_env_cfg=arm_stick_cfg, 
                                            fun_m_lower= lambda m:m,
-                                           fun_s_lower=lambda m,s:s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:],
+                                           fun_s_lower=lambda m,s:s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:],
                                            fun_s_top=lambda m,s_lower,s: s_lower + s)
         
 #         box1_cfg = dict(
@@ -536,14 +578,14 @@ class IROS2016Environment(DynamicEnvironment):
                         env_cls=HierarchicallyCombinedEnvironment,
                         m_mins=[-1.] * 4 * 3, 
                         m_maxs=[1.] * 4 * 3, 
-                        s_mins=[-1.5] * 19 * 3,
-                        s_maxs=[1.5] * 19 * 3,
+                        s_mins=[-1.5] * 31 * 3,
+                        s_maxs=[1.5] * 31 * 3,
                         n_bfs = 2,
                         n_motor_traj_points=3, 
                         n_sensori_traj_points=3, 
                         move_steps=move_steps, 
                         n_dynamic_motor_dims=4,
-                        n_dynamic_sensori_dims=19, 
+                        n_dynamic_sensori_dims=31, 
                         max_params=max_params,
                         motor_traj_type="DMP", 
                         sensori_traj_type="samples",

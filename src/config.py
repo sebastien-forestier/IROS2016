@@ -67,7 +67,7 @@ class Config(object):
         
         self.move_steps = 50
         self.motor_dims = range(self.motor_n_dims)
-        self.s_n_dims = 19 + 3
+        self.s_n_dims = 31 * 3
         
         self.sensori_dims = range(self.motor_n_dims, self.motor_n_dims + self.s_n_dims)
         self.used_dims = self.motor_n_dims + self.s_n_dims
@@ -77,7 +77,7 @@ class Config(object):
         self.ims = {'miscRandom_local': (MiscRandomInterest, {
                                   'competence_measure': competence_dist,
                                   #'competence_measure': lambda target, reached, dist_max:competence_exp(target, reached, dist_min=0.01, dist_max=dist_max, power=20.),
-                                   'win_size': 20,
+                                   'win_size': 100,
                                    'competence_mode': 'knn',
                                    'k': 20,
                                    'progress_mode': 'local'}),
@@ -128,7 +128,13 @@ class Config(object):
                                  s_o3=range(self.motor_n_dims + 33, self.motor_n_dims + 39),
                                  s_o4=range(self.motor_n_dims + 39, self.motor_n_dims + 45),
                                  s_o5=range(self.motor_n_dims + 45, self.motor_n_dims + 51),
-                                 s_o6=range(self.motor_n_dims + 51, self.motor_n_dims + 57))
+                                 s_o6=range(self.motor_n_dims + 51, self.motor_n_dims + 57),
+                                 s_o7=range(self.motor_n_dims + 57, self.motor_n_dims + 63),
+                                 s_o8=range(self.motor_n_dims + 63, self.motor_n_dims + 69),
+                                 s_o9=range(self.motor_n_dims + 69, self.motor_n_dims + 75),
+                                 s_o10=range(self.motor_n_dims + 75, self.motor_n_dims + 81),
+                                 s_o11=range(self.motor_n_dims + 81, self.motor_n_dims + 87),
+                                 s_o12=range(self.motor_n_dims + 87, self.motor_n_dims + 93))
 
             self.modules = dict(mod1 = dict(m = self.m_spaces["m_arm"],
                                           s = self.s_spaces["s_h"],     
@@ -229,6 +235,72 @@ class Config(object):
                                           im_mode = im_mode,
                                           from_log = None,
                                           motor_babbling_n_iter=self.motor_babbling_n_iter),
+                                
+                                mod10 = dict(m = self.m_spaces["m_arm"],
+                                          s = self.s_spaces["s_o7"],     
+                                          m_list = [self.m_spaces["m_arm"]],      
+                                          operator = "par",                            
+                                          babbling_name = "goal",
+                                          sm_name = sm,
+                                          im_name = self.im_name,
+                                          im_mode = im_mode,
+                                          from_log = None,
+                                          motor_babbling_n_iter=self.motor_babbling_n_iter),
+                                
+                                mod11 = dict(m = self.m_spaces["m_arm"],
+                                          s = self.s_spaces["s_o8"],     
+                                          m_list = [self.m_spaces["m_arm"]],      
+                                          operator = "par",                            
+                                          babbling_name = "goal",
+                                          sm_name = sm,
+                                          im_name = self.im_name,
+                                          im_mode = im_mode,
+                                          from_log = None,
+                                          motor_babbling_n_iter=self.motor_babbling_n_iter),
+                                
+                                mod12 = dict(m = self.m_spaces["m_arm"],
+                                          s = self.s_spaces["s_o9"],     
+                                          m_list = [self.m_spaces["m_arm"]],      
+                                          operator = "par",                            
+                                          babbling_name = "goal",
+                                          sm_name = sm,
+                                          im_name = self.im_name,
+                                          im_mode = im_mode,
+                                          from_log = None,
+                                          motor_babbling_n_iter=self.motor_babbling_n_iter),
+                                
+                                mod13 = dict(m = self.m_spaces["m_arm"],
+                                          s = self.s_spaces["s_o10"],     
+                                          m_list = [self.m_spaces["m_arm"]],      
+                                          operator = "par",                            
+                                          babbling_name = "goal",
+                                          sm_name = sm,
+                                          im_name = self.im_name,
+                                          im_mode = im_mode,
+                                          from_log = None,
+                                          motor_babbling_n_iter=self.motor_babbling_n_iter),
+                                
+                                mod14 = dict(m = self.m_spaces["m_arm"],
+                                          s = self.s_spaces["s_o11"],     
+                                          m_list = [self.m_spaces["m_arm"]],      
+                                          operator = "par",                            
+                                          babbling_name = "goal",
+                                          sm_name = sm,
+                                          im_name = self.im_name,
+                                          im_mode = im_mode,
+                                          from_log = None,
+                                          motor_babbling_n_iter=self.motor_babbling_n_iter),
+                                
+                                mod15 = dict(m = self.m_spaces["m_arm"],
+                                          s = self.s_spaces["s_o12"],     
+                                          m_list = [self.m_spaces["m_arm"]],      
+                                          operator = "par",                            
+                                          babbling_name = "goal",
+                                          sm_name = sm,
+                                          im_name = self.im_name,
+                                          im_mode = im_mode,
+                                          from_log = None,
+                                          motor_babbling_n_iter=self.motor_babbling_n_iter),
                                 )
         else:
             raise NotImplementedError
@@ -314,8 +386,8 @@ class Config(object):
         self.m_mins = [-1.] * (self.n_dyn_motors * (self.n_bfs+1))
         self.m_maxs = [1.] * (self.n_dyn_motors * (self.n_bfs+1))
         
-        self.s_mins = [-1.5] * 19 * 3
-        self.s_maxs = [1.5] * 19 * 3
+        self.s_mins = [-1.5] * 31 * 3
+        self.s_maxs = [1.5] * 31 * 3
         
         
         ################################### Process CONFIG ###################################
