@@ -127,7 +127,7 @@ def main(log_dir, config):
             for i,s in zip(range(1, len(data['agentS'])+1), data['agentS']):
                 #print i, s
                  
-                if abs(s[26] - (1.1)) > 0.0001 or abs(s[32] - (1.1)) > 0.0001 or near_obj1(s[9], s[12]) or near_obj1(s[10], s[13]) or near_obj1(s[11], s[14]) or near_obj2(s[15], s[18]) or near_obj2(s[16], s[19] or near_obj2(s[17], s[20])) :
+                if abs(s[26] - (1.1)) > 0.0001 or abs(s[44] - (1.1)) > 0.0001 or near_obj1(s[9], s[12]) or near_obj1(s[10], s[13]) or near_obj1(s[11], s[14]) or near_obj2(s[15], s[18]) or near_obj2(s[16], s[19] or near_obj2(s[17], s[20])) :
                     events_margins['object'][config][trial].append([i, events_margins['object'][config][trial][-1][-1] + 1])
                 else:
                     if abs(s[14] - (0.60355)) > 0.0001 or abs(s[20] - (0.60355)) > 0.0001 or near_one_stick(s[0], s[3]) or near_one_stick(s[1], s[4]) or near_one_stick(s[2], s[5]):
@@ -136,7 +136,7 @@ def main(log_dir, config):
                         events_margins['hand'][config][trial].append([i, events_margins['hand'][config][trial][-1][-1] + 1])
               
                      
-                if abs(s[26] - (1.1)) > 0.0001 or abs(s[32] - (1.1)) > 0.0001:
+                if abs(s[26] - (1.1)) > 0.0001 or abs(s[44] - (1.1)) > 0.0001:
                     events['object'][config][trial].append([i, events['object'][config][trial][-1][-1] + 1])
                 else:
                     if abs(s[14] - (0.60355)) > 0.0001 or abs(s[20] - (0.60355)) > 0.0001:
