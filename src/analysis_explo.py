@@ -117,7 +117,7 @@ def main(log_dir, config):
                         stick_1=range(9,15),
                         stick_2=range(15,21),
                         obj1=range(21,27),
-                        obj2=range(27,33))
+                        obj2=range(39,45))
             
             mins = np.array([-2.] * (19 * 3))
             maxs = np.array([2.] * (19 * 3))
