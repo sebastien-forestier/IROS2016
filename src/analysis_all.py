@@ -6,7 +6,7 @@ from analysis_events import main as main_events
 
 
 
-d = "2016-02-18_15-43-17-TOOL2-iros-xp1"
+d = "2016-02-20_13-02-26-TOOL2-iros-xp1"
 
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
@@ -32,7 +32,7 @@ except:
 
 for config in config_list["xp1"]:        
     processes.append(Process(target = main_explo, args=(log_dir, config)))
-    #processes.append(Process(target = main_events, args=(log_dir, config)))
+    processes.append(Process(target = main_events, args=(log_dir, config)))
 
 print "Begin Explo and Events analysis"
 for p in processes:

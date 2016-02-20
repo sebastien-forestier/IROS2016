@@ -12,6 +12,14 @@ from explauto.utils import bounds_min_max
 from explauto.environment.environment import Environment
 from explauto.environment.simple_arm.simple_arm import joint_positions
 
+import brewer2mpl
+bmap = brewer2mpl.get_map('Dark2', 'qualitative', 6)
+colors = bmap.mpl_colors
+
+colors_config = {"gripper":colors[1],
+                 "magnetic":colors[2],
+                 "scratch":colors[4],
+                 }
 
 class GripArmEnvironment(Environment):
     use_process = True
@@ -69,13 +77,14 @@ class GripArmEnvironment(Environment):
     def plot_gripper(self, ax, x, y, angle, gripper_open, **kwargs_plot):
         if gripper_open:
             if kwargs_plot.has_key("alpha"):
-                color=matplotlib.colors.ColorConverter().to_rgba('g', alpha=kwargs_plot["alpha"])
+                color=matplotlib.colors.ColorConverter().to_rgba('b', alpha=kwargs_plot["alpha"])
             else:
-                color = 'g'
+                color = colors_config['gripper']
             ax.plot(x, y, 'o', markerfacecolor='none', markeredgewidth=6, markeredgecolor=color, ms=26, **kwargs_plot)
                 
         else:
-            ax.plot(x, y, 'og', ms=18, **kwargs_plot)
+            color = colors_config['gripper']
+            ax.plot(x, y, 'o', color=color, ms=18, **kwargs_plot)
         
        
 class Stick(Environment):
@@ -161,15 +170,15 @@ class Stick(Environment):
             breakpoint = [handle_pos[0] + np.cos(a) * self.length * self.length_breakpoint, 
                             handle_pos[1] + np.sin(a) * self.length * self.length_breakpoint]
         
-            ax.plot([handle_pos[0], breakpoint[0]], [handle_pos[1], breakpoint[1]], '-b', lw=6, **kwargs_plot)
-            ax.plot([breakpoint[0], end_pos[0]], [breakpoint[1], end_pos[1]], '-b', lw=6, **kwargs_plot)
+            ax.plot([handle_pos[0], breakpoint[0]], [handle_pos[1], breakpoint[1]], '-k', lw=6, **kwargs_plot)
+            ax.plot([breakpoint[0], end_pos[0]], [breakpoint[1], end_pos[1]], '-k', lw=6, **kwargs_plot)
         else:
-            ax.plot([handle_pos[0], end_pos[0]], [handle_pos[1], end_pos[1]], '-b', lw=6, **kwargs_plot)
-        ax.plot(handle_pos[0], handle_pos[1], 'og', ms=12, **kwargs_plot)
+            ax.plot([handle_pos[0], end_pos[0]], [handle_pos[1], end_pos[1]], '-', color='grey', lw=6, **kwargs_plot)
+        ax.plot(handle_pos[0], handle_pos[1], 'o', color = colors_config['gripper'], ms=12, **kwargs_plot)
         if self.type == "magnetic":
-            ax.plot(end_pos[0], end_pos[1], 'om', ms=12, **kwargs_plot)
+            ax.plot(end_pos[0], end_pos[1], 'o', color = colors_config['magnetic'], ms=12, **kwargs_plot)
         else:
-            ax.plot(end_pos[0], end_pos[1], 'or', ms=12, **kwargs_plot)
+            ax.plot(end_pos[0], end_pos[1], 'o', color = colors_config['scratch'], ms=12, **kwargs_plot)
                     
     
 
@@ -205,7 +214,7 @@ class MagneticObject(Environment):
     
     def plot(self, ax, i, **kwargs_plot):
         pos = self.logs[i][0]        
-        rectangle = plt.Rectangle((pos[0] - 0.05, pos[1] - 0.05), 0.1, 0.1, fc='m', **kwargs_plot)
+        rectangle = plt.Rectangle((pos[0] - 0.05, pos[1] - 0.05), 0.1, 0.1, fc=colors_config['magnetic'], **kwargs_plot)
         ax.add_patch(rectangle) 
 
 
@@ -241,7 +250,7 @@ class ScratchObject(Environment):
     
     def plot(self, ax, i, **kwargs_plot):
         pos = self.logs[i][0]        
-        rectangle = plt.Rectangle((pos[0] - 0.05, pos[1] - 0.05), 0.1, 0.1, fc='r', **kwargs_plot)
+        rectangle = plt.Rectangle((pos[0] - 0.05, pos[1] - 0.05), 0.1, 0.1, fc=colors_config['scratch'], **kwargs_plot)
         ax.add_patch(rectangle) 
         
 
@@ -306,10 +315,10 @@ class Animal(Environment):
     def plot(self, ax, i, **kwargs_plot):
         pos = self.logs[i]
         if self.species == "cat":
-            rectangle = plt.Rectangle((pos[0] - 0.05, pos[1] - 0.05), 0.1, 0.1, fc='y', **kwargs_plot)
+            rectangle = plt.Rectangle((pos[0] - 0.05, pos[1] - 0.05), 0.1, 0.1, fc='grey', **kwargs_plot)
             ax.add_patch(rectangle)
         elif self.species == "dog":
-            rectangle = plt.Rectangle((pos[0] - 0.05, pos[1] - 0.05), 0.1, 0.1, fc='c', **kwargs_plot)
+            rectangle = plt.Rectangle((pos[0] - 0.05, pos[1] - 0.05), 0.1, 0.1, fc='grey', **kwargs_plot)
             ax.add_patch(rectangle)          
         else:
             raise NotImplementedError       
