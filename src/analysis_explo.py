@@ -171,7 +171,7 @@ def main(log_dir, config):
                 plt.close(fig)
         
         except:
-            print "Error loading files for trial", trial
+            print "Error loading files for config", config, "trial", trial
             
     with open(log_dir + config + '/analysis_explo.pickle', 'wb') as f:
         cPickle.dump(explo, f)
