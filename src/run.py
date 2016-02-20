@@ -4,7 +4,12 @@ import sys
 from experiment import ToolsExperiment
 from config import configs
 
-  
+import numpy as np
+import random
+random.seed(1)
+
+np.random.seed(1)
+
 log_dir = sys.argv[1]
 config_name = sys.argv[2]
 trial = sys.argv[3]
