@@ -96,6 +96,7 @@ class Supervisor(Observable):
                     w[i] = w[i] * np.power(f, max(levels.values()) - levels[mids[i]])
             #print w
             mid = mids[prop_choice(w, eps=0.1)]
+            print "chosen module:", mid
             
         elif mode == 'prop-min':
             mids = interests.keys()
