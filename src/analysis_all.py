@@ -32,7 +32,7 @@ except:
 
 for config in config_list["xp1"]:        
     processes.append(Process(target = main_explo, args=(log_dir, config)))
-    processes.append(Process(target = main_events, args=(log_dir, config)))
+    #processes.append(Process(target = main_events, args=(log_dir, config)))
 
 print "Begin Explo and Events analysis"
 for p in processes:

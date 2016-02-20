@@ -34,7 +34,7 @@ def main(log_dir, config):
     n = 200000
     p = 100
     
-    gss = [0, 10, 100, 20, 10, 6, 5, 4, 3, 3]
+    gss = [0, 10, 100, 20, 10, 10, 10, 5, 5, 3]
     
     
     x = np.array(np.linspace(0,n,n/p+1), dtype=int)
