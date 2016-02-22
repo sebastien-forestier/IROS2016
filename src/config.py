@@ -85,7 +85,7 @@ class Config(object):
         
         self.sms = {
             'NN': (NonParametric, {'fwd': 'NN', 'inv': 'NN', 'sigma_explo_ratio':0.01}),
-            'LWLR-BFGS': (NonParametric, {'fwd': 'LWLR', 'k':1, 'sigma':0.01, 'sigma_explo_ratio':0.01, 'inv': 'L-BFGS-B', 'maxfun':200, 'ftol':0, 'gtol':0}),
+            'LWLR-BFGS': (NonParametric, {'fwd': 'LWLR', 'k':1, 'sigma':0., 'sigma_explo_ratio':0.01, 'inv': 'L-BFGS-B', 'maxfun':200, 'ftol':0, 'gtol':0}),
             'LWLR-CMAES': (NonParametric, {'fwd': 'LWLR', 'k':1, 'sigma':0.01, 'inv': 'CMAES', 'cmaes_sigma':0.05, 'sigma_explo_ratio':0.01, 'maxfevals':20}),
         }
           
@@ -413,9 +413,9 @@ config_list = {"xp1":["F-RmB",
                       "M-P-AMB",
 #                     "M-PMIN-AMB",
 #                     "M-GR-AMB",
-                    "F-RGB-LWR",
-                    "M-RMB-LWR",
-                    "M-P-AMB-LWR",
+#                     "F-RGB-LWR",
+#                     "M-RMB-LWR",
+#                     "M-P-AMB-LWR",
 #                     "M-GR-AMB-LWR",
                       ]}
 
