@@ -127,7 +127,8 @@ class DynamicEnvironment(Environment):
         if self.gui:
             #if abs(s[11] - (-0.85)) > 0.1: #Tool1
             #if s[-2] > 0: # One of the boxes
-            self.plot()
+            if np.random.rand() < 0.01:
+                self.plot()
         return bounds_min_max(s, self.conf.s_mins, self.conf.s_maxs)    
         
     def update(self, m_ag, reset=True, log=False):
