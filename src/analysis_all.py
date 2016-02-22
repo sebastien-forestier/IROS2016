@@ -15,7 +15,7 @@ config_list = {"xp1":[
                     "M-P-AMB-LWR",
                       ]}
 
-d = "2016-02-22_10-19-54-TOOL2-iros-xp1"
+d = "2016-02-22_11-08-57-TOOL2-iros_lwr0-xp1"
 
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
