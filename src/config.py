@@ -413,9 +413,9 @@ config_list = {"xp1":["F-RmB",
                       "M-P-AMB",
 #                     "M-PMIN-AMB",
 #                     "M-GR-AMB",
-#                     "F-RGB-LWR",
-#                     "M-RMB-LWR",
-#                     "M-P-AMB-LWR",
+                    "F-RGB-LWR",
+                    "M-RMB-LWR",
+                    "M-P-AMB-LWR",
 #                     "M-GR-AMB-LWR",
                       ]}
 
