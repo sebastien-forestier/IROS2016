@@ -5,8 +5,17 @@ from analysis_explo import main as main_explo
 from analysis_events import main as main_events
 
 
+config_list = {"xp1":[
+                    "F-RmB",
+                    "F-RGB",
+                    "M-RMB",
+                    "M-P-AMB",
+                    "F-RGB-LWR",
+                    "M-RMB-LWR",
+                    "M-P-AMB-LWR",
+                      ]}
 
-d = "2016-02-20_13-02-26-TOOL2-iros-xp1"
+d = "2016-02-22_10-19-54-TOOL2-iros-xp1"
 
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
