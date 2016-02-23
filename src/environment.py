@@ -483,7 +483,7 @@ class IROS2016Environment(DynamicEnvironment):
                           s_mins = [-2., -2.], # new pos
                           s_maxs = [2., 2.],
                           species= "cat", 
-                          noise = 0.1, 
+                          noise = 0.05, 
                           rest_state = [-0.1, 1.1])
         
         dog_cfg = dict(m_mins = list([-1.] * 4), 
@@ -491,7 +491,7 @@ class IROS2016Environment(DynamicEnvironment):
                           s_mins = [-2., -2.], # new pos
                           s_maxs = [2., 2.],
                           species= "dog", 
-                          noise = 0.1, 
+                          noise = 0.05, 
                           rest_state = [0.1, 1.1])
         
         static1_cfg = dict(m_mins = list([-1.] * 4), 
