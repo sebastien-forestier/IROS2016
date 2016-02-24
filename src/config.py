@@ -79,7 +79,7 @@ class Config(object):
         self.ims = {'miscRandom_local': (MiscRandomInterest, {
                                   'competence_measure': competence_dist,
                                   #'competence_measure': lambda target, reached, dist_max:competence_exp(target, reached, dist_min=0.01, dist_max=dist_max, power=20.),
-                                   'win_size': 100,
+                                   'win_size': 1000,
                                    'competence_mode': 'knn',
                                    'k': 20,
                                    'progress_mode': 'local'}),
@@ -415,19 +415,18 @@ configs = {}
 
 #################### EXPERIMENT  ####################
 
-iterations = 100000
+iterations = 50000
 
 config_list = {"xp1":[
-                    "F-RmB",
-                    "F-RGB",
+                    #"F-RmB",
+                    #"F-RGB",
                     "M-RMB",
                     "M-P-AMB",
-                    "F-RGB-LWR",
-                    "M-RMB-LWR",
-                    "M-P-AMB-LWR",
-                    "F-RGB-LWR0",
-                    "M-RMB-LWR0",
-                    "M-P-AMB-LWR0",
+                    "M-P-AMB-GLOBAL",
+                    "M-P-AMB-SG",
+#                     "F-RGB-LWR",
+#                     "M-RMB-LWR",
+#                     "M-P-AMB-LWR",
                       ]}
 
 config = Config(name="F-RmB", hierarchy_type=0, babbling_name="motor", iterations=iterations)
@@ -439,11 +438,11 @@ configs[config.name] = config
 config = Config(name="M-P-AMB", hierarchy_type=1, supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
 # 
-# config = Config(name="M-P-AMB-GLOBAL", hierarchy_type=1, im_model='miscRandom_global', im_mode='sg',supervisor_name="interest", iterations=iterations)
-# configs[config.name] = config
-# 
-# config = Config(name="M-P-AMB-SG", hierarchy_type=1, im_mode='sg',supervisor_name="interest", iterations=iterations)
-# configs[config.name] = config
+config = Config(name="M-P-AMB-GLOBAL", hierarchy_type=1, im_model='miscRandom_global', im_mode='sg',supervisor_name="interest", iterations=iterations)
+configs[config.name] = config
+ 
+config = Config(name="M-P-AMB-SG", hierarchy_type=1, im_mode='sg',supervisor_name="interest", iterations=iterations)
+configs[config.name] = config
 
                  
 
@@ -466,14 +465,14 @@ configs[config.name] = config
 config = Config(name="M-RMB-LWR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
 
-config = Config(name="F-RGB-LWR0", sm_model='LWLR-BFGS-NOEXPLO', hierarchy_type=0, iterations=iterations)
-configs[config.name] = config
-
-config = Config(name="M-P-AMB-LWR0", sm_model='LWLR-BFGS-NOEXPLO', hierarchy_type=1, supervisor_name="interest", iterations=iterations)
-configs[config.name] = config
-
-config = Config(name="M-RMB-LWR0", sm_model='LWLR-BFGS-NOEXPLO', hierarchy_type=1, supervisor_name="random", iterations=iterations)
-configs[config.name] = config
+# config = Config(name="F-RGB-LWR0", sm_model='LWLR-BFGS-NOEXPLO', hierarchy_type=0, iterations=iterations)
+# configs[config.name] = config
+# 
+# config = Config(name="M-P-AMB-LWR0", sm_model='LWLR-BFGS-NOEXPLO', hierarchy_type=1, supervisor_name="interest", iterations=iterations)
+# configs[config.name] = config
+# 
+# config = Config(name="M-RMB-LWR0", sm_model='LWLR-BFGS-NOEXPLO', hierarchy_type=1, supervisor_name="random", iterations=iterations)
+# configs[config.name] = config
 # 
 # config = Config(name="M-GR-AMB-LWR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="interest_greedy", iterations=iterations)
 # configs[config.name] = config
