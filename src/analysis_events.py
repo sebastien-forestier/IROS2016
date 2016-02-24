@@ -35,7 +35,7 @@ def main(log_dir, config):
     trials = range(1, 11)
     n_logs = 1
     
-    n = 50000
+    n = 10000
     p = 100
     x = np.array(range(n/p)) * p
     
