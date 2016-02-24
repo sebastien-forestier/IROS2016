@@ -11,6 +11,7 @@ from dynamic_env import DynamicEnvironment
 from explauto.utils import bounds_min_max
 from explauto.environment.environment import Environment
 from explauto.environment.simple_arm.simple_arm import joint_positions
+from explauto.utils.utils import rand_bounds
 
 # import brewer2mpl
 # bmap = brewer2mpl.get_map('Dark2', 'qualitative', 6)
@@ -308,9 +309,10 @@ class Animal(Environment):
         return m
 
     def compute_sensori_effect(self, m):
-        self.pos = self.pos + np.random.randn(2) * self.noise
-        self.logs.append(self.pos)
-        return list(self.pos)
+#         self.pos = self.pos + np.random.randn(2) * self.noise
+#         self.logs.append(self.pos)
+#         return list(self.pos)
+        return list(rand_bounds(np.array([self.conf.s_mins, self.conf.s_maxs]))[0]) 
     
     def plot(self, ax, i, **kwargs_plot):
         pos = self.logs[i]
@@ -445,86 +447,86 @@ class IROS2016Environment(DynamicEnvironment):
         
         mag_object2_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
-                          s_mins = [-2., -2.], # new pos
-                          s_maxs = [2., 2.],
+                          s_mins = [-1.5, -1.5], # new pos
+                          s_maxs = [1.5, 1.5],
                           object_tol1 = 0., 
                           rest_state = [-0.5, 1.5])
         
         mag_object3_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
-                          s_mins = [-2., -2.], # new pos
-                          s_maxs = [2., 2.],
+                          s_mins = [-1.5, -1.5], # new pos
+                          s_maxs = [1.5, 1.5],
                           object_tol1 = 0., 
                           rest_state = [-0.3, 1.5])
         
         scratch_object_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
-                          s_mins = [-2., -2.], # new pos
-                          s_maxs = [2., 2.],
+                          s_mins = [-1.5, -1.5], # new pos
+                          s_maxs = [1.5, 1.5],
                           object_tol2 = 0.25, 
                           rest_state = [0.3, 1.1])
         
         scratch_object2_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
-                          s_mins = [-2., -2.], # new pos
-                          s_maxs = [2., 2.],
+                          s_mins = [-1.5, -1.5], # new pos
+                          s_maxs = [1.5, 1.5],
                           object_tol2 = 0., 
                           rest_state = [0.3, 1.5])
         
         scratch_object3_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
-                          s_mins = [-2., -2.], # new pos
-                          s_maxs = [2., 2.],
+                          s_mins = [-1.5, -1.5], # new pos
+                          s_maxs = [1.5, 1.5],
                           object_tol2 = 0., 
                           rest_state = [0.5, 1.5])
         
         cat_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
-                          s_mins = [-2., -2.], # new pos
-                          s_maxs = [2., 2.],
+                          s_mins = [-1.5, -1.5], # new pos
+                          s_maxs = [1.5, 1.5],
                           species= "cat", 
                           noise = 0.1, 
                           rest_state = [-0.1, 1.1])
         
         dog_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
-                          s_mins = [-2., -2.], # new pos
-                          s_maxs = [2., 2.],
+                          s_mins = [-1.5, -1.5], # new pos
+                          s_maxs = [1.5, 1.5],
                           species= "dog", 
                           noise = 0.1, 
                           rest_state = [0.1, 1.1])
         
         static1_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
-                          s_mins = [-2., -2.], # new pos
-                          s_maxs = [2., 2.],
+                          s_mins = [-1.5, -1.5], # new pos
+                          s_maxs = [1.5, 1.5],
                           object_shape = "rectangle",
                           rest_state = [-0.7, 1.1])
         
         static2_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
-                          s_mins = [-2., -2.], # new pos
-                          s_maxs = [2., 2.],
+                          s_mins = [-1.5, -1.5], # new pos
+                          s_maxs = [1.5, 1.5],
                           object_shape = "rectangle",
                           rest_state = [-0.5, 1.1])
         
         static3_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
-                          s_mins = [-2., -2.], # new pos
-                          s_maxs = [2., 2.],
+                          s_mins = [-1.5, -1.5], # new pos
+                          s_maxs = [1.5, 1.5],
                           object_shape = "rectangle",
                           rest_state = [0.5, 1.1])
         
         static4_cfg = dict(m_mins = list([-1.] * 4), 
                           m_maxs = list([1.] * 4), 
-                          s_mins = [-2., -2.], # new pos
-                          s_maxs = [2., 2.],
+                          s_mins = [-1.5, -1.5], # new pos
+                          s_maxs = [1.5, 1.5],
                           object_shape = "rectangle",
                           rest_state = [0.7, 1.1])
         
         objects_cfg = dict(
-                        s_mins = list([-2.]*24),
-                        s_maxs = list([2.]*24),
+                        s_mins = list([-1.5]*24),
+                        s_maxs = list([1.5]*24),
                         envs_cls = [MagneticObject, MagneticObject, MagneticObject, ScratchObject, ScratchObject, ScratchObject, Animal, Animal, StaticObject, StaticObject, StaticObject, StaticObject], 
                         envs_cfg = [mag_object_cfg, mag_object2_cfg, mag_object3_cfg, scratch_object_cfg, scratch_object2_cfg, scratch_object3_cfg, cat_cfg, dog_cfg, static1_cfg, static2_cfg, static3_cfg, static4_cfg], 
                         combined_s = lambda s:s

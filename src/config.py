@@ -20,7 +20,7 @@ class Config(object):
                  supervisor_ccl="local", 
                  sm_model='NN',
                  im_model='miscRandom_local',
-                 im_mode='sg',
+                 im_mode='sg_snn',
                  tdd=False,
                  ns=False,
                  perturbation=None,
@@ -421,16 +421,16 @@ configs = {}
 
 #################### EXPERIMENT  ####################
 
-iterations = 10000
+iterations = 200000
 
 config_list = {"xp1":[
                     "F-RmB",
                     "F-RGB",
                     "M-RMB",
                     "M-P-AMB",
-                    "F-RGB-LWR",
-                    "M-RMB-LWR",
-                    "M-P-AMB-LWR",
+#                     "F-RGB-LWR",
+#                     "M-RMB-LWR",
+#                     "M-P-AMB-LWR",
                       ]}
 
 config = Config(name="F-RmB", hierarchy_type=0, babbling_name="motor", iterations=iterations)
@@ -446,9 +446,8 @@ configs[config.name] = config
 # config = Config(name="M-P-AMB-GLOBAL", hierarchy_type=1, im_model='miscRandom_global', im_mode='sg',supervisor_name="interest", iterations=iterations)
 # configs[config.name] = config
  
-config = Config(name="M-P-AMB", hierarchy_type=1, im_mode='sg',supervisor_name="interest", iterations=iterations)
+config = Config(name="M-P-AMB", hierarchy_type=1, supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
-
 
 config = Config(name="M-RMB", hierarchy_type=1, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
