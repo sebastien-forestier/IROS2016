@@ -25,7 +25,7 @@ p = 2000
 gui = False
 xp = None
 
-n_testcases = 100
+n_testcases = 10
 
 testcases = {
              'obj1':(range(21, 27), rand_bounds(np.array([[-0.3, -0.3, -1.5, 1.1, -1.5, -1.5], [-0.3, -0.3, 1.5, 1.1, 1.5, 1.5]]), 
@@ -43,7 +43,7 @@ def main(log_dir, trial):
 
     
     
-    x = np.array(np.linspace(0,n,n/p+1), dtype=int)
+    x = np.array(np.linspace(p,n,n/p+1), dtype=int)
     
     
     
@@ -115,7 +115,7 @@ def main(log_dir, trial):
             print "regression_config_name", regression_config_name
             
             for s_space in testcases.keys():
-                comp[s_space][explo_config_name][trial][regression_config_name] = [0]
+                comp[s_space][explo_config_name][trial][regression_config_name] = []
                 
             for i in range(n_checkpoints):
                 print "checkpoint", i
