@@ -35,7 +35,7 @@ testcases = {
 print "testcases", testcases
 
 n = 10000
-p = 1000
+p = 2000
 
 gui = False
 
