@@ -291,8 +291,9 @@ if "legend" in modes:
                     "F-RGB":"F-RGB",
                     "M-RMB":"M-RMB",
                     "M-P-AMB":"M-P-AMB",
-                    "M-PMIN-AMB":"M-PMIN-AMB",
-                    "M-GR-AMB":"M-GR-AMB",
+                    "F-RGB-LWR":"F-RGB-LWR",
+                    "M-RMB-LWR":"M-RMB-LWR",
+                    "M-P-AMB-LWR":"M-P-AMB-LWR",
                     }
     
     # EXPLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO

@@ -7,7 +7,7 @@ from experiment import ToolsExperiment
 from config import config_list, configs
 from explauto.experiment.log import ExperimentLog
 from explauto.utils import rand_bounds
-from explauto.evaluation import Evaluation
+from evaluation import Evaluation
 
 plt.switch_backend('Agg')
 
@@ -26,17 +26,17 @@ n_testcases = 10
 
 
 testcases = {
-             'obj1':(range(14+21, 14+27), rand_bounds(np.array([[-0.3, -0.3, -1.5, 1.1, 1.1, -1.5], [-0.3, -0.3, 1.5, 1.1, 1.1, 1.5]]), 
+             'obj1':(range(21, 27), rand_bounds(np.array([[-0.3, -1.5, -1.5, 1.1, -1.5, -1.5], [-0.3, 1.5, 1.5, 1.1, 1.5, 1.5]]), 
                                                      n_testcases)),
               
-             'obj2':(range(14+39, 14+45), rand_bounds(np.array([[0.3, 0.3, -1.5, 1.1, 1.1, -1.5], [0.3, 0.3, 1.5, 1.1, 1.1, 1.5]]), 
+             'obj2':(range(39, 45), rand_bounds(np.array([[0.3, -1.5, -1.5, 1.1, -1.5, -1.5], [0.3, 1.5, 1.5, 1.1, 1.5, 1.5]]), 
                                                      n_testcases)),
               }
         
 print "testcases", testcases
 
-n = 50000
-p = 5000
+n = 10000
+p = 1000
 
 gui = False
 
@@ -76,7 +76,7 @@ def eval_comp(config_name, trial, i, log_i):
         xp.ag.fast_forward(log_i)
     xp.ag.eval_mode()
     
-    evaluation = Evaluation(xp.log, xp.ag, xp.env, testcases, modes=["comp"])
+    evaluation = Evaluation(xp.log, xp.ag, xp.env, testcases, modes=["inverse"])
     result = evaluation.evaluate_comp()
     return result
 
@@ -84,6 +84,8 @@ def eval_comp(config_name, trial, i, log_i):
 
 for explo_config_name in ["M-P-AMB", "M-P-AMB-LWR"]: 
         
+    print "explo_config_name", explo_config_name
+    
     for s_space in testcases.keys():
         comp[s_space] = {}
         
@@ -93,8 +95,9 @@ for explo_config_name in ["M-P-AMB", "M-P-AMB-LWR"]:
     logs[explo_config_name] = {}
             
     for trial in trials:
-        print trial
+        print "trial", trial
         
+        logs[explo_config_name][trial] = {}
         log = ExperimentLog(None, None, None)
         for key in keys:
             for i in range(n_logs):
@@ -108,6 +111,7 @@ for explo_config_name in ["M-P-AMB", "M-P-AMB-LWR"]:
             comp[s_space][explo_config_name][trial] = {}
             
         for regression_config_name in ["M-P-AMB", "M-P-AMB-LWR"]: 
+            print "regression_config_name", regression_config_name
             
             for s_space in testcases.keys():
                 comp[s_space][explo_config_name][trial][regression_config_name] = [0]
