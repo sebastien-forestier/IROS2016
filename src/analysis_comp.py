@@ -13,13 +13,12 @@ plt.switch_backend('Agg')
 
 
 log_dir = sys.argv[1]
-
+trial = sys.argv[2]
 
 
 n_logs = 1
 
-trials = range(1, 11)
-n_checkpoints = 10
+n_checkpoints = 5
 
 n_testcases = 10
 
@@ -94,60 +93,59 @@ for explo_config_name in ["M-P-AMB", "M-P-AMB-LWR"]:
         
     logs[explo_config_name] = {}
             
-    for trial in trials:
-        print "trial", trial
+    print "trial", trial
+    
+    logs[explo_config_name][trial] = {}
+    log = ExperimentLog(None, None, None)
+    for key in keys:
+        for i in range(n_logs):
+            filename = log_dir + explo_config_name + '/log{}-'.format(trial) + key + '-{}.pickle'.format(i)
+            with open(filename, 'r') as f:
+                log_key = cPickle.load(f)
+            log._logs[key] = log._logs[key] + log_key
+        print key, len(log._logs[key])
+    
+    for s_space in testcases.keys():
+        comp[s_space][explo_config_name][trial] = {}
         
-        logs[explo_config_name][trial] = {}
-        log = ExperimentLog(None, None, None)
-        for key in keys:
-            for i in range(n_logs):
-                filename = log_dir + explo_config_name + '/log{}-'.format(trial) + key + '-{}.pickle'.format(i)
-                with open(filename, 'r') as f:
-                    log_key = cPickle.load(f)
-                log._logs[key] = log._logs[key] + log_key
-            print key, len(log._logs[key])
+    for regression_config_name in ["M-P-AMB", "M-P-AMB-LWR"]: 
+        print "regression_config_name", regression_config_name
         
         for s_space in testcases.keys():
-            comp[s_space][explo_config_name][trial] = {}
+            comp[s_space][explo_config_name][trial][regression_config_name] = [0]
             
-        for regression_config_name in ["M-P-AMB", "M-P-AMB-LWR"]: 
-            print "regression_config_name", regression_config_name
+        for i in range(n_checkpoints):
+            print "checkpoint", i
             
+            log_i = ExperimentLog(None, None, None)
+            for key in ["agentM", "agentS"]:
+                log_i._logs[key] = log._logs[key][i * n / n_checkpoints: (i+1) * n / n_checkpoints]
+                #print config_name, trial, key, i, n, n_checkpoints, [i * n / n_checkpoints, (i+1) * n / n_checkpoints], len(log_i._logs[key])
+                
+                
+            errors = eval_comp(regression_config_name, trial, i, log_i)[0]
             for s_space in testcases.keys():
-                comp[s_space][explo_config_name][trial][regression_config_name] = [0]
-                
-            for i in range(n_checkpoints):
-                print "checkpoint", i
-                
-                log_i = ExperimentLog(None, None, None)
-                for key in ["agentM", "agentS"]:
-                    log_i._logs[key] = log._logs[key][i * n / n_checkpoints: (i+1) * n / n_checkpoints]
-                    #print config_name, trial, key, i, n, n_checkpoints, [i * n / n_checkpoints, (i+1) * n / n_checkpoints], len(log_i._logs[key])
-                    
-                    
-                errors = eval_comp(regression_config_name, trial, i, log_i)[0]
-                for s_space in testcases.keys():
-                    comp[s_space][explo_config_name][trial][regression_config_name] += [np.mean(errors[s_space])]
-            logs[explo_config_name][trial][regression_config_name] = xp.log._logs
+                comp[s_space][explo_config_name][trial][regression_config_name] += [np.mean(errors[s_space])]
+        logs[explo_config_name][trial][regression_config_name] = xp.log._logs
+        
+        if True:
+            fig, ax = plt.subplots()
+            fig.canvas.set_window_title('Competence')
+            for s_space in testcases.keys():
+                #print x, comp[s_space][config_name][trial]
+                ax.plot(x, comp[s_space][explo_config_name][trial][regression_config_name], label=s_space)
+            handles, labels = ax.get_legend_handles_labels()
+            ax.legend(handles, labels)
+                 
+            plt.savefig(log_dir + explo_config_name + '/log-{}-{}-comp.png'.format(regression_config_name, trial))
+            plt.close(fig)
             
-            if True:
-                fig, ax = plt.subplots()
-                fig.canvas.set_window_title('Competence')
-                for s_space in testcases.keys():
-                    #print x, comp[s_space][config_name][trial]
-                    ax.plot(x, comp[s_space][explo_config_name][trial][regression_config_name], label=s_space)
-                handles, labels = ax.get_legend_handles_labels()
-                ax.legend(handles, labels)
-                     
-                plt.savefig(log_dir + explo_config_name + '/log-{}-{}-comp.png'.format(regression_config_name, trial))
-                plt.close(fig)
-                
     
     
-    with open(log_dir + explo_config_name + '/analysis_comp_eval.pickle', 'wb') as f:
+    with open(log_dir + explo_config_name + '/analysis_comp_eval-{}.pickle'.format(trial), 'wb') as f:
         cPickle.dump(comp, f)
         
-    with open(log_dir + explo_config_name + '/analysis_comp_logs.pickle', 'wb') as f:
+    with open(log_dir + explo_config_name + '/analysis_comp_logs-{}.pickle'.format(trial), 'wb') as f:
         cPickle.dump(logs, f)
 
 
