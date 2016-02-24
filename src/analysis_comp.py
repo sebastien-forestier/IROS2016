@@ -12,32 +12,36 @@ from evaluation import Evaluation
 plt.switch_backend('Agg')
 
 
+n_logs = 1
+
+n_checkpoints = 5
+
+
+
+
+n = 10000
+p = 2000
+
+gui = False
+xp = None
+
+n_testcases = 100
+
+testcases = {
+             'obj1':(range(21, 27), rand_bounds(np.array([[-0.3, -0.3, -1.5, 1.1, -1.5, -1.5], [-0.3, -0.3, 1.5, 1.1, 1.5, 1.5]]), 
+                                                     n_testcases)),
+              
+             'obj2':(range(39, 45), rand_bounds(np.array([[0.3, 0.3, -1.5, 1.1, -1.5, -1.5], [0.3, 0.3, 1.5, 1.1, 1.5, 1.5]]), 
+                                                     n_testcases)),
+              }
+        
+print "testcases", testcases
+
+
 
 def main(log_dir, trial):
 
     
-    n_logs = 1
-    
-    n_checkpoints = 5
-    
-    n_testcases = 100
-    
-    
-    
-    testcases = {
-                 'obj1':(range(21, 27), rand_bounds(np.array([[-0.3, -0.3, -1.5, 1.1, -1.5, -1.5], [-0.3, -0.3, 1.5, 1.1, 1.5, 1.5]]), 
-                                                         n_testcases)),
-                  
-                 'obj2':(range(39, 45), rand_bounds(np.array([[0.3, 0.3, -1.5, 1.1, -1.5, -1.5], [0.3, 0.3, 1.5, 1.1, 1.5, 1.5]]), 
-                                                         n_testcases)),
-                  }
-            
-    print "testcases", testcases
-    
-    n = 10000
-    p = 2000
-    
-    gui = False
     
     x = np.array(np.linspace(0,n,n/p+1), dtype=int)
     
@@ -53,7 +57,6 @@ def main(log_dir, trial):
         return mean, std
     
     
-    xp = None
     
     comp = {}
     logs = {}
