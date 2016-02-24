@@ -20,7 +20,7 @@ class Config(object):
                  supervisor_ccl="local", 
                  sm_model='NN',
                  im_model='miscRandom_local',
-                 im_mode='sg_snn',
+                 im_mode='sg',
                  tdd=False,
                  ns=False,
                  perturbation=None,
@@ -415,15 +415,13 @@ configs = {}
 
 #################### EXPERIMENT  ####################
 
-iterations = 50000
+iterations = 300000
 
 config_list = {"xp1":[
-                    #"F-RmB",
-                    #"F-RGB",
+                    "F-RmB",
+                    "F-RGB",
                     "M-RMB",
                     "M-P-AMB",
-                    "M-P-AMB-GLOBAL",
-                    "M-P-AMB-SG",
 #                     "F-RGB-LWR",
 #                     "M-RMB-LWR",
 #                     "M-P-AMB-LWR",
@@ -435,13 +433,11 @@ configs[config.name] = config
 config = Config(name="F-RGB", hierarchy_type=0, iterations=iterations)
 configs[config.name] = config
 
-config = Config(name="M-P-AMB", hierarchy_type=1, supervisor_name="interest", iterations=iterations)
-configs[config.name] = config
-# 
-config = Config(name="M-P-AMB-GLOBAL", hierarchy_type=1, im_model='miscRandom_global', im_mode='sg',supervisor_name="interest", iterations=iterations)
-configs[config.name] = config
+# # 
+# config = Config(name="M-P-AMB-GLOBAL", hierarchy_type=1, im_model='miscRandom_global', im_mode='sg',supervisor_name="interest", iterations=iterations)
+# configs[config.name] = config
  
-config = Config(name="M-P-AMB-SG", hierarchy_type=1, im_mode='sg',supervisor_name="interest", iterations=iterations)
+config = Config(name="M-P-AMB", hierarchy_type=1, im_mode='sg',supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
 
                  
