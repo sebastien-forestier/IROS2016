@@ -28,10 +28,10 @@ def main(log_dir, config):
     #     raise NotImplementedError
     
     
-    trials = range(1, 101)
+    trials = range(1, 11)
     n_logs = 1
     
-    n = 100000
+    n = 50000
     p = 100
     
     gss = [0, 10, 100, 20, 10, 10, 10, 5, 5, 3]
@@ -130,16 +130,16 @@ def main(log_dir, config):
             #print explo
              
             if True:
-#                 fig, ax = plt.subplots()
-#                 fig.canvas.set_window_title('Exploration')
-#                 for s_space in dims.keys():
-#                     ax.plot(x, explo[s_space][config][trial], label=s_space)
-#                 handles, labels = ax.get_legend_handles_labels()
-#                 ax.legend(handles, labels)
-#                      
-#                 plt.savefig(log_dir + "img/" + config + '-log{}-explo.pdf'.format(trial), format='pdf', dpi=1000, bbox_inches='tight')
-#                 plt.close(fig)
-                
+                fig, ax = plt.subplots()
+                fig.canvas.set_window_title('Exploration')
+                for s_space in dims.keys():
+                    ax.plot(x, explo[s_space][config][trial], label=s_space)
+                handles, labels = ax.get_legend_handles_labels()
+                ax.legend(handles, labels)
+                      
+                plt.savefig(log_dir + "img/" + config + '-log{}-explo.pdf'.format(trial), format='pdf', dpi=1000, bbox_inches='tight')
+                plt.close(fig)
+                #plt.show()
                 
                 #Object exploration
                 fig, ax = plt.subplots()

@@ -37,9 +37,9 @@ class Module(Agent):
         self.s = None
         self.sp = None
         self.snn = None
-        self.su = None
         
         im_cls, kwargs = config.ims[self.mconf['im_name']]
+        kwargs['mode'] = self.im_mode
         self.im = im_cls(self.conf, self.im_dims, **kwargs)
         
         sm_cls, kwargs = config.sms[self.mconf['sm_name']]
@@ -140,10 +140,12 @@ class Module(Agent):
             if self.n_bootstrap > 0:
                 self.n_bootstrap -= 1
                 raise ExplautoBootstrapError
-            m = self.sensorimotor_model.infer(expl_dims,
+            m, snn, sp = self.sensorimotor_model.infer(expl_dims,
                                               inf_dims,
                                               x.flatten())
-            
+            #print "infer", snn, sp
+            self.snn = snn
+            self.sp = sp
             
             self.emit(pref + 'inference' + '_' + self.mid, m)
             #print "module", self.mid, "inference"
@@ -179,19 +181,7 @@ class Module(Agent):
             self.m, sg = self.extract_ms(self.x, self.y)
             self.m = self.motor_primitive(self.m)
             
-            if self.im_mode == "sg":
-                self.s = sg
-            elif self.im_mode == "sp":
-                self.s = self.sp
-            elif self.im_mode == "sg_snn":
-#                 if self.mid == "mod2":
-#                     print "sg", sg
-#                     print "snn", self.snn
-#                     print "sp", self.sp
-                self.s = sg - self.snn + self.sp
-                self.su = sg
-            else:
-                raise NotImplementedError
+            self.s = sg
             #self.emit('movement' + '_' + self.mid, self.m)
             #print "module", self.mid," choose x ", self.x, "infer y ", self.y, "m", self.m, "s", self.s            
         return self.m        
@@ -207,8 +197,12 @@ class Module(Agent):
                 self.interest_model.update(hstack((m, self.s)), hstack((m, s)))
                 self.emit('im_update_' + self.mid, (hstack((m, self.s)), hstack((m, s))))
             elif self.im_mode == "sg_snn":
-                self.interest_model.update(hstack((m, self.s)), hstack((m, s)), self.su)
-                self.emit('im_update_' + self.mid, (hstack((m, self.s)), hstack((m, s)), self.su))
+                if self.snn is None:
+                    self.interest_model.update(hstack((m, self.s)), hstack((m, s)), self.s - self.s)
+                    self.emit('im_update_' + self.mid, (hstack((m, self.s)), hstack((m, s)), self.s - self.s))
+                else:
+                    self.interest_model.update(hstack((m, self.s)), hstack((m, s)), self.sp - self.snn)
+                    self.emit('im_update_' + self.mid, (hstack((m, self.s)), hstack((m, s)), self.sp - self.snn))
             else:
                 raise NotImplementedError
     

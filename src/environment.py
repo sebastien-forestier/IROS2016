@@ -12,14 +12,14 @@ from explauto.utils import bounds_min_max
 from explauto.environment.environment import Environment
 from explauto.environment.simple_arm.simple_arm import joint_positions
 
-import brewer2mpl
-bmap = brewer2mpl.get_map('Dark2', 'qualitative', 6)
-colors = bmap.mpl_colors
-
-colors_config = {"gripper":colors[1],
-                 "magnetic":colors[2],
-                 "scratch":colors[4],
-                 }
+# import brewer2mpl
+# bmap = brewer2mpl.get_map('Dark2', 'qualitative', 6)
+# colors = bmap.mpl_colors
+# 
+# colors_config = {"gripper":colors[1],
+#                  "magnetic":colors[2],
+#                  "scratch":colors[4],
+#                  }
 
 class GripArmEnvironment(Environment):
     use_process = True
@@ -483,7 +483,7 @@ class IROS2016Environment(DynamicEnvironment):
                           s_mins = [-2., -2.], # new pos
                           s_maxs = [2., 2.],
                           species= "cat", 
-                          noise = 0.01, 
+                          noise = 0.1, 
                           rest_state = [-0.1, 1.1])
         
         dog_cfg = dict(m_mins = list([-1.] * 4), 
@@ -491,7 +491,7 @@ class IROS2016Environment(DynamicEnvironment):
                           s_mins = [-2., -2.], # new pos
                           s_maxs = [2., 2.],
                           species= "dog", 
-                          noise = 0.01, 
+                          noise = 0.1, 
                           rest_state = [0.1, 1.1])
         
         static1_cfg = dict(m_mins = list([-1.] * 4), 
