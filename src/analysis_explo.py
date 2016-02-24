@@ -170,7 +170,7 @@ def main(log_dir, config):
                 plt.savefig(log_dir + "img/" + config + '-log{}-obj-explo.pdf'.format(trial), format='pdf', dpi=100, bbox_inches='tight')
                 plt.close(fig)
         
-        except:
+        except IOError:
             print "Error loading files for config", config, "trial", trial
             
     with open(log_dir + config + '/analysis_explo.pickle', 'wb') as f:

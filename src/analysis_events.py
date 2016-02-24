@@ -250,7 +250,7 @@ def main(log_dir, config):
 
 
 
-        except:
+        except IOError:
             print "Error loading files for config", config, "trial", trial
             
      
