@@ -428,9 +428,9 @@ config_list = {"xp1":[
                     "F-RGB",
                     "M-RMB",
                     "M-P-AMB",
-#                     "F-RGB-LWR",
-#                     "M-RMB-LWR",
-#                     "M-P-AMB-LWR",
+                    "F-RGB-LWR",
+                    "M-RMB-LWR",
+                    "M-P-AMB-LWR",
                       ]}
 
 config = Config(name="F-RmB", hierarchy_type=0, babbling_name="motor", iterations=iterations)
@@ -449,16 +449,9 @@ configs[config.name] = config
 config = Config(name="M-P-AMB", hierarchy_type=1, im_mode='sg',supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
 
-                 
-
-# config = Config(name="M-PMIN-AMB", hierarchy_type=1, supervisor_name="interest-pmin", iterations=iterations)
-# configs[config.name] = config
 
 config = Config(name="M-RMB", hierarchy_type=1, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
-
-# config = Config(name="M-GR-AMB", hierarchy_type=1, supervisor_name="interest_greedy", iterations=iterations)
-# configs[config.name] = config
 
 
 config = Config(name="F-RGB-LWR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=0, iterations=iterations)
@@ -470,14 +463,3 @@ configs[config.name] = config
 config = Config(name="M-RMB-LWR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
 
-# config = Config(name="F-RGB-LWR0", sm_model='LWLR-BFGS-NOEXPLO', hierarchy_type=0, iterations=iterations)
-# configs[config.name] = config
-# 
-# config = Config(name="M-P-AMB-LWR0", sm_model='LWLR-BFGS-NOEXPLO', hierarchy_type=1, supervisor_name="interest", iterations=iterations)
-# configs[config.name] = config
-# 
-# config = Config(name="M-RMB-LWR0", sm_model='LWLR-BFGS-NOEXPLO', hierarchy_type=1, supervisor_name="random", iterations=iterations)
-# configs[config.name] = config
-# 
-# config = Config(name="M-GR-AMB-LWR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="interest_greedy", iterations=iterations)
-# configs[config.name] = config

@@ -4,9 +4,10 @@ import numpy as np
 import sys
 
 from experiment import ToolsExperiment
-from config import config_list
+from config import config_list, configs
 from explauto.experiment.log import ExperimentLog
 from explauto.utils import rand_bounds
+from explauto.evaluation import Evaluation
 
 plt.switch_backend('Agg')
 
@@ -24,14 +25,16 @@ n_testcases = 10
 
 
 
-testcases1 = {
-             'obj1':(range(14+21, 14+27), rand_bounds(np.array([[-0.3, -0.3, -0.3, 1.1, 1.1, -1.5], [-0.3, -0.3, -0.3, 1.1, 1.1, 1.5]]), 
+testcases = {
+             'obj1':(range(14+21, 14+27), rand_bounds(np.array([[-0.3, -0.3, -1.5, 1.1, 1.1, -1.5], [-0.3, -0.3, 1.5, 1.1, 1.1, 1.5]]), 
                                                      n_testcases)),
               
-             'obj2':(range(14+39, 14+45), rand_bounds(np.array([[-1.5, -0.5], [2., 2]]), 
+             'obj2':(range(14+39, 14+45), rand_bounds(np.array([[0.3, 0.3, -1.5, 1.1, 1.1, -1.5], [0.3, 0.3, 1.5, 1.1, 1.1, 1.5]]), 
                                                      n_testcases)),
               }
         
+print "testcases", testcases
+
 n = 50000
 p = 5000
 
@@ -67,20 +70,20 @@ def eval_comp(config_name, trial, i, log_i):
     if i == 0:
         config.gui = gui
         config.env_cfg['gui'] = gui
-        xp = VrepDivaExperiment(config, log_dir=log_dir + config_name + '/')
+        xp = ToolsExperiment(config, log_dir=log_dir + config_name + '/')
         xp.ag.fast_forward(log_i, forward_im=config.babbling_name == 'goal')
     else:
         xp.ag.fast_forward(log_i, forward_im=config.babbling_name == 'goal')
     xp.ag.eval_mode()
     
-    logs['testcases'] = testcases1
+    logs['testcases'] = testcases
     evaluation = Evaluation(xp.log, xp.ag, xp.env, logs['testcases'], modes=["comp"])
     result = evaluation.evaluate_comp()
     return result
 
 
 
-for config in config_list["xp1"]: 
+for config_name in config_list["xp1"]: 
     
     testcases = {'obj':0}
         

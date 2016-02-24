@@ -386,7 +386,7 @@ class Supervisor(Observable):
         for m, s in zip(self.m_seq, s_seq):
             ms = self.set_ms(m, s)
             self.ms_seq.append(ms)
-            #self.emit('agentM', m)
+            self.emit('agentM', m)
             self.emit('agentS', s)
             
         last_ms = self.ms_seq[-1]
