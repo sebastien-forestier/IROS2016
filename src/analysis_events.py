@@ -35,8 +35,8 @@ def main(log_dir, config):
     trials = range(1, 11)
     n_logs = 1
     
-    n = 10000
-    p = 100
+    n = 300000
+    p = 1000
     x = np.array(range(n/p)) * p
     
     def mean_std(d):
