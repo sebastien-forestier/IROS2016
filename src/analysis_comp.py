@@ -44,7 +44,7 @@ def main(log_dir, trial):
     
     
     x = np.array(np.linspace(p,n,n/p+1), dtype=int)
-    
+    print "x", x
     
     
     def mean_std(d):
