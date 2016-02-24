@@ -20,7 +20,7 @@ n_logs = 1
 
 n_checkpoints = 5
 
-n_testcases = 10
+n_testcases = 100
 
 
 
