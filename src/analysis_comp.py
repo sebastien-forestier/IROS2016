@@ -63,7 +63,7 @@ keys = ["agentM", "agentS", "babbling_module"]
 
 
 def eval_comp(config_name, trial, i, log_i):
-    global xp
+    global xp, testcases
     config = configs[config_name]
     for key in log_i._logs.keys():
         print key, len(log_i._logs[key])
@@ -71,98 +71,79 @@ def eval_comp(config_name, trial, i, log_i):
         config.gui = gui
         config.env_cfg['gui'] = gui
         xp = ToolsExperiment(config, log_dir=log_dir + config_name + '/')
-        xp.ag.fast_forward(log_i, forward_im=config.babbling_name == 'goal')
+        xp.ag.fast_forward(log_i)
     else:
-        xp.ag.fast_forward(log_i, forward_im=config.babbling_name == 'goal')
+        xp.ag.fast_forward(log_i)
     xp.ag.eval_mode()
     
-    logs['testcases'] = testcases
-    evaluation = Evaluation(xp.log, xp.ag, xp.env, logs['testcases'], modes=["comp"])
+    evaluation = Evaluation(xp.log, xp.ag, xp.env, testcases, modes=["comp"])
     result = evaluation.evaluate_comp()
     return result
 
 
 
-for config_name in config_list["xp1"]: 
-    
-    testcases = {'obj':0}
+for explo_config_name in ["M-P-AMB", "M-P-AMB-LWR"]: 
         
     for s_space in testcases.keys():
         comp[s_space] = {}
         
     for s_space in testcases.keys():
-        comp[s_space][config_name] = {}
+        comp[s_space][explo_config_name] = {}
         
-    logs[config_name] = {}
-    
-    if configs[config_name].babbling_name == 'goal':
-        for mid in configs[config_name].modules.keys():
-            keys.append('im_update_' + mid)
+    logs[explo_config_name] = {}
             
     for trial in trials:
         print trial
         
-        try:
-            log = ExperimentLog()
-            for key in keys:
-                for i in range(n_logs):
-                    filename = log_dir + config_name + '/log{}-'.format(trial) + key + '-{}.pickle'.format(i)
-                    with open(filename, 'r') as f:
-                        log_key = cPickle.load(f)
-                    log._logs[key] = log._logs[key] + log_key
-                print key, len(log._logs[key])
+        log = ExperimentLog(None, None, None)
+        for key in keys:
+            for i in range(n_logs):
+                filename = log_dir + explo_config_name + '/log{}-'.format(trial) + key + '-{}.pickle'.format(i)
+                with open(filename, 'r') as f:
+                    log_key = cPickle.load(f)
+                log._logs[key] = log._logs[key] + log_key
+            print key, len(log._logs[key])
+        
+        for s_space in testcases.keys():
+            comp[s_space][explo_config_name][trial] = {}
+            
+        for regression_config_name in ["M-P-AMB", "M-P-AMB-LWR"]: 
             
             for s_space in testcases.keys():
-                comp[s_space][config_name][trial] = [0]
-                
-            n_im_mid = {}
-            for mid in configs[config_name].modules.keys():
-                n_im_mid[mid] = 0
+                comp[s_space][explo_config_name][trial][regression_config_name] = [0]
                 
             for i in range(n_checkpoints):
                 print "checkpoint", i
                 
-                log_i = ExperimentLog()
+                log_i = ExperimentLog(None, None, None)
                 for key in ["agentM", "agentS"]:
                     log_i._logs[key] = log._logs[key][i * n / n_checkpoints: (i+1) * n / n_checkpoints]
                     #print config_name, trial, key, i, n, n_checkpoints, [i * n / n_checkpoints, (i+1) * n / n_checkpoints], len(log_i._logs[key])
                     
-                for mid in configs[config_name].modules.keys():
-                    log_i._logs['im_update_' + mid] = []
-                #print log._logs["babbling_module"]
-                for mid_babbling in log._logs["babbling_module"][i * n / n_checkpoints: (i+1) * n / n_checkpoints]:
-                    #print mid_babbling, n_im_mid[mid_babbling]
-                    try:
-                        log_i._logs['im_update_' + mid_babbling].append(log._logs['im_update_' + mid_babbling][n_im_mid[mid_babbling]])
-                        n_im_mid[mid_babbling] += 1
-                    except IndexError:
-                        pass
                     
-                errors = eval_comp(config_name, trial, i, log_i)[0]
+                errors = eval_comp(regression_config_name, trial, i, log_i)[0]
                 for s_space in testcases.keys():
-                    comp[s_space][config_name][trial] += [np.mean(errors[s_space])]
-            logs[config_name][trial] = xp.log._logs
+                    comp[s_space][explo_config_name][trial][regression_config_name] += [np.mean(errors[s_space])]
+            logs[explo_config_name][trial][regression_config_name] = xp.log._logs
             
             if True:
                 fig, ax = plt.subplots()
                 fig.canvas.set_window_title('Competence')
                 for s_space in testcases.keys():
                     #print x, comp[s_space][config_name][trial]
-                    ax.plot(x, comp[s_space][config_name][trial], label=s_space)
+                    ax.plot(x, comp[s_space][explo_config_name][trial][regression_config_name], label=s_space)
                 handles, labels = ax.get_legend_handles_labels()
                 ax.legend(handles, labels)
                      
-                plt.savefig(log_dir + config_name + '/log{}-comp.png'.format(trial))
+                plt.savefig(log_dir + explo_config_name + '/log-{}-{}-comp.png'.format(regression_config_name, trial))
                 plt.close(fig)
                 
-        except IOError:
-            print "File not found for trial", trial
     
     
-    with open(log_dir + config_name + '/analysis_comp_eval.pickle', 'wb') as f:
+    with open(log_dir + explo_config_name + '/analysis_comp_eval.pickle', 'wb') as f:
         cPickle.dump(comp, f)
         
-    with open(log_dir + config_name + '/analysis_comp_logs.pickle', 'wb') as f:
+    with open(log_dir + explo_config_name + '/analysis_comp_logs.pickle', 'wb') as f:
         cPickle.dump(logs, f)
 
 
