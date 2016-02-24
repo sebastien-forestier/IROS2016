@@ -22,6 +22,7 @@ class Config(object):
                  tdd=False,
                  ns=False,
                  perturbation=None,
+                 allow_split_mod1=False,
                  from_log=None,
                  iterations=None):
               
@@ -42,7 +43,7 @@ class Config(object):
         self.hierarchy_type = hierarchy_type
         self.babbling_name = babbling_name
         if self.babbling_name == "goal":
-            self.motor_babbling_n_iter = 0
+            self.motor_babbling_n_iter = 10
         else:
             self.motor_babbling_n_iter = self.iter
             
@@ -319,7 +320,8 @@ class Config(object):
                                           explo=self.supervisor_explo,
                                           n_explo_points=self.supervisor_n_explo_points,
                                           choose_children_mode=self.supervisor_ccm,
-                                          choose_children_local=self.supervisor_ccl)
+                                          choose_children_local=self.supervisor_ccl,
+                                          allow_split_mod1=allow_split_mod1)
         elif self.supervisor_name == "interest":
             self.supervisor_cls = Supervisor
             self.supervisor_config = dict(choice="prop",
@@ -327,7 +329,8 @@ class Config(object):
                                           explo=self.supervisor_explo,
                                           n_explo_points=self.supervisor_n_explo_points,
                                           choose_children_mode=self.supervisor_ccm,
-                                          choose_children_local=self.supervisor_ccl)
+                                          choose_children_local=self.supervisor_ccl,
+                                          allow_split_mod1=allow_split_mod1)
         elif self.supervisor_name == "interest-pmin":
             self.supervisor_cls = Supervisor
             self.supervisor_config = dict(choice="prop-min",
@@ -335,7 +338,8 @@ class Config(object):
                                           explo=self.supervisor_explo,
                                           n_explo_points=self.supervisor_n_explo_points,
                                           choose_children_mode=self.supervisor_ccm,
-                                          choose_children_local=self.supervisor_ccl)
+                                          choose_children_local=self.supervisor_ccl,
+                                          allow_split_mod1=allow_split_mod1)
         elif self.supervisor_name == "interest_greedy":
             self.supervisor_cls = Supervisor
             self.supervisor_config = dict(choice="greedy",
@@ -343,7 +347,8 @@ class Config(object):
                                           explo=self.supervisor_explo,
                                           n_explo_points=self.supervisor_n_explo_points,
                                           choose_children_mode=self.supervisor_ccm,
-                                          choose_children_local=self.supervisor_ccl)
+                                          choose_children_local=self.supervisor_ccl,
+                                          allow_split_mod1=allow_split_mod1)
         elif self.supervisor_name == "interest_bias":
             self.supervisor_cls = Supervisor
             self.supervisor_config = dict(choice="prop",
@@ -351,7 +356,8 @@ class Config(object):
                                           explo=self.supervisor_explo,
                                           n_explo_points=self.supervisor_n_explo_points,
                                           choose_children_mode=self.supervisor_ccm,
-                                          choose_children_local=self.supervisor_ccl)
+                                          choose_children_local=self.supervisor_ccl,
+                                          allow_split_mod1=allow_split_mod1)
         else:
             raise NotImplementedError
         
@@ -409,6 +415,7 @@ iterations = 100000
 
 config_list = {"xp1":["F-RmB",
                       "F-RGB",
+                      "F-RGB-SPLIT",
                       "M-RMB",
                       "M-P-AMB",
 #                     "M-PMIN-AMB",
@@ -423,6 +430,9 @@ config = Config(name="F-RmB", hierarchy_type=0, babbling_name="motor", iteration
 configs[config.name] = config
 
 config = Config(name="F-RGB", hierarchy_type=0, iterations=iterations)
+configs[config.name] = config
+
+config = Config(name="F-RGB-SPLIT", hierarchy_type=0, allow_split_mod1=True, iterations=iterations)
 configs[config.name] = config
 
 config = Config(name="M-P-AMB", hierarchy_type=1, supervisor_name="interest", iterations=iterations)

@@ -23,7 +23,7 @@ class ToolsExperiment(Experiment):
         self.ag = self.config.supervisor_cls(self.config, self.env, **self.config.supervisor_config)
         
         Experiment.__init__(self, self.env, self.ag)
-        
+        self.ag.log = self.log
             
         if log is None:
             if log_dir is None:

@@ -2,6 +2,7 @@ import Queue
 import numpy as np
 
 from numpy import zeros
+from collections import deque
 from explauto.utils.observer import Observable
 from explauto.utils import rand_bounds, bounds_min_max, softmax_choice, prop_choice
 
@@ -13,11 +14,12 @@ np.set_printoptions(precision=3)
 
 
 class Supervisor(Observable):
-    def __init__(self, config, environment, choice="prop", llb=False, explo="babbling", n_explo_points=0, choose_children_mode='competence', choose_children_local=True):
+    def __init__(self, config, environment, choice="prop", llb=False, explo="babbling", n_explo_points=0, choose_children_mode='competence', choose_children_local=True, allow_split_mod1=False):
             
         Observable.__init__(self)
         
         self.config = config
+        self.log = None
         self.environment = environment
         self.choice = choice
         self.llb = llb
@@ -25,6 +27,7 @@ class Supervisor(Observable):
         self.n_explo_points = n_explo_points
         self.choose_children_mode = choose_children_mode
         self.ccm_local = choose_children_local
+        self.allow_split_mod1 = allow_split_mod1
         
         self.conf = self.config.agent
         self.expl_dims = self.config.agent.m_dims
@@ -35,6 +38,8 @@ class Supervisor(Observable):
         self.chosen_modules = {}
         self.mid_control = ''
         self.last_space_children_choices = {}
+        self.split_mod1_maxlen = 10
+        self.previous_ms = deque([None]*self.split_mod1_maxlen, maxlen=self.split_mod1_maxlen)
         
         self.hierarchy = Hierarchy() # Build Hierarchy
         for motor_space in self.config.m_spaces.values():
@@ -56,6 +61,35 @@ class Supervisor(Observable):
         for space in self.config.modules[mid]['m_list']:
             self.hierarchy.add_edge_space_module(mid, space)
         self.hierarchy.add_edge_module_space(mid, self.config.modules[mid]['s'])
+        
+    def sensory_changed_mod1(self, threshold=0.1):
+        print self.previous_ms
+        std = np.std(self.previous_ms, axis=0)
+        print std[self.config.modules["mod1"]["s"]]
+        return [s_dim for s_dim in self.config.modules["mod1"]["s"] if abs(ms1[s_dim] - ms2[s_dim]) > threshold]
+        
+    def split_mod1(self, s_dims):
+        print "SPLITING"
+        print "iteration", self.t
+        print "dimensions", s_dims
+        old = self.modules["mod1"]
+        conf = self.config.modules["mod1"].copy()
+        new_conf = conf.copy()
+        conf["s"] = sorted(list(set(conf["s"]) - set(s_dims)))
+        new_conf["s"] = s_dims
+        self.config.modules["mod1"] = conf
+        n = len(self.config.modules.keys()) + 1
+        new_mid = "mod" + str(n)
+        self.config.modules[new_mid] = new_conf
+        self.init_module("mod1")
+        self.init_module(new_mid)
+        m_list = old.sensorimotor_model.model.imodel.fmodel.dataset.data[0]
+        s_list = self.log.logs["agentS"]
+        ms_list = np.array(zip(m_list, s_list))
+        self.modules["mod1"].sensorimotor_model.update_batch(ms_list[:,conf["m"]], ms_list[:,conf["s"]])
+        self.modules[new_mid].sensorimotor_model.update_batch(ms_list[:,new_conf["m"]], ms_list[:,new_conf["s"]])
+        self.modules["mod1"].interest_model.current_interest = old.interest_model.current_interest
+        self.modules[new_mid].interest_model.current_interest = old.interest_model.current_interest
         
     def choose_babbling_module(self, auto_create=False, progress_threshold=1e-2, mode='softmax', weight_by_level=False):
         interests = {}
@@ -354,6 +388,15 @@ class Supervisor(Observable):
             m_deps = self.modules[mid].get_m(last_ms)
             s = self.modules[mid].get_s(last_ms)
             self.modules[mid].perceive(m_deps, s, has_control= mid == self.mid_control)
+        
+        if self.allow_split_mod1 and self.t > 2+self.split_mod1_maxlen:
+            split_dims = self.sensory_changed_mod1()
+            if len(split_dims) == 0 or len(split_dims) == len(self.config.modules["mod1"]["s"]):
+                pass
+            else:
+                self.split_mod1(split_dims)
+                
+        self.previous_ms.append(last_ms)
             
     def subscribe_topics_mod(self, topics, observer):
         for topic in topics:

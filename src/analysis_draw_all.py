@@ -29,6 +29,15 @@ def stars(p):
         
 from config import config_list
 
+config_list = {"xp1":[
+                    "F-RmB",
+                    "F-RGB",
+                    "M-RMB",
+                    "M-P-AMB",
+                    "F-RGB-LWR",
+                    "M-RMB-LWR",
+                    "M-P-AMB-LWR",
+                      ]}
 
 modes = sys.argv[1:]
 print "modes", modes
@@ -94,7 +103,7 @@ def mean_std_dic(d, add_0=False):
     return mean, std
     
 xp_name = "xp1"
-d = "2016-02-20_13-02-26-TOOL2-iros-xp1"
+d = "2016-02-22_11-08-57-TOOL2-iros_lwr0-xp1"
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
     pref = ""
