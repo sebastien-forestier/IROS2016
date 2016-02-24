@@ -32,7 +32,7 @@ def n_behavior_change(x, smoothing=10, th=10):
 def main(log_dir, config):
 
     
-    trials = range(1, 101)
+    trials = range(1, 11)
     n_logs = 1
     
     n = 100000
