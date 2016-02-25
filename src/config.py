@@ -424,14 +424,24 @@ configs = {}
 iterations = 100000
 
 config_list = {"xp1":[
-                    "RmB",
-                    "F-NN",
-                    "M-RMB-NN",
-                    "M-LP-AMB-NN",
-                    "F-LWLR",
-                    "M-RMB-LWLR",
-                    "M-LP-AMB-LWLR",
+                    "F-RmB",
+                    "F-RGB",
+                    "M-RMB",
+                    "M-P-AMB",
+                    "F-RGB-LWR",
+                    "M-RMB-LWR",
+                    "M-P-AMB-LWR",
                       ]}
+
+# config_list = {"xp1":[
+#                     "RmB",
+#                     "F-NN",
+#                     "M-RMB-NN",
+#                     "M-LP-AMB-NN",
+#                     "F-LWLR",
+#                     "M-RMB-LWLR",
+#                     "M-LP-AMB-LWLR",
+#                       ]}
 
 config = Config(name="RmB", hierarchy_type=0, babbling_name="motor", iterations=iterations)
 configs[config.name] = config
