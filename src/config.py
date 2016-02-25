@@ -475,9 +475,9 @@ configs[config.name] = config
 config = Config(name="M-LP-AMB-LWLR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
 
-config = Config(name="M-RMB-LWLR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="random", iterations=iterations)
+config = Config(name="M-LP-AMB-LWLR-SP", sm_model='LWLR-BFGS-EXPLO', im_mode="sp", hierarchy_type=1, supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
 
-config = Config(name="M-RMB-LWLR-SP", sm_model='LWLR-BFGS-EXPLO', im_mode="sp", hierarchy_type=1, supervisor_name="random", iterations=iterations)
+config = Config(name="M-RMB-LWLR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
 
