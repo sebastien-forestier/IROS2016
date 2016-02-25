@@ -20,7 +20,7 @@ class Config(object):
                  supervisor_ccl="local", 
                  sm_model='NN',
                  im_model='miscRandom_local',
-                 im_mode='sg_snn',
+                 im_mode='sp',
                  tdd=False,
                  ns=False,
                  perturbation=None,
@@ -421,7 +421,7 @@ configs = {}
 
 #################### EXPERIMENT  ####################
 
-iterations = 100000
+iterations = 50000
 
 # config_list = {"xp1":[
 #                     "F-RmB",
@@ -437,13 +437,11 @@ iterations = 100000
 config_list = {"xp1":[
                     "RmB",
                     "F-NN",
-                    "M-RMB-NN",
-                    "M-LP-AMB-NN",
-                    "M-LP-AMB-NN-SP",
+                    "M-NN-RMB",
+                    "M-NN-LP-AMB",
                     "F-LWLR",
-                    "M-RMB-LWLR",
-                    "M-LP-AMB-LWLR",
-                    "M-LP-AMB-LWLR-SP",
+                    "M-LWLR-RMB",
+                    "M-LWLR-LP-AMB",
                       ]}
 
 config = Config(name="RmB", hierarchy_type=0, babbling_name="motor", iterations=iterations)
@@ -462,9 +460,6 @@ configs[config.name] = config
 config = Config(name="M-LP-AMB-NN", hierarchy_type=1, supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
 
-config = Config(name="M-LP-AMB-NN-SP", hierarchy_type=1, im_mode="sp", supervisor_name="interest", iterations=iterations)
-configs[config.name] = config
-
 config = Config(name="M-RMB-NN", hierarchy_type=1, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
 
@@ -473,9 +468,6 @@ config = Config(name="F-LWLR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=0, ite
 configs[config.name] = config
 
 config = Config(name="M-LP-AMB-LWLR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="interest", iterations=iterations)
-configs[config.name] = config
-
-config = Config(name="M-LP-AMB-LWLR-SP", sm_model='LWLR-BFGS-EXPLO', im_mode="sp", hierarchy_type=1, supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
 
 config = Config(name="M-RMB-LWLR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="random", iterations=iterations)
