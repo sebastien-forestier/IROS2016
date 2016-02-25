@@ -36,7 +36,7 @@ def main(log_dir, config):
     n_logs = 1
     
     n = 50000
-    p = 1000
+    p = 100# DONT CHANGE THAT
     x = np.array(range(n/p)) * p
     
     def mean_std(d):

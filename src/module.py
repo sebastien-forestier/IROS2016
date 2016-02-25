@@ -193,16 +193,14 @@ class Module(Agent):
     def update_im(self, m, s):
         #print self.mid, self.s, s
         if self.t >= self.mconf['motor_babbling_n_iter']:
-            if self.im_mode == "sg" or self.im_mode == "sp":
+            if self.im_mode == "sg":
                 self.interest_model.update(hstack((m, self.s)), hstack((m, s)))
-                self.emit('im_update_' + self.mid, (hstack((m, self.s)), hstack((m, s))))
             elif self.im_mode == "sg_snn":
-                if self.snn is None:
-                    self.interest_model.update(hstack((m, self.s)), hstack((m, s)), self.s - self.s)
-                    self.emit('im_update_' + self.mid, (hstack((m, self.s)), hstack((m, s)), self.s - self.s))
-                else:
+                if self.snn is not None:
                     self.interest_model.update(hstack((m, self.s)), hstack((m, s)), self.sp - self.snn)
-                    self.emit('im_update_' + self.mid, (hstack((m, self.s)), hstack((m, s)), self.sp - self.snn))
+            elif self.im_mode == "sp":
+                if self.snn is not None:
+                    self.interest_model.update(hstack((m, self.s)), hstack((m, s)), self.sp - self.snn, self.sp)
             else:
                 raise NotImplementedError
     
