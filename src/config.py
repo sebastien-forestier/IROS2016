@@ -421,16 +421,16 @@ configs = {}
 
 #################### EXPERIMENT  ####################
 
-iterations = 200000
+iterations = 50000
 
 config_list = {"xp1":[
                     "F-RmB",
                     "F-RGB",
                     "M-RMB",
                     "M-P-AMB",
-#                     "F-RGB-LWR",
-#                     "M-RMB-LWR",
-#                     "M-P-AMB-LWR",
+                    "F-RGB-LWR",
+                    "M-RMB-LWR",
+                    "M-P-AMB-LWR",
                       ]}
 
 config = Config(name="F-RmB", hierarchy_type=0, babbling_name="motor", iterations=iterations)

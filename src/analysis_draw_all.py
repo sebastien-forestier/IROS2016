@@ -34,9 +34,6 @@ config_list = {"xp1":[
                     "F-RGB",
                     "M-RMB",
                     "M-P-AMB",
-                    "F-RGB-LWR",
-                    "M-RMB-LWR",
-                    "M-P-AMB-LWR",
                       ]}
 
 modes = sys.argv[1:]
@@ -103,7 +100,7 @@ def mean_std_dic(d, add_0=False):
     return mean, std
     
 xp_name = "xp1"
-d = "2016-02-24_15-32-03-TOOL2-iros_small-xp1"
+d = "2016-02-24_21-11-14-TOOL2-iros_nn100000_sgsnn-xp1"
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
     pref = ""
