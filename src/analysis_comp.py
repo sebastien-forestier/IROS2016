@@ -19,8 +19,8 @@ n_checkpoints = 5
 
 
 
-n = 10000
-p = 2000
+n = 50000
+p = 10000
 
 gui = False
 xp = None
