@@ -33,7 +33,7 @@ class Evaluation(object):
         m = action.get_m_seq(len(self.ag.conf.m_dims))[0]
         s_env = self.env.update(m, log=False)
         s = s_env[s_space]
-        print "s_g", s_g, "s", s
+        #print "s_g", s_g, "s", s
         return np.linalg.norm(s_g - s), s
 
     def evaluate_comp(self):

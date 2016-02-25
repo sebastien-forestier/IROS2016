@@ -139,7 +139,7 @@ def main(log_dir, trial):
                 handles, labels = ax.get_legend_handles_labels()
                 ax.legend(handles, labels)
                      
-                plt.savefig(log_dir + explo_config_name + '/log-{}-{}-comp.png'.format(regression_config_name, trial))
+                plt.savefig(log_dir + "img/" + explo_config_name + '-log-{}-{}-comp.png'.format(regression_config_name, trial))
                 plt.close(fig)
                 
         
