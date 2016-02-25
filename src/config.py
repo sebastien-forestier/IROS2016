@@ -421,7 +421,7 @@ configs = {}
 
 #################### EXPERIMENT  ####################
 
-iterations = 50000
+iterations = 100000
 
 # config_list = {"xp1":[
 #                     "F-RmB",
