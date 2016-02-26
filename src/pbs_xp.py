@@ -21,7 +21,7 @@ def write_pbs(config_name, trial, log_dir):
     pbs =   """
 #!/bin/sh
 
-#PBS -l walltime=16:00:00
+#PBS -l walltime=12:00:00
 #PBS -l nodes=1:ppn=1
 #PBS -N {}-{}
 #PBS -o {}logs/log-{}-{}.output
@@ -48,7 +48,7 @@ log_dir = '/scratch/sforestier001/logs/' + start_date + '-TOOL2-' + pool_name + 
 
 
 
-n_iter = 10
+n_iter = 100
 iter_list = range(1,n_iter + 1) 
 
 

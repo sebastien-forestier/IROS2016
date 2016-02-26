@@ -23,6 +23,7 @@ class Config(object):
                  im_mode='sp',
                  tdd=False,
                  ns=False,
+                 envnoise=False,
                  perturbation=None,
                  allow_split_mod1=False,
                  from_log=None,
@@ -394,6 +395,7 @@ class Config(object):
         self.env_cls = IROS2016Environment
         self.env_cfg = dict(move_steps=self.move_steps, 
                             max_params=self.max_params,
+                            noise=envnoise,
                             perturbation=perturbation,
                             gui=self.gui)
         
@@ -442,6 +444,13 @@ config_list = {"xp1":[
                     "F-LWLR",
                     "M-LWLR-RMB",
                     "M-LWLR-LP-AMB",
+                    "RmB-ENVNOISE",
+                    "F-NN-ENVNOISE",
+                    "M-NN-RMB-ENVNOISE",
+                    "M-NN-LP-AMB-ENVNOISE",
+                    "F-LWLR-ENVNOISE",
+                    "M-LWLR-RMB-ENVNOISE",
+                    "M-LWLR-LP-AMB-ENVNOISE",
                       ]}
 
 config = Config(name="RmB", hierarchy_type=0, babbling_name="motor", iterations=iterations)
@@ -450,26 +459,40 @@ configs[config.name] = config
 config = Config(name="F-NN", hierarchy_type=0, iterations=iterations)
 configs[config.name] = config
 
-# config = Config(name="F-RGB-SPLIT", hierarchy_type=0, allow_split_mod1=True, iterations=iterations)
-# configs[config.name] = config
-
-# # 
-# config = Config(name="M-P-AMB-GLOBAL", hierarchy_type=1, im_model='miscRandom_global', im_mode='sg',supervisor_name="interest", iterations=iterations)
-# configs[config.name] = config
+config = Config(name="M-NN-RMB", hierarchy_type=1, supervisor_name="random", iterations=iterations)
+configs[config.name] = config
  
 config = Config(name="M-NN-LP-AMB", hierarchy_type=1, supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
 
-config = Config(name="M-NN-RMB", hierarchy_type=1, supervisor_name="random", iterations=iterations)
+config = Config(name="F-LWLR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=0, iterations=iterations)
 configs[config.name] = config
 
-
-config = Config(name="F-LWLR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=0, iterations=iterations)
+config = Config(name="M-LWLR-RMB", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
 
 config = Config(name="M-LWLR-LP-AMB", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
 
-config = Config(name="M-LWLR-RMB", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="random", iterations=iterations)
+
+config = Config(name="RmB-ENVNOISE", hierarchy_type=0, envnoise=True, babbling_name="motor", iterations=iterations)
+configs[config.name] = config
+
+config = Config(name="F-NN-ENVNOISE", hierarchy_type=0, envnoise=True, iterations=iterations)
+configs[config.name] = config
+
+config = Config(name="M-NN-RMB-ENVNOISE", hierarchy_type=1, envnoise=True, supervisor_name="random", iterations=iterations)
+configs[config.name] = config
+ 
+config = Config(name="M-NN-LP-AMB-ENVNOISE", hierarchy_type=1, envnoise=True, supervisor_name="interest", iterations=iterations)
+configs[config.name] = config
+
+config = Config(name="F-LWLR-ENVNOISE", sm_model='LWLR-BFGS-EXPLO', envnoise=True, hierarchy_type=0, iterations=iterations)
+configs[config.name] = config
+
+config = Config(name="M-LWLR-RMB-ENVNOISE", sm_model='LWLR-BFGS-EXPLO', envnoise=True, hierarchy_type=1, supervisor_name="random", iterations=iterations)
+configs[config.name] = config
+
+config = Config(name="M-LWLR-LP-AMB-ENVNOISE", sm_model='LWLR-BFGS-EXPLO', envnoise=True, hierarchy_type=1, supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
 

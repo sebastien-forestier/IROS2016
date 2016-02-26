@@ -13,14 +13,14 @@ from explauto.environment.environment import Environment
 from explauto.environment.simple_arm.simple_arm import joint_positions
 from explauto.utils.utils import rand_bounds
 
-# import brewer2mpl
-# bmap = brewer2mpl.get_map('Dark2', 'qualitative', 6)
-# colors = bmap.mpl_colors
-# 
-# colors_config = {"gripper":colors[1],
-#                  "magnetic":colors[2],
-#                  "scratch":colors[4],
-#                  }
+import brewer2mpl
+bmap = brewer2mpl.get_map('Dark2', 'qualitative', 6)
+colors = bmap.mpl_colors
+ 
+colors_config = {"gripper":colors[1],
+                 "magnetic":colors[2],
+                 "scratch":colors[4],
+                 }
 
 class GripArmEnvironment(Environment):
     use_process = True
@@ -312,7 +312,9 @@ class Animal(Environment):
 #         self.pos = self.pos + np.random.randn(2) * self.noise
 #         self.logs.append(self.pos)
 #         return list(self.pos)
-        return list(rand_bounds(np.array([self.conf.s_mins, self.conf.s_maxs]))[0]) 
+        self.pos = rand_bounds(np.array([self.conf.s_mins, self.conf.s_maxs]))[0]
+        self.logs.append(self.pos)
+        return list(self.pos) 
     
     def plot(self, ax, i, **kwargs_plot):
         pos = self.logs[i]
@@ -373,7 +375,7 @@ class Box(Environment):
 
 
 class IROS2016Environment(DynamicEnvironment):
-    def __init__(self, move_steps=50, max_params=None, perturbation=None, gui=False):
+    def __init__(self, move_steps=50, max_params=None, perturbation=None, noise=False, gui=False):
 
         def motor_perturbation(m):
             if perturbation == "BrokenMotor":
@@ -395,6 +397,7 @@ class IROS2016Environment(DynamicEnvironment):
                              angle_shift=0.5,
                              rest_state=[0., 0., 0., 0.])
         
+        
         stick1_cfg = dict(m_mins=[-1, -1, -1, -1, -1], 
                          m_maxs=[1, 1, 1, 1, 1], 
                          s_mins=[-2, -2],  # Tool pos
@@ -402,7 +405,7 @@ class IROS2016Environment(DynamicEnvironment):
                          length=0.5, 
                          type="magnetic",
                          handle_tol=0.25, 
-                         handle_noise=0., 
+                         handle_noise=0.1 if noise else 0., 
                          rest_state=[-0.75, 0.25, 0.75],
                          perturbation=perturbation)
         
@@ -413,7 +416,7 @@ class IROS2016Environment(DynamicEnvironment):
                          length=0.5, 
                          type="scratch",
                          handle_tol=0.25, 
-                         handle_noise=0., 
+                         handle_noise=0.1 if noise else 0., 
                          rest_state=[0.75, 0.25, 0.25])
         
         sticks_cfg = dict(
