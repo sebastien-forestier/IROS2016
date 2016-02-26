@@ -12,7 +12,9 @@ colors_config = {"hand":colors[1],
                  "object":colors[4],
                  }
 
-
+bmap2 = brewer2mpl.get_map('Dark2', 'qualitative', 7)
+colors2 = bmap.mpl_colors
+ 
 plt.switch_backend('Agg')
 
 sw = 1
@@ -175,9 +177,10 @@ def main(log_dir, config):
                 # Plot progresses
                 fig, ax = plt.subplots()
                 fig.canvas.set_window_title('Interests')
-                for mid in babbling_module.keys():
+                prog_mods = ["mod1", "mod2", "mod3", "mod4", "mod7", "mod10", "mod11"]
+                for i, mid in zip(len(babbling_module.keys()), babbling_module.keys()):
                     #print "Plot", mid, logs_p, logs_p[mid], np.array(logs_p[mid])[:,0]
-                    ax.plot(log_p[config][trial][mid][x,0], log_p[config][trial][mid][x,1], label=mid, lw=2, rasterized=True)
+                    ax.plot(log_p[config][trial][mid][x,0], log_p[config][trial][mid][x,1], label=mid, color=colors2[i], lw=2, rasterized=True)
                 handles, labels = ax.get_legend_handles_labels()
                 ax.legend(handles, labels, fontsize=18)                        
                 plt.tick_params(labelsize=18)                                        
