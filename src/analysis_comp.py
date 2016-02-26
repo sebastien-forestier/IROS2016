@@ -27,21 +27,30 @@ xp = None
 
 n_testcases = 10
 
-testcases = {
-             'obj1':(range(21, 27), rand_bounds(np.array([[-0.3, -0.3, -1.5, 1.1, -1.5, -1.5], [-0.3, -0.3, 1.5, 1.1, 1.5, 1.5]]), 
-                                                     n_testcases)),
-              
-             'obj2':(range(39, 45), rand_bounds(np.array([[0.3, 0.3, -1.5, 1.1, -1.5, -1.5], [0.3, 0.3, 1.5, 1.1, 1.5, 1.5]]), 
-                                                     n_testcases)),
-              }
-        
-print "testcases", testcases
+
+
 
 
 
 def main(log_dir, trial):
 
     
+    
+    with open(log_dir + 'testcases1.pickle', 'r') as f:
+        testcases1 = cPickle.load(f)
+        f.close()
+    
+    with open(log_dir + 'testcases2.pickle', 'r') as f:
+        testcases2 = cPickle.load(f)
+        f.close()
+    
+    
+    testcases = {
+                 'obj1':(range(21, 27), testcases1),
+                  
+                 'obj2':(range(39, 45), testcases2),
+                  }
+            
     
     x = np.array(np.linspace(p,n,n/p), dtype=int)
     
@@ -155,20 +164,3 @@ if __name__ == "__main__":
     log_dir = sys.argv[1]
     trial = sys.argv[2]
     main(log_dir, trial)
-
-# 
-# for s_space in testcases.keys():
-#     fig1, ax = plt.subplots()
-#     fig1.canvas.set_window_title(s_space)
-#     for config in comp[s_space].keys():
-#         color_cycle = ax._get_lines.color_cycle
-#         next_color = next(color_cycle)
-#         mean,std = mean_std(comp[s_space][config])
-#         ax.plot(x, mean, label=config, color=next_color)
-#         ax.fill_between(x, mean-std, mean+std, alpha=0.2, label = config, color=next_color)
-#     handles, labels = ax.get_legend_handles_labels()
-#     ax.legend(handles, labels, loc='upper left')
-#     plt.xlim(xmin=0)
-#     plt.ylim(ymin=0)
-#              
-#     plt.savefig(log_dir + '/comp-' + s_space + '.png')

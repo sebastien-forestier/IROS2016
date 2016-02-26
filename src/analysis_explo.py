@@ -149,14 +149,14 @@ def main(log_dir, config):
                 sy = data[:,dims['obj1'][5]]            
 #                 plt.xlabel('X', fontsize = 16)
 #                 plt.ylabel('Y', fontsize = 16)   
-                color=matplotlib.colors.ColorConverter().to_rgba('b', alpha=0.1)
+                color=matplotlib.colors.ColorConverter().to_rgba('b', alpha=0.3)
                 ax.scatter(sx, sy, s=3, color=color, rasterized=True)
                 
                 sx = data[:,dims['obj2'][2]]
                 sy = data[:,dims['obj2'][5]]            
 #                 plt.xlabel('X', fontsize = 16)
 #                 plt.ylabel('Y', fontsize = 16)   
-                color=matplotlib.colors.ColorConverter().to_rgba('r', alpha=0.1)
+                color=matplotlib.colors.ColorConverter().to_rgba('r', alpha=0.3)
                 ax.scatter(sx, sy, s=3, color=color, rasterized=True)
                 
                 ax.set_xticklabels([])

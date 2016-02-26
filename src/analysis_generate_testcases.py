@@ -49,16 +49,16 @@ v = np.linspace(-1.35, 1.35, 10)
 idx1 = np.random.randint(l1, size=n_testcases)
 idx2 = np.random.randint(l2, size=n_testcases)
 
-test_cases1 = np.array(list1)[idx1]# + np.random.random_sample((n_testcases,6)) * 0.3 - 0.15
-test_cases2 = np.array(list2)[idx2]# + np.random.random_sample((n_testcases,6)) * 0.3 - 0.15
+testcases1 = np.array(list1)[idx1]# + np.random.random_sample((n_testcases,6)) * 0.3 - 0.15
+testcases2 = np.array(list2)[idx2]# + np.random.random_sample((n_testcases,6)) * 0.3 - 0.15
 
-print test_cases1
-print test_cases2
+print testcases1
+print testcases2
 
 
 
-with open(log_dir + 'test_cases1.pickle', 'wb') as f:
-    cPickle.dump(test_cases1, f)
+with open(log_dir + 'testcases1.pickle', 'wb') as f:
+    cPickle.dump(testcases1, f)
 
-with open(log_dir + 'test_cases2.pickle', 'wb') as f:
-    cPickle.dump(test_cases2, f)
+with open(log_dir + 'testcases2.pickle', 'wb') as f:
+    cPickle.dump(testcases2, f)
