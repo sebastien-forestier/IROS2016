@@ -13,7 +13,7 @@ colors_config = {"hand":colors[1],
                  }
 
 bmap2 = brewer2mpl.get_map('Dark2', 'qualitative', 7)
-colors2 = bmap.mpl_colors
+colors2 = bmap2.mpl_colors
  
 plt.switch_backend('Agg')
 
