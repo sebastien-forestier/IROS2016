@@ -12,7 +12,7 @@ colors_config = {"hand":colors[1],
                  "object":colors[4],
                  }
 
-bmap2 = brewer2mpl.get_map('Dark2', 'qualitative', 7)
+bmap2 = brewer2mpl.get_map('Dark2', 'qualitative', 4)
 colors2 = bmap2.mpl_colors
  
 plt.switch_backend('Agg')
@@ -180,7 +180,7 @@ def main(log_dir, config):
                 if len(babbling_module.keys()) == 1:
                     prog_mods = ["mod1"]
                 else:
-                    prog_mods = ["mod1", "mod2", "mod3", "mod4", "mod7", "mod10", "mod11"]
+                    prog_mods = ["mod1", "mod2", "mod4", "mod10"]
                 for i, mid in zip(range(len(prog_mods)), prog_mods):
                     print "plot", mid
                     #print "Plot", mid, logs_p, logs_p[mid], np.array(logs_p[mid])[:,0]
