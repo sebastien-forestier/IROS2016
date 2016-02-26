@@ -178,7 +178,7 @@ def main(log_dir, config):
                 fig, ax = plt.subplots()
                 fig.canvas.set_window_title('Interests')
                 prog_mods = ["mod1", "mod2", "mod3", "mod4", "mod7", "mod10", "mod11"]
-                for i, mid in zip(len(babbling_module.keys()), babbling_module.keys()):
+                for i, mid in zip(range(len(prog_mods)), prog_mods):
                     #print "Plot", mid, logs_p, logs_p[mid], np.array(logs_p[mid])[:,0]
                     ax.plot(log_p[config][trial][mid][x,0], log_p[config][trial][mid][x,1], label=mid, color=colors2[i], lw=2, rasterized=True)
                 handles, labels = ax.get_legend_handles_labels()
