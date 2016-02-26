@@ -198,7 +198,7 @@ def main(log_dir, config):
                     #print "Plot", mid, logs_p, logs_p[mid], np.array(logs_p[mid])[:,0]
                     mean,_ = mean_std({"1":events[event][config][trial]})
                     res = np.append([0], np.diff(mean))
-                    print event, res
+                    #print event, res
                      
                     #nbc[event][trial] = n_behavior_change(res)
                      

@@ -15,7 +15,7 @@ from analysis_events import main as main_events
 #                     "M-P-AMB-LWR",
 #                       ]}
 
-d = "2016-02-25_18-17-04-TOOL2-iros_50k_NN_LWR_sp-xp1"
+d = "2016-02-25_18-19-22-TOOL2-iros_100k_NN_LWR_sp-xp1"
 
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:

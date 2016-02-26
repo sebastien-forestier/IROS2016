@@ -164,7 +164,7 @@ def main(log_dir, config):
                 plt.gca().xaxis.set_major_locator(plt.NullLocator())
                 plt.gca().yaxis.set_major_locator(plt.NullLocator())
                 plt.xlim(-1.7, 1.7)
-                plt.ylim(-0.8, 1.7)
+                plt.ylim(-1.7, 1.7)
                 ax.set_aspect('equal')            
                 #plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/obj-explo.pdf", format='pdf', dpi=100, bbox_inches='tight')
                 plt.savefig(log_dir + "img/" + config + '-log{}-obj-explo.pdf'.format(trial), format='pdf', dpi=100, bbox_inches='tight')
