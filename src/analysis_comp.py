@@ -17,7 +17,7 @@ import os
 ########################################################
 d = "2016-02-26_11-56-40-TOOL2-iros_100T_14C_100K-xp1"
 n_checkpoints = 4
-n_testcases = 10
+n_testcases = 1000
 ########################################################
 ########################################################
 ########################################################
@@ -154,7 +154,7 @@ def main(explo_config_name, trial):
                 
             errors = eval_comp(regression_config_name, trial, i, log_i)[0]
             for s_space in testcases.keys():
-                comp[s_space][explo_config_name][trial][regression_config_name] += [np.mean(errors[s_space])]
+                comp[s_space][explo_config_name][trial][regression_config_name] += [errors[s_space]]
         logs[explo_config_name][trial][regression_config_name] = xp.log._logs
         
         if True:
@@ -162,7 +162,7 @@ def main(explo_config_name, trial):
             fig.canvas.set_window_title('Competence')
             for s_space in testcases.keys():
                 print x, comp[s_space][explo_config_name][trial][regression_config_name]
-                ax.plot(x, comp[s_space][explo_config_name][trial][regression_config_name], label=s_space)
+                ax.plot(x, np.median(comp[s_space][explo_config_name][trial][regression_config_name]), label=s_space)
             handles, labels = ax.get_legend_handles_labels()
             ax.legend(handles, labels)
                  
