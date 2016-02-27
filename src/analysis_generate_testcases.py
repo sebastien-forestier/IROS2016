@@ -1,6 +1,5 @@
 import cPickle
 import numpy as np
-from config import config_list
 import os
 
 
