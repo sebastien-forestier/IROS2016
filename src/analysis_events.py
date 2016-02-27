@@ -186,8 +186,8 @@ def main(log_dir, config):
                     #print "Plot", mid, logs_p, logs_p[mid], np.array(logs_p[mid])[:,0]
                     ax.plot(log_p[config][trial][mid][x,0], log_p[config][trial][mid][x,1], label=mid, color=colors2[i], lw=3, rasterized=True)
                 handles, labels = ax.get_legend_handles_labels()
-                ax.legend(handles, labels, fontsize=18, ncol=2)                        
-                plt.tick_params(labelsize=18)                                        
+                ax.legend(handles, labels, fontsize=16, ncol=2)                        
+                plt.tick_params(labelsize=16)                                        
 #                 x_ticks = np.arange(0, 100001, 50000)                                                               
 #                 ax.set_xticks(x_ticks)                                        
 #                 y_ticks = np.arange(0, 0.181, 0.06)                                                               
