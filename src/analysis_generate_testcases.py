@@ -8,7 +8,7 @@ import os
 ########################################################
 ################### PARAMS #############################
 ########################################################
-d = "2016-02-25_18-17-04-TOOL2-iros_50k_NN_LWR_sp-xp1"
+d = "2016-02-26_11-56-40-TOOL2-iros_100T_14C_100K-xp1"
 n_testcases = 100
 ########################################################
 ########################################################
@@ -26,11 +26,11 @@ else:
 log_dir = pref + '/scratch/sforestier001/logs/' + d + '/'
 
 
-with open(log_dir + 'list1.pickle', 'r') as f:
+with open(log_dir + 'list1-NONOISE.pickle', 'r') as f:
     list1 = cPickle.load(f)
     f.close()
 
-with open(log_dir + 'list2.pickle', 'r') as f:
+with open(log_dir + 'list2-NONOISE.pickle', 'r') as f:
     list2 = cPickle.load(f)
     f.close()
 
@@ -49,8 +49,8 @@ v = np.linspace(-1.35, 1.35, 10)
 idx1 = np.random.randint(l1, size=n_testcases)
 idx2 = np.random.randint(l2, size=n_testcases)
 
-testcases1 = np.array(list1)[idx1]# + np.random.random_sample((n_testcases,6)) * 0.3 - 0.15
-testcases2 = np.array(list2)[idx2]# + np.random.random_sample((n_testcases,6)) * 0.3 - 0.15
+testcases1 = np.array(list1)[idx1] + np.random.random_sample((n_testcases,6)) * 0.3 - 0.15
+testcases2 = np.array(list2)[idx2] + np.random.random_sample((n_testcases,6)) * 0.3 - 0.15
 
 print testcases1
 print testcases2
