@@ -2,15 +2,42 @@ import cPickle
 import numpy as np
 from config import config_list
 import os
+import sys
 
 
+config_type = sys.argv[1]
+
+if config_type == "NONOISE":
+    
+    config_list = {"xp1":[
+                        "RmB",
+                        "F-NN",
+                        "M-NN-RMB",
+                        "M-NN-LP-AMB",
+                        "F-LWLR",
+                        "M-LWLR-RMB",
+                        "M-LWLR-LP-AMB",
+                          ]}
+elif config_type == "ENVNOISE":
+    config_list = {"xp1":[
+                    "RmB-ENVNOISE",
+                    "F-NN-ENVNOISE",
+                    "M-NN-RMB-ENVNOISE",
+                    "M-NN-LP-AMB-ENVNOISE",
+                    "F-LWLR-ENVNOISE",
+                    "M-LWLR-RMB-ENVNOISE",
+                    "M-LWLR-LP-AMB-ENVNOISE",
+                      ]}
+else:
+    raise NotImplementedError
+    
 
 
 ########################################################
 ################### PARAMS #############################
 ########################################################
 d = "2016-02-26_11-56-40-TOOL2-iros_100T_14C_100K-xp1"
-trials = range(1,101)
+trials = range(1,2)
 n = 100000
 ########################################################
 ########################################################
@@ -123,17 +150,17 @@ print np.sum(merged_grid2)
 
 
 
-with open(log_dir + 'merged_grid1.pickle', 'wb') as f:
+with open(log_dir + 'merged_grid1-{}.pickle'.format(config_type), 'wb') as f:
     cPickle.dump(merged_grid1, f)
 
-with open(log_dir + 'merged_grid2.pickle', 'wb') as f:
+with open(log_dir + 'merged_grid2-{}.pickle'.format(config_type), 'wb') as f:
     cPickle.dump(merged_grid2, f)
 
 list1 = compute_list_pos(merged_grid1)
 list2 = compute_list_pos(merged_grid2)
 
-with open(log_dir + 'list1.pickle', 'wb') as f:
+with open(log_dir + 'list1-{}.pickle'.format(config_type), 'wb') as f:
     cPickle.dump(list1, f)
 
-with open(log_dir + 'list2.pickle', 'wb') as f:
+with open(log_dir + 'list2-{}.pickle'.format(config_type), 'wb') as f:
     cPickle.dump(list2, f)
