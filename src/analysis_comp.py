@@ -99,7 +99,6 @@ def main(explo_config_name, trial):
             config.gui = gui
             config.env_cfg['gui'] = gui
             xp = ToolsExperiment(config, log_dir=log_dir + config_name + '/')
-            xp.ag.fast_forward(log_i)
         else:
             xp.ag.fast_forward(log_i)
         xp.ag.eval_mode()
