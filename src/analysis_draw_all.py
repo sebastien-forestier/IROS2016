@@ -43,7 +43,7 @@ print "modes", modes
 
 n_logs = 1
 
-n = 200000
+n = 100000
 p = 100
 p_events = 100
 
@@ -372,7 +372,7 @@ if "explo" in modes:
         q1 = np.percentile(merged, 25)
         q3 = np.percentile(merged, 75)
         
-        print "        \multirow{2}{*}{\scriptsize " + config + "} & ", "No", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$\\\\\\cline{2-7}"
+        print "        \multirow{2}{*}{\scriptsize " + config + "} & ", "No", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]\\cline{2-7}"
             
         list1 = [explo["obj1"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj1"][config+"-ENVNOISE"].keys()]
         list2 = [explo["obj2"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj2"][config+"-ENVNOISE"].keys()]
@@ -385,8 +385,7 @@ if "explo" in modes:
         q1 = np.percentile(merged, 25)
         q3 = np.percentile(merged, 75)
         
-        print "        ", " & ", "Yes", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$\\\\"
-        print "        " + "\hline"
+        print "        ", " & ", "Yes", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]"
         print "        " + "\hline"
                 
 #        [[explo[s_space][config][trial][-1] for trial in explo[s_space][config].keys()] for config in config_list[xp_name]]
