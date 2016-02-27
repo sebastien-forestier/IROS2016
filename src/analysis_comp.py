@@ -19,7 +19,7 @@ n_checkpoints = 5
 
 
 
-n = 50000
+n = 100000
 p = 10000
 
 gui = False

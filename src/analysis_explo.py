@@ -28,10 +28,10 @@ def main(log_dir, config):
     #     raise NotImplementedError
     
     
-    trials = range(1, 11)
+    trials = range(1, 101)
     n_logs = 1
     
-    n = 100000
+    n = 50000
     p = 1000
     
     gss = [0, 10, 100, 20, 10, 10, 10, 5, 5, 3]
