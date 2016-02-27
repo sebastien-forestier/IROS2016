@@ -181,4 +181,4 @@ if __name__ == "__main__":
 
     explo_config_name = sys.argv[1]
     trial = sys.argv[2]
-    main(log_dir, explo_config_name, trial)
+    main(explo_config_name, trial)
