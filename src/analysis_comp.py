@@ -24,6 +24,7 @@ n_testcases = 10
 
 
 
+plt.switch_backend('Agg')
 
 
 n_logs = 1
