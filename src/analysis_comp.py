@@ -67,7 +67,7 @@ testcases = {
               }
         
 
-x = np.array(np.linspace(p,n,n/p), dtype=int)
+x = np.array(np.linspace(0,n,n/p), dtype=int)
 
 
 
