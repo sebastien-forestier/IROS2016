@@ -161,7 +161,7 @@ def main(explo_config_name, trial):
             fig, ax = plt.subplots()
             fig.canvas.set_window_title('Competence')
             for s_space in testcases.keys():
-                #print x, comp[s_space][config_name][trial]
+                print x, comp[s_space][config_name][trial]
                 ax.plot(x, comp[s_space][explo_config_name][trial][regression_config_name], label=s_space)
             handles, labels = ax.get_legend_handles_labels()
             ax.legend(handles, labels)
