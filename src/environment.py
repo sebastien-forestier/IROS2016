@@ -309,12 +309,12 @@ class Animal(Environment):
         return m
 
     def compute_sensori_effect(self, m):
-#         self.pos = self.pos + np.random.randn(2) * self.noise
-#         self.logs.append(self.pos)
-#         return list(self.pos)
-        self.pos = rand_bounds(np.array([self.conf.s_mins, self.conf.s_maxs]))[0]
+        self.pos = self.pos + np.random.randn(2) * self.noise
         self.logs.append(self.pos)
-        return list(self.pos) 
+        return list(self.pos)
+#         self.pos = rand_bounds(np.array([self.conf.s_mins, self.conf.s_maxs]))[0]
+#         self.logs.append(self.pos)
+#         return list(self.pos) 
     
     def plot(self, ax, i, **kwargs_plot):
         pos = self.logs[i]
@@ -488,7 +488,7 @@ class IROS2016Environment(DynamicEnvironment):
                           s_mins = [-1.5, -1.5], # new pos
                           s_maxs = [1.5, 1.5],
                           species= "cat", 
-                          noise = 0.1, 
+                          noise = 0.01, 
                           rest_state = [-0.1, 1.1])
         
         dog_cfg = dict(m_mins = list([-1.] * 4), 
@@ -496,7 +496,7 @@ class IROS2016Environment(DynamicEnvironment):
                           s_mins = [-1.5, -1.5], # new pos
                           s_maxs = [1.5, 1.5],
                           species= "dog", 
-                          noise = 0.1, 
+                          noise = 0.01, 
                           rest_state = [0.1, 1.1])
         
         static1_cfg = dict(m_mins = list([-1.] * 4), 

@@ -20,7 +20,7 @@ class Config(object):
                  supervisor_ccl="local", 
                  sm_model='NN',
                  im_model='miscRandom_local',
-                 im_mode='sp',
+                 im_mode='sg',
                  tdd=False,
                  ns=False,
                  envnoise=False,
