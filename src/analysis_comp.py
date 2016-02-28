@@ -134,7 +134,7 @@ def main(explo_config_name, trial):
     for s_space in testcases.keys():
         comp[s_space][explo_config_name][trial] = {}
         
-    for regression_config_name in ["M-NN-RMB", "M-LWLR-RMB"]: 
+    for regression_config_name in ["M-NN-RMB", "M-LWLR-RMB", "M-NN-RMB-ENVNOISE", "M-LWLR-RMB-ENVNOISE"]: 
         print "regression_config_name", regression_config_name
         
         for s_space in testcases.keys():
