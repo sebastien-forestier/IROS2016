@@ -106,14 +106,15 @@ merged_grid1 = np.zeros([10] * 6)
 merged_grid2 = np.zeros([10] * 6)
 
 
-for config in config_list["xp1"]:
+for trial in trials: 
+    print trial
 
-    print config
+    for config in config_list["xp1"]:
+    
+        print config
     
 
-    for trial in trials: 
         
-        print trial
         
         try:
             data = {}
