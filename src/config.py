@@ -96,7 +96,7 @@ class Config(object):
         
         self.sms = {
             'NN': (NonParametric, {'fwd': 'NN', 'inv': 'NN', 'sigma_explo_ratio':0.01}),
-            'LWLR-BFGS-EXPLO': (NonParametric, {'fwd': 'LWLR', 'k':20, 'sigma':0.1, 'sigma_explo_ratio':0.01, 'inv': 'L-BFGS-B', 'maxfun':200, 'ftol':0, 'gtol':0}),
+            'LWLR-BFGS-EXPLO': (NonParametric, {'fwd': 'LWLR', 'k':20, 'sigma':0.01, 'sigma_explo_ratio':0.01, 'inv': 'L-BFGS-B', 'maxfun':200, 'ftol':0, 'gtol':0}),
             'LWLR-BFGS-NOEXPLO': (NonParametric, {'fwd': 'LWLR', 'k':20, 'sigma':0.1, 'sigma_explo_ratio':0., 'inv': 'L-BFGS-B', 'maxfun':200, 'ftol':0, 'gtol':0}),
             'LWLR-CMAES': (NonParametric, {'fwd': 'LWLR', 'k':10, 'sigma':0.1, 'inv': 'CMAES', 'cmaes_sigma':0.05, 'sigma_explo_ratio':0.01, 'maxfevals':20}),
         }
