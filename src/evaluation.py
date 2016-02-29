@@ -29,6 +29,7 @@ class Evaluation(object):
         else:
             mid = "mod7"
         #print mid
+        print self.ag.modules["mod4"].sm_model.imodel.fmodel.nn_y(s_g)
         action = self.ag.produce_module(mid, babbling=False, s=s_g, allow_explore=False)
         m = action.get_m_seq(len(self.ag.conf.m_dims))[0]
         s_env = self.env.update(m, log=False)
