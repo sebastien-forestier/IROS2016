@@ -58,6 +58,9 @@ testcases1 = testcases
 testcases2 = testcases
 
 
+print testcases1
+print testcases2
+
 
 with open(log_dir + 'testcases1.pickle', 'wb') as f:
     cPickle.dump(testcases1, f)
