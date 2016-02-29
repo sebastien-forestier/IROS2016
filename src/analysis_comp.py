@@ -16,8 +16,8 @@ import os
 ################### PARAMS #############################
 ########################################################
 d = "2016-02-28_13-54-46-TOOL2-iros_100T_14C_100K-xp1"
-n_checkpoints = 1
-n_testcases = 1000
+n_checkpoints = 4
+n_testcases = 10
 ########################################################
 ########################################################
 ########################################################
@@ -150,7 +150,7 @@ def main(explo_config_name, trial):
         for s_space in testcases.keys():
             comp[s_space][explo_config_name][trial][regression_config_name] = []
             
-        for i in range(1,n_checkpoints+1):
+        for i in range(n_checkpoints+1):
             print "checkpoint", i
             
             log_i = ExperimentLog(None, None, None)
