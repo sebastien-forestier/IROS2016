@@ -115,7 +115,7 @@ def main(explo_config_name, trial):
         xp.ag.eval_mode()
         
         evaluation = Evaluation(xp.log, xp.ag, xp.env, testcases, modes=["inverse"])
-        result = evaluation.evaluate_comp()
+        result = evaluation.evaluate()
         return result
 
         
