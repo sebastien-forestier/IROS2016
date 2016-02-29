@@ -28,8 +28,9 @@ class Evaluation(object):
             print self.ag.modules["mod4"].sensorimotor_model.model.imodel.fmodel.dataset.nn_y(s_g)
         except:
             pass
-        action = self.ag.produce_module(mid, babbling=False, s=s_g, allow_explore=False)
-        m = action.get_m_seq(len(self.ag.conf.m_dims))[0]
+        m = self.ag.modules[mid].sensorimotor_model.inverse(s_g)
+        #action = self.ag.produce_module(mid, babbling=False, s=s_g, allow_explore=False)
+        #m = action.get_m_seq(len(self.ag.conf.m_dims))[0]
         print "m", m
         s_env = self.env.update(m, log=False)
         s = s_env[s_space]
