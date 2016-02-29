@@ -61,9 +61,9 @@ with open(log_dir + 'testcases2.pickle', 'r') as f:
  
  
 testcases = {
-             'obj1':(range(21, 27), testcases1[:n_testcases,:]),
+             'obj1':([23, 26], testcases1[:n_testcases,:]),
                
-             'obj2':(range(39, 45), testcases2[:n_testcases,:]),
+             'obj2':([41, 44], testcases2[:n_testcases,:]),
               }
          
 
