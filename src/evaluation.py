@@ -14,13 +14,8 @@ class Evaluation(object):
         
     def evaluate(self):
         self.ag.eval_mode()
-        if 'inverse' in self.modes:
-            self.evaluate_comp()
-        if 'explo' in self.modes:
-            self.evaluate_explo()
-        if 'explo_comp' in self.modes:
-            self.evaluate_explo_comp()
-        self.ag.learning_mode()
+        return self.evaluate_comp()
+
 
     def test_inverse(self, s_g, s_space):
         
