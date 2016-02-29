@@ -47,7 +47,7 @@ class Evaluation(object):
                 e, s = self.test_inverse(s_g, s_space)
                 s_reached[s_name].append(s)
                 errors[s_name].append(e)
-        print errors, s_reached 
+            print np.median(errors[s_name]) 
         return errors, s_reached
 #     
 # 
