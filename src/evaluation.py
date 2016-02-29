@@ -35,6 +35,7 @@ class Evaluation(object):
             pass
         action = self.ag.produce_module(mid, babbling=False, s=s_g, allow_explore=False)
         m = action.get_m_seq(len(self.ag.conf.m_dims))[0]
+        print "m", m
         s_env = self.env.update(m, log=False)
         s = s_env[s_space]
         print "s_g", s_g, "s", s
