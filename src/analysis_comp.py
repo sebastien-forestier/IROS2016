@@ -48,33 +48,33 @@ xp = None
 
 
 
-# 
-# with open(log_dir + 'testcases1.pickle', 'r') as f:
-#     testcases1 = cPickle.load(f)
-#     f.close()
-# 
-# with open(log_dir + 'testcases2.pickle', 'r') as f:
-#     testcases2 = cPickle.load(f)
-#     f.close()
-# 
-# 
-# 
-# 
-# testcases = {
-#              'obj1':(range(21, 27), testcases1[:n_testcases,:]),
-#               
-#              'obj2':(range(39, 45), testcases2[:n_testcases,:]),
-#               }
-#         
-
-
-
-
+ 
+with open(log_dir + 'testcases1.pickle', 'r') as f:
+    testcases1 = cPickle.load(f)
+    f.close()
+ 
+with open(log_dir + 'testcases2.pickle', 'r') as f:
+    testcases2 = cPickle.load(f)
+    f.close()
+ 
+ 
+ 
+ 
 testcases = {
-             'obj1':([23, 26], rand_bounds(np.array([[-1.5,-1.5],[1.5,1.5]]), n=n_testcases)),
-              
-             'obj2':([41, 44], rand_bounds(np.array([[-1.5,-1.5],[1.5,1.5]]), n=n_testcases)),
+             'obj1':(range(21, 27), testcases1[:n_testcases,:]),
+               
+             'obj2':(range(39, 45), testcases2[:n_testcases,:]),
               }
+         
+
+
+
+
+# testcases = {
+#              'obj1':([23, 26], rand_bounds(np.array([[-1.5,-1.5],[1.5,1.5]]), n=n_testcases)),
+#               
+#              'obj2':([41, 44], rand_bounds(np.array([[-1.5,-1.5],[1.5,1.5]]), n=n_testcases)),
+#               }
         
 
 x = np.array(np.linspace(0,n,n/p+1), dtype=int)
