@@ -76,7 +76,6 @@ testcases = {
              'obj2':([41, 44], rand_bounds(np.array([[-1.5,-1.5],[1.5,1.5]]), n=n_testcases)),
               }
         
-print testcases
 
 x = np.array(np.linspace(0,n,n/p+1), dtype=int)
 
