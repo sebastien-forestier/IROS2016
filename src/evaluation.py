@@ -28,7 +28,8 @@ class Evaluation(object):
             print self.ag.modules["mod4"].sensorimotor_model.model.imodel.fmodel.dataset.nn_y(s_g)
         except:
             pass
-        self.ag.eval_mode()
+        self.ag.modules["mod4"].sensorimotor_model.mode = "exploit"
+        self.ag.modules["mod7"].sensorimotor_model.mode = "exploit"
         m = self.ag.modules[mid].sensorimotor_model.inverse(s_g)
         #action = self.ag.produce_module(mid, babbling=False, s=s_g, allow_explore=False)
         #m = action.get_m_seq(len(self.ag.conf.m_dims))[0]
