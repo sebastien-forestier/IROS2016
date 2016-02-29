@@ -146,7 +146,7 @@ class Module(Agent):
             #print "infer", snn, sp
 #             self.snn = snn
 #             self.sp = sp
-            print "goal", x, "mode", self.sensorimotor_model.mode, "m", m
+            #print "goal", x, "mode", self.sensorimotor_model.mode, "m", m
             self.emit(pref + 'inference' + '_' + self.mid, m)
             #print "module", self.mid, "inference"
         except ExplautoBootstrapError:
