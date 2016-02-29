@@ -24,7 +24,7 @@ class Evaluation(object):
 
     def test_inverse(self, s_g, s_space):
         
-        if s_space == range(21, 27):
+        if s_space == [23, 26]:
             mid = "mod4"
         else:
             mid = "mod7"
