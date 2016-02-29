@@ -4,7 +4,7 @@ import numpy as np
 import sys
 
 from experiment import ToolsExperiment
-from config import configs
+from config import configs, config_list
 from explauto.experiment.log import ExperimentLog
 from explauto.utils import rand_bounds
 from evaluation import Evaluation
@@ -134,7 +134,7 @@ def main(explo_config_name, trial):
     for s_space in testcases.keys():
         comp[s_space][explo_config_name][trial] = {}
         
-    for regression_config_name in ["M-NN-RMB", "M-LWLR-RMB", "M-NN-RMB-ENVNOISE", "M-LWLR-RMB-ENVNOISE"]: 
+    for regression_config_name in config_list["xp2"]: 
         print "regression_config_name", regression_config_name
         
         for s_space in testcases.keys():

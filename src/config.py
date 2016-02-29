@@ -314,6 +314,38 @@ class Config(object):
                                           from_log = None,
                                           motor_babbling_n_iter=self.motor_babbling_n_iter),
                                 )
+        elif self.hierarchy_type == 2:
+            self.m_spaces = dict(m_arm=range(12))
+            self.s_spaces = dict(
+                                 s_o1=[self.motor_n_dims + 23, self.motor_n_dims + 26],#range(self.motor_n_dims + 21, self.motor_n_dims + 27),
+                                 s_o4=[self.motor_n_dims + 41, self.motor_n_dims + 44],#range(self.motor_n_dims + 39, self.motor_n_dims + 45),
+                                 )
+
+            self.modules = dict(
+                                
+                                
+                                mod4 = dict(m = self.m_spaces["m_arm"],
+                                          s = self.s_spaces["s_o1"],     
+                                          m_list = [self.m_spaces["m_arm"]],        
+                                          operator = "par",                            
+                                          babbling_name = "goal",
+                                          sm_name = sm,
+                                          im_name = self.im_name,
+                                          im_mode = im_mode,
+                                          from_log = None,
+                                          motor_babbling_n_iter=self.motor_babbling_n_iter),
+                                
+                                mod7 = dict(m = self.m_spaces["m_arm"],
+                                          s = self.s_spaces["s_o4"],     
+                                          m_list = [self.m_spaces["m_arm"]],      
+                                          operator = "par",                            
+                                          babbling_name = "goal",
+                                          sm_name = sm,
+                                          im_name = self.im_name,
+                                          im_mode = im_mode,
+                                          from_log = None,
+                                          motor_babbling_n_iter=self.motor_babbling_n_iter),
+                                )
         else:
             raise NotImplementedError
         
@@ -451,6 +483,12 @@ config_list = {"xp1":[
                     "F-LWLR-ENVNOISE",
                     "M-LWLR-RMB-ENVNOISE",
                     "M-LWLR-LP-AMB-ENVNOISE",
+                      ],
+               "xp2":[
+                    "EXPLOIT-NN",
+                    "EXPLOIT-LWLR",
+                    "EXPLOIT-NN-ENVNOISE",
+                    "EXPLOIT-LWLR-ENVNOISE",
                       ]}
 
 config = Config(name="RmB", hierarchy_type=0, babbling_name="motor", iterations=iterations)
@@ -461,6 +499,9 @@ configs[config.name] = config
 
 config = Config(name="M-NN-RMB", hierarchy_type=1, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
+
+config = Config(name="EXPLOIT-NN", hierarchy_type=2, supervisor_name="random", iterations=iterations)
+configs[config.name] = config
  
 config = Config(name="M-NN-LP-AMB", hierarchy_type=1, supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
@@ -469,6 +510,9 @@ config = Config(name="F-LWLR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=0, ite
 configs[config.name] = config
 
 config = Config(name="M-LWLR-RMB", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="random", iterations=iterations)
+configs[config.name] = config
+
+config = Config(name="EXPLOIT-LWLR", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=2, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
 
 config = Config(name="M-LWLR-LP-AMB", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, supervisor_name="interest", iterations=iterations)
@@ -484,6 +528,9 @@ configs[config.name] = config
 config = Config(name="M-NN-RMB-ENVNOISE", hierarchy_type=1, envnoise=True, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
  
+config = Config(name="EXPLOIT-NN-ENVNOISE", hierarchy_type=2, envnoise=True, supervisor_name="random", iterations=iterations)
+configs[config.name] = config
+ 
 config = Config(name="M-NN-LP-AMB-ENVNOISE", hierarchy_type=1, envnoise=True, supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
 
@@ -491,6 +538,9 @@ config = Config(name="F-LWLR-ENVNOISE", sm_model='LWLR-BFGS-EXPLO', envnoise=Tru
 configs[config.name] = config
 
 config = Config(name="M-LWLR-RMB-ENVNOISE", sm_model='LWLR-BFGS-EXPLO', envnoise=True, hierarchy_type=1, supervisor_name="random", iterations=iterations)
+configs[config.name] = config
+
+config = Config(name="EXPLOIT-LWLR-ENVNOISE", sm_model='LWLR-BFGS-EXPLO', envnoise=True, hierarchy_type=2, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
 
 config = Config(name="M-LWLR-LP-AMB-ENVNOISE", sm_model='LWLR-BFGS-EXPLO', envnoise=True, hierarchy_type=1, supervisor_name="interest", iterations=iterations)
