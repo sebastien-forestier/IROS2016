@@ -28,8 +28,6 @@ class Evaluation(object):
 #             print self.ag.modules["mod4"].sensorimotor_model.model.imodel.fmodel.dataset.nn_y(s_g)
 #         except:
 #             pass
-        self.ag.modules["mod4"].sensorimotor_model.mode = "exploit"
-        self.ag.modules["mod7"].sensorimotor_model.mode = "exploit"
         m = self.ag.modules[mid].inverse(s_g)
         #action = self.ag.produce_module(mid, babbling=False, s=s_g, allow_explore=False)
         #m = action.get_m_seq(len(self.ag.conf.m_dims))[0]
@@ -42,6 +40,8 @@ class Evaluation(object):
     def evaluate_comp(self):
         s_reached = {}
         errors = {}
+        self.ag.modules["mod4"].sensorimotor_model.mode = "exploit"
+        self.ag.modules["mod7"].sensorimotor_model.mode = "exploit"
         for s_name in sorted(self.testcases.keys()):
             s_space = self.testcases[s_name][0]
             s_reached[s_name] = []
