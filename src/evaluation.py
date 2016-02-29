@@ -30,7 +30,7 @@ class Evaluation(object):
             pass
         self.ag.modules["mod4"].sensorimotor_model.mode = "exploit"
         self.ag.modules["mod7"].sensorimotor_model.mode = "exploit"
-        m = self.ag.modules[mid].sensorimotor_model.inverse(s_g)
+        m = self.ag.modules[mid].inverse(s_g)
         #action = self.ag.produce_module(mid, babbling=False, s=s_g, allow_explore=False)
         #m = action.get_m_seq(len(self.ag.conf.m_dims))[0]
         print "m", m
