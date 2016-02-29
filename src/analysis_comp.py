@@ -71,9 +71,9 @@ xp = None
 
 
 testcases = {
-             'obj1':([23, 26], rand_bounds(np.array([[-1.5,-1.5]],[[1.5,1.5]]), n=n_testcases)),
+             'obj1':([23, 26], rand_bounds(np.array([[-1.5,-1.5],[1.5,1.5]]), n=n_testcases)),
               
-             'obj2':([41, 44], rand_bounds(np.array([[-1.5,-1.5]],[[1.5,1.5]]), n=n_testcases)),
+             'obj2':([41, 44], rand_bounds(np.array([[-1.5,-1.5],[1.5,1.5]]), n=n_testcases)),
               }
         
 print testcases
