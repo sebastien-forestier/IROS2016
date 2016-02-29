@@ -100,7 +100,7 @@ def mean_std_dic(d, add_0=False):
     return mean, std
     
 xp_name = "xp1"
-d = "2016-02-26_11-56-40-TOOL2-iros_100T_14C_100K-xp1"
+d = "2016-02-28_13-54-46-TOOL2-iros_100T_14C_100K-xp1"
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
     pref = ""
