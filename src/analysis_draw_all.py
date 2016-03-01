@@ -356,6 +356,9 @@ if "explo" in modes:
                         "M-LWLR-RMB",
                         "M-LWLR-LP-AMB"
                           ]
+    
+    stats = {}
+    
     for config in config_sorted:
         
         if config[-8:] == "ENVNOISE":
@@ -372,6 +375,8 @@ if "explo" in modes:
         q1 = np.percentile(merged, 25)
         q3 = np.percentile(merged, 75)
         
+        stats[config] = merged
+        
         print "        \multirow{2}{*}{\scriptsize " + config + "} & ", "No", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]\\cline{2-7}"
             
         list1 = [explo["obj1"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj1"][config+"-ENVNOISE"].keys()]
@@ -385,9 +390,68 @@ if "explo" in modes:
         q1 = np.percentile(merged, 25)
         q3 = np.percentile(merged, 75)
         
+        
+        stats[config+"-ENVNOISE"] = merged
+        
         print "        ", " & ", "Yes", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]"
         print "        " + "\hline"
                 
+    with open(log_dir + 'stats_explore.pickle', 'wb') as f:
+        cPickle.dump(stats, f)
+    
+if "stats" in modes:
+    
+    with open(log_dir + 'stats_explore.pickle', 'r') as f:
+        stats = cPickle.load(f)
+        f.close()  
+    
+    #print stats
+    print
+    print
+    print "Question 1: Flat vs Modular"
+    print
+    
+    for cdt1 in [
+                "F-NN",
+                "F-LWLR",
+                "F-NN-ENVNOISE",
+                "F-LWLR-ENVNOISE",]:
+        for cdt2 in [
+                    "M-NN-RMB",
+                    "M-LWLR-RMB",
+                    "M-NN-RMB-ENVNOISE",
+                    "M-LWLR-RMB-ENVNOISE",]:
+            # the stars
+            z, p = scipy.stats.mannwhitneyu(stats[cdt1], stats[cdt2])
+            p_value = p * 2
+            print "Stat", cdt1, cdt2, z, p_value
+    
+    
+    print
+    print
+    print "Question 2: Random vs Active Model Babbling"
+    print
+    
+    for cdt1 in [
+                    "M-NN-RMB",
+                    "M-LWLR-RMB",
+                    "M-NN-RMB-ENVNOISE",
+                    "M-LWLR-RMB-ENVNOISE",]:
+        for cdt2 in [
+                    "M-NN-LP-AMB",
+                    "M-LWLR-LP-AMB",
+                    "M-NN-LP-AMB-ENVNOISE",
+                    "M-LWLR-LP-AMB-ENVNOISE",]:
+            # the stars
+            z, p = scipy.stats.mannwhitneyu(stats[cdt1], stats[cdt2])
+            p_value = p * 2
+            print "Stat", cdt1, cdt2, z, p_value
+    
+            print "medians", np.median(stats[cdt1]), np.median(stats[cdt2])
+            print
+    
+    
+    
 #        [[explo[s_space][config][trial][-1] for trial in explo[s_space][config].keys()] for config in config_list[xp_name]]
         
 #         fig = plt.figure()
