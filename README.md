@@ -6,6 +6,7 @@ We provide source code of the experiments (Licence GPLv3), and data analysis.
 We do not provide data as it is 400GB
 
 We explain how to re-generate some of it (generating all the exploration databases is 14 conditions x 100 trials x 5h).
+
 ## Paper
 Here is the IROS [paper](http://sforestier.com/sites/default/files/Forestier2016Modular.pdf).
 ## Video 
