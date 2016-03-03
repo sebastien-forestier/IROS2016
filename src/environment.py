@@ -375,7 +375,7 @@ class Box(Environment):
 
 
 class IROS2016Environment(DynamicEnvironment):
-    def __init__(self, move_steps=50, max_params=None, perturbation=None, noise=False, gui=False):
+    def __init__(self, move_steps=50, max_params=None, perturbation=None, noise=0, gui=False):
 
         def motor_perturbation(m):
             if perturbation == "BrokenMotor":
@@ -405,7 +405,7 @@ class IROS2016Environment(DynamicEnvironment):
                          length=0.5, 
                          type="magnetic",
                          handle_tol=0.25, 
-                         handle_noise=0.1 if noise else 0., 
+                         handle_noise=0.1 if noise == 1 else 0., 
                          rest_state=[-0.75, 0.25, 0.75],
                          perturbation=perturbation)
         
@@ -416,7 +416,7 @@ class IROS2016Environment(DynamicEnvironment):
                          length=0.5, 
                          type="scratch",
                          handle_tol=0.25, 
-                         handle_noise=0.1 if noise else 0., 
+                         handle_noise=0.1 if noise == 1 else 0., 
                          rest_state=[0.75, 0.25, 0.25])
         
         sticks_cfg = dict(
@@ -535,6 +535,12 @@ class IROS2016Environment(DynamicEnvironment):
                         combined_s = lambda s:s
                         )
         
+        
+        
+        def sensory_noise(s):
+            return np.random.random(len(s)) * 0.1 + np.array(s)
+        
+        
         arm_sticks_objects_cfg = dict(
                                            m_mins=arm_stick_cfg['m_mins'],
                                            m_maxs=arm_stick_cfg['m_maxs'],
@@ -546,7 +552,7 @@ class IROS2016Environment(DynamicEnvironment):
                                            lower_env_cfg=arm_stick_cfg, 
                                            fun_m_lower= lambda m:m,
                                            fun_s_lower=lambda m,s:s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:]+s[3:],
-                                           fun_s_top=lambda m,s_lower,s: s_lower + s)
+                                           fun_s_top=lambda m,s_lower,s: sensory_noise(s_lower + s) if noise == 2 else s_lower + s)
         
 #         box1_cfg = dict(
 #                      m_mins = [-2.]*12,
