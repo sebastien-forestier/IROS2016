@@ -488,8 +488,8 @@ config_list = {"xp1":[
                "xp2":[
                     "EXPLOIT-NN",
                     "EXPLOIT-LWLR",
-                    "EXPLOIT-NN-ENVNOISE",
-                    "EXPLOIT-LWLR-ENVNOISE",
+#                     "EXPLOIT-NN-ENVNOISE",
+#                     "EXPLOIT-LWLR-ENVNOISE",
                       ],
                "xp_snoise":[
                     "RmB-SNOISE",
