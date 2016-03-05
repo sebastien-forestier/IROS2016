@@ -43,7 +43,7 @@ print "modes", modes
 
 n_logs = 1
 
-n = 200000
+n = 100000
 p = 100
 p_events = 100
 
@@ -100,7 +100,7 @@ def mean_std_dic(d, add_0=False):
     return mean, std
     
 xp_name = "xp1"
-d = "2016-02-26_11-56-40-TOOL2-iros_100T_14C_100K-xp1"
+d = "2016-02-28_13-54-46-TOOL2-iros_100T_14C_100K-xp1"
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
     pref = ""
@@ -347,93 +347,197 @@ if "explo" in modes:
                    'obj2':[(1,2)],
                    }
     
-    for s_space in explo.keys():
-        print s_space
+    config_sorted = [
+                        "RmB",
+                        "F-NN",
+                        "F-LWLR",
+                        "M-NN-RMB",
+                        "M-NN-LP-AMB",
+                        "M-LWLR-RMB",
+                        "M-LWLR-LP-AMB"
+                          ]
+    
+    stats = {}
+    
+    for config in config_sorted:
         
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-        fig.canvas.set_window_title(s_space)    
+        if config[-8:] == "ENVNOISE":
+            continue
         
-#         print config_list[xp_name], explo[s_space].keys()
-#         print "explo", [explo[s_space][config] for config in config_list[xp_name]]
-        bp = ax.boxplot([[explo[s_space][config][trial][-1] for trial in explo[s_space][config].keys()] for config in config_list[xp_name]])#, notch=0, sym='', vert=1, whis=0, positions=None, widths=0.6)
+        list1 = [explo["obj1"][config][trial][-1] for trial in explo["obj1"][config].keys()]
+        list2 = [explo["obj2"][config][trial][-1] for trial in explo["obj2"][config].keys()]
         
-        for i in range(len(bp['boxes'])):
-            box = bp['boxes'][i]
-            box.set_linewidth(0)
-            boxX = []
-            boxY = []
-            for j in range(5):
-                boxX.append(box.get_xdata()[j])
-                boxY.append(box.get_ydata()[j])
-                boxCoords = zip(boxX,boxY)
-                boxPolygon = plt.Polygon(boxCoords, facecolor = colors[i % len(colors)], linewidth=0)
-                ax.add_patch(boxPolygon)
+        merged = list1 + list2
+        #print merged
+        q0 = min(merged)
+        q100 = max(merged)
+        median = np.median(merged)
+        q1 = np.percentile(merged, 25)
+        q3 = np.percentile(merged, 75)
         
-#         for i in range(0, len(bp['boxes'])):
-#             bp['boxes'][i].set_color(colors[i % len(colors)])
-#             # we have two whiskers!
-#             bp['whiskers'][i*2].set_color(colors[i % len(colors)])
-#             bp['whiskers'][i*2 + 1].set_color(colors[i % len(colors)])
-#             bp['whiskers'][i*2].set_linewidth(2)
-#             bp['whiskers'][i*2 + 1].set_linewidth(2)
-#             # top and bottom fliers
-#             bp['fliers'][i * 2].set(markerfacecolor=colors[i % len(colors)],
-#                             marker='o', alpha=0.75, markersize=6,
-#                             markeredgecolor='none')
-#             bp['fliers'][i * 2 + 1].set(markerfacecolor=colors[i % len(colors)],
-#                             marker='o', alpha=0.75, markersize=6,
-#                             markeredgecolor='none')
-#             bp['medians'][i].set_color('black')
-#             bp['medians'][i].set_linewidth(3)
-#             # and 4 caps to remove
-#             for c in bp['caps']:
-#                 c.set_linewidth(0)
+        stats[config] = merged
         
-        ax.spines['top'].set_visible(False)
-        ax.spines['right'].set_visible(False)
-        ax.spines['left'].set_visible(False)
-        ax.get_xaxis().tick_bottom()
-        ax.get_yaxis().tick_left()
-        ax.tick_params(axis='x', direction='out')
-        ax.tick_params(axis='y', length=0)
+        print "        \multirow{2}{*}{\scriptsize " + config + "} & ", "No", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]\\cline{2-7}"
+            
+        list1 = [explo["obj1"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj1"][config+"-ENVNOISE"].keys()]
+        list2 = [explo["obj2"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj2"][config+"-ENVNOISE"].keys()]
         
-        ax.grid(axis='y', color="0.9", linestyle='-', linewidth=1)
-        ax.set_axisbelow(True)
+        merged = list1 + list2
+        #print merged
+        q0 = min(merged)
+        q100 = max(merged)
+        median = np.median(merged)
+        q1 = np.percentile(merged, 25)
+        q3 = np.percentile(merged, 75)
         
-        #ax.set_xticklabels(explo[s_space].keys())
-        plt.gca().xaxis.set_major_locator(plt.NullLocator())
+        
+        stats[config+"-ENVNOISE"] = merged
+        
+        print "        ", " & ", "Yes", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]"
+        print "        " + "\hline"
+                
+    with open(log_dir + 'stats_explore.pickle', 'wb') as f:
+        cPickle.dump(stats, f)
+    
+if "stats" in modes:
+    
+    with open(log_dir + 'stats_explore.pickle', 'r') as f:
+        stats = cPickle.load(f)
+        f.close()  
+    
+    #print stats
+    print
+    print
+    print "Question 1: Flat vs Modular"
+    print
+    
+    for cdt1 in [
+                "F-NN",
+                "F-LWLR",
+                "F-NN-ENVNOISE",
+                "F-LWLR-ENVNOISE",]:
+        for cdt2 in [
+                    "M-NN-RMB",
+                    "M-LWLR-RMB",
+                    "M-NN-RMB-ENVNOISE",
+                    "M-LWLR-RMB-ENVNOISE",]:
+            # the stars
+            z, p = scipy.stats.mannwhitneyu(stats[cdt1], stats[cdt2])
+            p_value = p * 2
+            print "Stat", cdt1, cdt2, z, p_value
+    
+    
+    print
+    print
+    print "Question 2: Random vs Active Model Babbling"
+    print
+    
+    for cdt1 in [
+                    "M-NN-RMB",
+                    "M-LWLR-RMB",
+                    "M-NN-RMB-ENVNOISE",
+                    "M-LWLR-RMB-ENVNOISE",]:
+        for cdt2 in [
+                    "M-NN-LP-AMB",
+                    "M-LWLR-LP-AMB",
+                    "M-NN-LP-AMB-ENVNOISE",
+                    "M-LWLR-LP-AMB-ENVNOISE",]:
+            # the stars
+            z, p = scipy.stats.mannwhitneyu(stats[cdt1], stats[cdt2])
+            p_value = p * 2
+            print "Stat", cdt1, cdt2, z, p_value
+    
+            print "medians", np.median(stats[cdt1]), np.median(stats[cdt2])
+            print
+    
+    
+    
+#        [[explo[s_space][config][trial][-1] for trial in explo[s_space][config].keys()] for config in config_list[xp_name]]
+        
+#         fig = plt.figure()
+#         ax = fig.add_subplot(111)
+#         fig.canvas.set_window_title(s_space)    
 #         
-        if stats_pairs.has_key(s_space):
-            for pair in stats_pairs[s_space]:
-                # the stars
-                print "Stat", pair
-                data1 = [explo[s_space][config_list[xp_name][pair[0]]][trial][-1] for trial in explo[s_space][config_list[xp_name][pair[0]]].keys()]
-                data2 = [explo[s_space][config_list[xp_name][pair[1]]][trial][-1] for trial in explo[s_space][config_list[xp_name][pair[1]]].keys()]
-                print "data1", data1
-                print "data2", data2
-                z, p = scipy.stats.mannwhitneyu(data1, data2)
-                p_value = p * 2
-                print p
-#                 s = stars(p)
-#                 y_max = np.max((np.max(bp['boxes'][pair[0]].get_ydata()), 
-#                                np.max(bp['boxes'][pair[1]].get_ydata())))
-#                 y_min = np.min((np.min(bp['boxes'][pair[0]].get_ydata()), 
-#                                np.min(bp['boxes'][pair[1]].get_ydata())))
-#                 ax.annotate("", xy=(pair[0]+1, y_max), xycoords='data',
-#                             xytext=(pair[1]+1, y_max), textcoords='data',
-#                             arrowprops=dict(arrowstyle="-", ec='#aaaaaa',
-#                                             connectionstyle="bar,fraction=0.2"))
-#                 ax.text((pair[0]+pair[1])/2.+1, y_max + abs(y_max - y_min)*0.05, stars(p_value),
-#                         horizontalalignment='center',
-#                         verticalalignment='center') 
-#                   
-#                 fig.subplots_adjust(left=0.2)
+# #         print config_list[xp_name], explo[s_space].keys()
+# #         print "explo", [explo[s_space][config] for config in config_list[xp_name]]
+#         bp = ax.boxplot([[explo[s_space][config][trial][-1] for trial in explo[s_space][config].keys()] for config in config_list[xp_name]])#, notch=0, sym='', vert=1, whis=0, positions=None, widths=0.6)
 #         
-        plt.show(block=False)
-        
-        plt.savefig(log_dir + xp_name + '-explo-' + s_space + '.pdf', format='pdf', dpi=1000, bbox_inches='tight')
-        #plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/" + xp_name + '-explo-' + s_space + '.pdf', format='pdf', dpi=1000, bbox_inches='tight')
+#         for i in range(len(bp['boxes'])):
+#             box = bp['boxes'][i]
+#             box.set_linewidth(0)
+#             boxX = []
+#             boxY = []
+#             for j in range(5):
+#                 boxX.append(box.get_xdata()[j])
+#                 boxY.append(box.get_ydata()[j])
+#                 boxCoords = zip(boxX,boxY)
+#                 boxPolygon = plt.Polygon(boxCoords, facecolor = colors[i % len(colors)], linewidth=0)
+#                 ax.add_patch(boxPolygon)
+#         
+# #         for i in range(0, len(bp['boxes'])):
+# #             bp['boxes'][i].set_color(colors[i % len(colors)])
+# #             # we have two whiskers!
+# #             bp['whiskers'][i*2].set_color(colors[i % len(colors)])
+# #             bp['whiskers'][i*2 + 1].set_color(colors[i % len(colors)])
+# #             bp['whiskers'][i*2].set_linewidth(2)
+# #             bp['whiskers'][i*2 + 1].set_linewidth(2)
+# #             # top and bottom fliers
+# #             bp['fliers'][i * 2].set(markerfacecolor=colors[i % len(colors)],
+# #                             marker='o', alpha=0.75, markersize=6,
+# #                             markeredgecolor='none')
+# #             bp['fliers'][i * 2 + 1].set(markerfacecolor=colors[i % len(colors)],
+# #                             marker='o', alpha=0.75, markersize=6,
+# #                             markeredgecolor='none')
+# #             bp['medians'][i].set_color('black')
+# #             bp['medians'][i].set_linewidth(3)
+# #             # and 4 caps to remove
+# #             for c in bp['caps']:
+# #                 c.set_linewidth(0)
+#         
+#         ax.spines['top'].set_visible(False)
+#         ax.spines['right'].set_visible(False)
+#         ax.spines['left'].set_visible(False)
+#         ax.get_xaxis().tick_bottom()
+#         ax.get_yaxis().tick_left()
+#         ax.tick_params(axis='x', direction='out')
+#         ax.tick_params(axis='y', length=0)
+#         
+#         ax.grid(axis='y', color="0.9", linestyle='-', linewidth=1)
+#         ax.set_axisbelow(True)
+#         
+#         #ax.set_xticklabels(explo[s_space].keys())
+#         plt.gca().xaxis.set_major_locator(plt.NullLocator())
+# #         
+#         if stats_pairs.has_key(s_space):
+#             for pair in stats_pairs[s_space]:
+#                 # the stars
+#                 print "Stat", pair
+#                 data1 = [explo[s_space][config_list[xp_name][pair[0]]][trial][-1] for trial in explo[s_space][config_list[xp_name][pair[0]]].keys()]
+#                 data2 = [explo[s_space][config_list[xp_name][pair[1]]][trial][-1] for trial in explo[s_space][config_list[xp_name][pair[1]]].keys()]
+#                 print "data1", data1
+#                 print "data2", data2
+#                 z, p = scipy.stats.mannwhitneyu(data1, data2)
+#                 p_value = p * 2
+#                 print p
+# #                 s = stars(p)
+# #                 y_max = np.max((np.max(bp['boxes'][pair[0]].get_ydata()), 
+# #                                np.max(bp['boxes'][pair[1]].get_ydata())))
+# #                 y_min = np.min((np.min(bp['boxes'][pair[0]].get_ydata()), 
+# #                                np.min(bp['boxes'][pair[1]].get_ydata())))
+# #                 ax.annotate("", xy=(pair[0]+1, y_max), xycoords='data',
+# #                             xytext=(pair[1]+1, y_max), textcoords='data',
+# #                             arrowprops=dict(arrowstyle="-", ec='#aaaaaa',
+# #                                             connectionstyle="bar,fraction=0.2"))
+# #                 ax.text((pair[0]+pair[1])/2.+1, y_max + abs(y_max - y_min)*0.05, stars(p_value),
+# #                         horizontalalignment='center',
+# #                         verticalalignment='center') 
+# #                   
+# #                 fig.subplots_adjust(left=0.2)
+# #         
+#         plt.show(block=False)
+#         
+#         plt.savefig(log_dir + xp_name + '-explo-' + s_space + '.pdf', format='pdf', dpi=1000, bbox_inches='tight')
+#         #plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/" + xp_name + '-explo-' + s_space + '.pdf', format='pdf', dpi=1000, bbox_inches='tight')
         
     
 #plt.close(fig)

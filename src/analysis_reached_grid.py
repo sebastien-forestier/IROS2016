@@ -36,7 +36,7 @@ else:
 ########################################################
 ################### PARAMS #############################
 ########################################################
-d = "2016-02-26_11-56-40-TOOL2-iros_100T_14C_100K-xp1"
+d = "2016-02-28_13-54-46-TOOL2-iros_100T_14C_100K-xp1"
 trials = range(1,101)
 n = 100000
 ########################################################
@@ -106,14 +106,15 @@ merged_grid1 = np.zeros([10] * 6)
 merged_grid2 = np.zeros([10] * 6)
 
 
-for config in config_list["xp1"]:
+for trial in trials: 
+    print trial
 
-    print config
+    for config in config_list["xp1"]:
+    
+        print config
     
 
-    for trial in trials: 
         
-        print trial
         
         try:
             data = {}

@@ -6,6 +6,14 @@ import sys
 
 plt.switch_backend('Agg')
 
+import brewer2mpl
+bmap = brewer2mpl.get_map('Dark2', 'qualitative', 6)
+colors = bmap.mpl_colors
+ 
+colors_config = {"gripper":colors[1],
+                 "magnetic":colors[2],
+                 "scratch":colors[4],
+                 }
 sw = 20
 
 def runningMeanFast(x, sw):
@@ -31,7 +39,7 @@ def main(log_dir, config):
     trials = range(1, 101)
     n_logs = 1
     
-    n = 50000
+    n = 100000
     p = 1000
     
     gss = [0, 10, 100, 20, 10, 10, 10, 5, 5, 3]
@@ -149,14 +157,14 @@ def main(log_dir, config):
                 sy = data[:,dims['obj1'][5]]            
 #                 plt.xlabel('X', fontsize = 16)
 #                 plt.ylabel('Y', fontsize = 16)   
-                color=matplotlib.colors.ColorConverter().to_rgba('b', alpha=0.3)
+                color=matplotlib.colors.ColorConverter().to_rgba(colors_config['magnetic'], alpha=0.3)
                 ax.scatter(sx, sy, s=3, color=color, rasterized=True)
                 
                 sx = data[:,dims['obj2'][2]]
                 sy = data[:,dims['obj2'][5]]            
 #                 plt.xlabel('X', fontsize = 16)
 #                 plt.ylabel('Y', fontsize = 16)   
-                color=matplotlib.colors.ColorConverter().to_rgba('r', alpha=0.3)
+                color=matplotlib.colors.ColorConverter().to_rgba(colors_config['scratch'], alpha=0.3)
                 ax.scatter(sx, sy, s=3, color=color, rasterized=True)
                 
                 ax.set_xticklabels([])
@@ -167,7 +175,9 @@ def main(log_dir, config):
                 plt.ylim(-1.7, 1.7)
                 ax.set_aspect('equal')            
                 #plt.savefig("/home/sforesti/scm/PhD/cogsci2016/include/obj-explo.pdf", format='pdf', dpi=100, bbox_inches='tight')
-                plt.savefig(log_dir + "img/" + config + '-log{}-obj-explo.pdf'.format(trial), format='pdf', dpi=100, bbox_inches='tight')
+                plt.savefig(log_dir + "img/" + config + '-log{}-obj-explo.pdf'.format(trial), format='pdf', bbox_inches='tight')
+                plt.savefig(log_dir + "img/" + config + '-log{}-obj-explo.png'.format(trial), format='png', dpi=200, bbox_inches='tight')
+                plt.savefig(log_dir + "img/" + config + '-log{}-obj-explo.svg'.format(trial), format='svg', bbox_inches='tight')
                 plt.close(fig)
         
         except IOError:

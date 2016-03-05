@@ -14,23 +14,24 @@ class Evaluation(object):
         
     def evaluate(self):
         self.ag.eval_mode()
-        if 'inverse' in self.modes:
-            self.evaluate_comp()
-        if 'explo' in self.modes:
-            self.evaluate_explo()
-        if 'explo_comp' in self.modes:
-            self.evaluate_explo_comp()
-        self.ag.learning_mode()
+        return self.evaluate_comp()
+
 
     def test_inverse(self, s_g, s_space):
         
-        if s_space == range(21, 27):
+        if s_space == [23, 26]:
             mid = "mod4"
         else:
             mid = "mod7"
         #print mid
-        action = self.ag.produce_module(mid, babbling=False, s=s_g, allow_explore=False)
-        m = action.get_m_seq(len(self.ag.conf.m_dims))[0]
+#         try:
+#             print self.ag.modules["mod4"].sensorimotor_model.model.imodel.fmodel.dataset.nn_y(s_g)
+#         except:
+#             pass
+        m = self.ag.modules[mid].inverse(s_g)
+        #action = self.ag.produce_module(mid, babbling=False, s=s_g, allow_explore=False)
+        #m = action.get_m_seq(len(self.ag.conf.m_dims))[0]
+        #print "m", m
         s_env = self.env.update(m, log=False)
         s = s_env[s_space]
         #print "s_g", s_g, "s", s
@@ -39,6 +40,8 @@ class Evaluation(object):
     def evaluate_comp(self):
         s_reached = {}
         errors = {}
+        self.ag.modules["mod4"].sensorimotor_model.mode = "exploit"
+        self.ag.modules["mod7"].sensorimotor_model.mode = "exploit"
         for s_name in sorted(self.testcases.keys()):
             s_space = self.testcases[s_name][0]
             s_reached[s_name] = []
@@ -47,6 +50,7 @@ class Evaluation(object):
                 e, s = self.test_inverse(s_g, s_space)
                 s_reached[s_name].append(s)
                 errors[s_name].append(e)
+            print np.median(errors[s_name]) 
         return errors, s_reached
 #     
 # 

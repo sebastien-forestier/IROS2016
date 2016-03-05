@@ -167,8 +167,8 @@ class DynamicEnvironment(Environment):
             self.env.plot(self.ax, i, **kwargs)
 #             plt.xlim([-1.3, 1.3])
 #             plt.ylim([-0.2, 1.6])
-            plt.xlim([-1.6, 1.6])
-            plt.ylim([-0.5, 1.6])
+#             plt.xlim([-1.6, 1.6])
+#             plt.ylim([-0.5, 1.6])
 #             plt.gca().set_xticklabels([])
 #             plt.gca().set_yticklabels([])
 #             plt.gca().yaxis.set_major_locator(plt.NullLocator())
@@ -179,7 +179,7 @@ class DynamicEnvironment(Environment):
             plt.show(block=False)
             if False:
                 if i in [16, 32, 49]:
-                    plt.savefig('/home/sforesti/scm/PhD/cogsci2016/include/test-mvt-' + str(i) + '.pdf', format='pdf', dpi=1000, bbox_inches='tight')
+                    plt.savefig('/home/sforesti/scm/PhD/iros2016/include/test-mvt-' + str(i) + '.pdf', format='pdf', dpi=1000, bbox_inches='tight')
         #plt.show()
         #time.sleep(1)
         

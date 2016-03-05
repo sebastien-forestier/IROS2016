@@ -4,7 +4,7 @@ import numpy as np
 import sys
 
 from experiment import ToolsExperiment
-from config import configs
+from config import configs, config_list
 from explauto.experiment.log import ExperimentLog
 from explauto.utils import rand_bounds
 from evaluation import Evaluation
@@ -15,7 +15,7 @@ import os
 ########################################################
 ################### PARAMS #############################
 ########################################################
-d = "2016-02-26_11-56-40-TOOL2-iros_100T_14C_100K-xp1"
+d = "2016-02-28_13-54-46-TOOL2-iros_100T_14C_100K-xp1"
 n_checkpoints = 4
 n_testcases = 1000
 ########################################################
@@ -48,23 +48,33 @@ xp = None
 
 
 
-
+ 
 with open(log_dir + 'testcases1.pickle', 'r') as f:
     testcases1 = cPickle.load(f)
     f.close()
-
+ 
 with open(log_dir + 'testcases2.pickle', 'r') as f:
     testcases2 = cPickle.load(f)
     f.close()
-
-
-
-
+ 
+ 
+ 
+ 
 testcases = {
-             'obj1':(range(21, 27), testcases1[:n_testcases,:]),
-              
-             'obj2':(range(39, 45), testcases2[:n_testcases,:]),
+             'obj1':([23, 26], testcases1[:n_testcases,:]),
+               
+             'obj2':([41, 44], testcases2[:n_testcases,:]),
               }
+         
+
+
+
+
+# testcases = {
+#              'obj1':([23, 26], rand_bounds(np.array([[-1.5,-1.5],[1.5,1.5]]), n=n_testcases)),
+#               
+#              'obj2':([41, 44], rand_bounds(np.array([[-1.5,-1.5],[1.5,1.5]]), n=n_testcases)),
+#               }
         
 
 x = np.array(np.linspace(0,n,n/p+1), dtype=int)
@@ -105,7 +115,7 @@ def main(explo_config_name, trial):
         xp.ag.eval_mode()
         
         evaluation = Evaluation(xp.log, xp.ag, xp.env, testcases, modes=["inverse"])
-        result = evaluation.evaluate_comp()
+        result = evaluation.evaluate()
         return result
 
         
@@ -134,7 +144,7 @@ def main(explo_config_name, trial):
     for s_space in testcases.keys():
         comp[s_space][explo_config_name][trial] = {}
         
-    for regression_config_name in ["M-NN-RMB", "M-LWLR-RMB"]: 
+    for regression_config_name in config_list["xp2"]: 
         print "regression_config_name", regression_config_name
         
         for s_space in testcases.keys():
