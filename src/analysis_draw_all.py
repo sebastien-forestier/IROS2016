@@ -98,16 +98,19 @@ def mean_std_dic(d, add_0=False):
     mean = np.mean(v, axis=0)
     std = np.std(v, axis=0) / np.sqrt(len(d))
     return mean, std
-    
-xp_name = "xp1"
-d = "2016-02-28_13-54-46-TOOL2-iros_100T_14C_100K-xp1"
+#     
+# xp_name = "xp1"
+# d = "2016-02-28_13-54-46-TOOL2-iros_100T_14C_100K-xp1"
+xp_name = "xp_bootstrap"
+d = "2016-03-03_18-22-11-TOOL2-iros_complementary-xp_bootstrap"
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
     pref = ""
 else:
     pref = "/home/sforesti/avakas"
     
-log_dirs = {"xp1":pref + '/scratch/sforestier001/logs/' + d
+log_dirs = {"xp1":pref + '/scratch/sforestier001/logs/' + d,
+            "xp_bootstrap":pref + '/scratch/sforestier001/logs/' + d
 }
 
     
@@ -347,19 +350,23 @@ if "explo" in modes:
                    'obj2':[(1,2)],
                    }
     
-    config_sorted = [
-                        "RmB",
-                        "F-NN",
-                        "F-LWLR",
-                        "M-NN-RMB",
-                        "M-NN-LP-AMB",
-                        "M-LWLR-RMB",
-                        "M-LWLR-LP-AMB"
-                          ]
+#     config_sorted = [
+#                         "RmB",
+#                         "F-NN",
+#                         "F-LWLR",
+#                         "M-NN-RMB",
+#                         "M-NN-LP-AMB",
+#                         "M-LWLR-RMB",
+#                         "M-LWLR-LP-AMB"
+#                           ]
+#     
+#     stats = {}
+#     
+#     for config in config_sorted:
     
     stats = {}
     
-    for config in config_sorted:
+    for config in config_list[xp_name]:
         
         if config[-8:] == "ENVNOISE":
             continue
@@ -377,25 +384,29 @@ if "explo" in modes:
         
         stats[config] = merged
         
-        print "        \multirow{2}{*}{\scriptsize " + config + "} & ", "No", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]\\cline{2-7}"
+        if explo["obj1"].has_key(config+"-ENVNOISE"):
+            print "        \multirow{2}{*}{\scriptsize " + config + "} & ", "No", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]\\cline{2-7}"
+        else:
+            print "        {\scriptsize " + config + "} & ", "No", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]\\cline{2-7}"
+        try:
+            list1 = [explo["obj1"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj1"][config+"-ENVNOISE"].keys()]
+            list2 = [explo["obj2"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj2"][config+"-ENVNOISE"].keys()]
             
-        list1 = [explo["obj1"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj1"][config+"-ENVNOISE"].keys()]
-        list2 = [explo["obj2"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj2"][config+"-ENVNOISE"].keys()]
-        
-        merged = list1 + list2
-        #print merged
-        q0 = min(merged)
-        q100 = max(merged)
-        median = np.median(merged)
-        q1 = np.percentile(merged, 25)
-        q3 = np.percentile(merged, 75)
-        
-        
-        stats[config+"-ENVNOISE"] = merged
-        
-        print "        ", " & ", "Yes", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]"
-        print "        " + "\hline"
-                
+            merged = list1 + list2
+            #print merged
+            q0 = min(merged)
+            q100 = max(merged)
+            median = np.median(merged)
+            q1 = np.percentile(merged, 25)
+            q3 = np.percentile(merged, 75)
+            
+            
+            stats[config+"-ENVNOISE"] = merged
+            
+            print "        ", " & ", "Yes", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]"
+            print "        " + "\hline"
+        except:
+            pass        
     with open(log_dir + 'stats_explore.pickle', 'wb') as f:
         cPickle.dump(stats, f)
     

@@ -15,8 +15,10 @@ from analysis_events import main as main_events
 #                     "M-P-AMB-LWR",
 #                       ]}
 
-d = "2016-03-03_18-22-11-TOOL2-iros_complementary-xp_bootstrap"
-xp_name = "xp_bootstrap"
+d = "2016-03-03_18-22-11-TOOL2-iros_complementary-xp_snoise"
+xp_name = "xp_snoise"
+# d = "2016-03-03_18-22-11-TOOL2-iros_complementary-xp_bootstrap"
+# xp_name = "xp_bootstrap"
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
     pref = ""
