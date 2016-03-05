@@ -23,14 +23,14 @@ if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
 else:
     pref = "/home/sforesti/avakas"
     
-log_dirs = {"xp_name":pref + '/scratch/sforestier001/logs/' + d
+log_dirs = {xp_name:pref + '/scratch/sforestier001/logs/' + d
 }
 
 
 
 processes = []
 
-log_dir = log_dirs["xp_name"] + "/"
+log_dir = log_dirs[xp_name] + "/"
 #log_dir = '/home/sforesti/scm/Flowers/explaupoppydiva/scripts/cogsci2016/test_dmp2/'
 
 
@@ -39,7 +39,7 @@ try:
 except:
     pass
 
-for config in config_list["xp_name"]:        
+for config in config_list[xp_name]:        
     processes.append(Process(target = main_explo, args=(log_dir, config)))
     processes.append(Process(target = main_events, args=(log_dir, config)))
 
