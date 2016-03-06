@@ -679,16 +679,6 @@ configs[config.name] = config
 config = Config(name="M-NN-RMB-0.3", hierarchy_type=1, explo_noise=0.3, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
 
-
-config = Config(name="EXPLOIT-NN-0.03", hierarchy_type=2, explo_noise=0.03, supervisor_name="random", iterations=iterations)
-configs[config.name] = config
-
-config = Config(name="EXPLOIT-NN-0.1", hierarchy_type=2, explo_noise=0.1, supervisor_name="random", iterations=iterations)
-configs[config.name] = config
-
-config = Config(name="EXPLOIT-NN-0.3", hierarchy_type=2, explo_noise=0.3, supervisor_name="random", iterations=iterations)
-configs[config.name] = config
-
  
 config = Config(name="M-NN-LP-AMB-0.03", hierarchy_type=1, explo_noise=0.03, supervisor_name="interest", iterations=iterations)
 configs[config.name] = config
@@ -717,16 +707,6 @@ config = Config(name="M-LWLR-RMB-0.1", sm_model='LWLR-BFGS-EXPLO', hierarchy_typ
 configs[config.name] = config
 
 config = Config(name="M-LWLR-RMB-0.3", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=1, explo_noise=0.3, supervisor_name="random", iterations=iterations)
-configs[config.name] = config
-
-
-config = Config(name="EXPLOIT-LWLR-0.03", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=2, explo_noise=0.03, supervisor_name="random", iterations=iterations)
-configs[config.name] = config
-
-config = Config(name="EXPLOIT-LWLR-0.1", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=2, explo_noise=0.1, supervisor_name="random", iterations=iterations)
-configs[config.name] = config
-
-config = Config(name="EXPLOIT-LWLR-0.3", sm_model='LWLR-BFGS-EXPLO', hierarchy_type=2, explo_noise=0.3, supervisor_name="random", iterations=iterations)
 configs[config.name] = config
 
 
