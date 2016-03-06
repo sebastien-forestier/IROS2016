@@ -43,7 +43,12 @@ print "modes", modes
 
 n_logs = 1
 
-n = 100000
+# xp_name = "xp1"
+# d = "2016-02-28_13-54-46-TOOL2-iros_100T_14C_100K-xp1"
+xp_name = "xp_long"
+d = "2016-03-03_18-22-11-TOOL2-iros_complementary-" + xp_name
+
+n = 300000
 p = 100
 p_events = 100
 
@@ -99,10 +104,6 @@ def mean_std_dic(d, add_0=False):
     std = np.std(v, axis=0) / np.sqrt(len(d))
     return mean, std
 #     
-# xp_name = "xp1"
-# d = "2016-02-28_13-54-46-TOOL2-iros_100T_14C_100K-xp1"
-xp_name = "xp_bootstrap"
-d = "2016-03-03_18-22-11-TOOL2-iros_complementary-xp_bootstrap"
 
 if os.environ.has_key("AVAKAS") and os.environ["AVAKAS"]:
     pref = ""
