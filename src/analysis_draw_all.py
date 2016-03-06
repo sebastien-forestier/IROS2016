@@ -111,7 +111,9 @@ else:
     pref = "/home/sforesti/avakas"
     
 log_dirs = {"xp1":pref + '/scratch/sforestier001/logs/' + d,
-            "xp_bootstrap":pref + '/scratch/sforestier001/logs/' + d
+            "xp_bootstrap":pref + '/scratch/sforestier001/logs/' + d,
+            "xp_long":pref + '/scratch/sforestier001/logs/' + d,
+            "xp_snoise":pref + '/scratch/sforestier001/logs/' + d,
 }
 
     
