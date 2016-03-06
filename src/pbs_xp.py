@@ -39,9 +39,10 @@ time python run.py {} {} {}
 xp_list = [
 #           "xp1", 
 #             "xp2", 
-            "xp_snoise",
-            "xp_long",
-            "xp_bootstrap"
+#             "xp_snoise",
+#             "xp_long",
+#             "xp_bootstrap",
+            "xp_explo_noise",
 ]
 
 log_dir = '/scratch/sforestier001/logs/' + start_date + '-TOOL2-' + pool_name + '-'
