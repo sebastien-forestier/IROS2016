@@ -374,6 +374,9 @@ if "explo" in modes:
         if config[-8:] == "ENVNOISE":
             continue
         
+        if not explo["obj1"].has_key(config):
+            continue
+        
         list1 = [explo["obj1"][config][trial][-1] for trial in explo["obj1"][config].keys()]
         list2 = [explo["obj2"][config][trial][-1] for trial in explo["obj2"][config].keys()]
         
