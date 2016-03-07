@@ -597,7 +597,7 @@ configs[config.name] = config
 config = Config(name="RmB-300k", hierarchy_type=0, babbling_name="motor", iterations=3*iterations)
 configs[config.name] = config
 
-config = Config(name="F-NN-300k", hierarchy_type=0, iterations=iterations)
+config = Config(name="F-NN-300k", hierarchy_type=0, iterations=3*iterations)
 configs[config.name] = config
 
 config = Config(name="M-NN-RMB-300k", hierarchy_type=1, supervisor_name="random", iterations=3*iterations)
