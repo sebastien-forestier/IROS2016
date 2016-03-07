@@ -534,7 +534,15 @@ config_list = {"xp1":[
                     "M-NN-LP-AMB-0.3",
                     "F-LWLR-0.3",
                     "M-LWLR-RMB-0.3",
-                    "M-LWLR-LP-AMB-0.3"],}
+                    "M-LWLR-LP-AMB-0.3"],
+               "xp_credit":[
+                    "F-NN",
+                    "M-NN-RMB",
+                    "M-NN-LP-AMB",
+                    "F-LWLR",
+                    "M-LWLR-RMB",
+                    "M-LWLR-LP-AMB",
+                      ],}
 
 config = Config(name="RmB", hierarchy_type=0, babbling_name="motor", iterations=iterations)
 configs[config.name] = config

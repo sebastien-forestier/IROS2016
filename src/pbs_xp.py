@@ -42,7 +42,8 @@ xp_list = [
 #             "xp_snoise",
 #             "xp_long",
 #             "xp_bootstrap",
-            "xp_explo_noise",
+            #"xp_explo_noise",
+            "xp_credit",
 ]
 
 log_dir = '/scratch/sforestier001/logs/' + start_date + '-TOOL2-' + pool_name + '-'

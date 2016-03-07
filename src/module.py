@@ -37,6 +37,7 @@ class Module(Agent):
         self.s = None
         self.sp = None
         self.snn = None
+        self.last_module_to_credit = -1
         
         im_cls, kwargs = config.ims[self.mconf['im_name']]
         kwargs['mode'] = self.im_mode
@@ -140,9 +141,10 @@ class Module(Agent):
             if self.n_bootstrap > 0:
                 self.n_bootstrap -= 1
                 raise ExplautoBootstrapError
-            m = self.sensorimotor_model.infer(expl_dims,
+            m, idx = self.sensorimotor_model.infer(expl_dims,
                                               inf_dims,
                                               x.flatten())
+            self.last_module_to_credit = idx
             #print "infer", snn, sp
 #             self.snn = snn
 #             self.sp = sp

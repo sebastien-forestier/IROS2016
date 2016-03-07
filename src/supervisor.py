@@ -359,6 +359,12 @@ class Supervisor(Observable):
         self.action = action
         m_seq = action.get_m_seq(len(self.conf.m_dims))
         self.m_seq = m_seq
+        
+        self.chosen_modules[mid] = self.chosen_modules[mid] + 1
+        #print self.chosen_modules
+        self.emit('babbling_module', mid)
+        self.emit('module_to_credit', self.modules[mid].last_module_to_credit)
+        
         self.t = self.t + 1
         return m_seq
                 

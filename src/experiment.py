@@ -50,6 +50,7 @@ class ToolsExperiment(Experiment):
         self.ag.subscribe('agentS', self)
         self.ag.subscribe('interests', self)
         self.ag.subscribe('babbling_module', self)
+        self.ag.subscribe('module_to_credit', self)
         #self.ag.subscribe_topics_mod(['competence', 'chidren_choice'], self)
             
         self.n_trials = n_trials
@@ -66,6 +67,7 @@ class ToolsExperiment(Experiment):
         self.ag.subscribe('agentS', self)
         self.ag.subscribe('interests', self)
         self.ag.subscribe('babbling_module', self)
+        self.ag.subscribe('module_to_credit', self)
         #self.ag.subscribe_topics_mod(['competence', 'chidren_choice'], self)
         
     @classmethod
