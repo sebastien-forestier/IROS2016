@@ -45,8 +45,10 @@ n_logs = 1
 
 # xp_name = "xp1"
 # d = "2016-02-28_13-54-46-TOOL2-iros_100T_14C_100K-xp1"
-xp_name = "xp_long"
-d = "2016-03-03_18-22-11-TOOL2-iros_complementary-" + xp_name
+# xp_name = "xp_long"
+# d = "2016-03-03_18-22-11-TOOL2-iros_complementary-" + xp_name
+d = "2016-03-06_10-46-23-TOOL2-iros_complementary_explo_noise-xp_explo_noise"
+xp_name = "xp_explo_noise"
 
 n = 300000
 p = 100
