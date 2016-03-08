@@ -362,7 +362,6 @@ class Supervisor(Observable):
         
         self.chosen_modules[mid] = self.chosen_modules[mid] + 1
         #print self.chosen_modules
-        self.emit('babbling_module', mid)
         self.emit('module_to_credit', self.modules[mid].last_module_to_credit)
         
         self.t = self.t + 1
@@ -410,6 +409,7 @@ class Supervisor(Observable):
                 self.split_mod1(split_dims)
                 
         self.previous_ms.append(last_ms)
+        self.emit('babbling_interest', self.modules[self.mid_control].last_interest)
             
     def subscribe_topics_mod(self, topics, observer):
         for topic in topics:

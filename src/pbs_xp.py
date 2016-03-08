@@ -17,7 +17,7 @@ start_date = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 pool_name = sys.argv[1]
 
 
-def write_pbs(config_name, trial, log_dir, time=16):
+def write_pbs(config_name, trial, log_dir, time="16"):
     pbs =   """
 #!/bin/sh
 
@@ -92,7 +92,9 @@ for xp_name in xp_list:
         for config_name in config_list[xp_name]:
             print xp_name, config_name, trial
             if xp_name == "xp_long":
-                write_pbs(config_name, trial, log_dir + xp_name + "/", time=48)
+                write_pbs(config_name, trial, log_dir + xp_name + "/", time="48")
+            elif xp_name == "xp_credit":
+                write_pbs(config_name, trial, log_dir + xp_name + "/", time="02")
             else:
                 write_pbs(config_name, trial, log_dir + xp_name + "/")   
             filename = '{}-{}.pbs'.format(config_name, trial)

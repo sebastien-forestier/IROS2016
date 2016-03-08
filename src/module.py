@@ -38,6 +38,7 @@ class Module(Agent):
         self.sp = None
         self.snn = None
         self.last_module_to_credit = -1
+        self.last_interest = 0
         
         im_cls, kwargs = config.ims[self.mconf['im_name']]
         kwargs['mode'] = self.im_mode
@@ -196,13 +197,13 @@ class Module(Agent):
         #print self.mid, self.s, s
         if self.t >= self.mconf['motor_babbling_n_iter']:
             if self.im_mode == "sg":
-                self.interest_model.update(hstack((m, self.s)), hstack((m, s)))
+                return self.interest_model.update(hstack((m, self.s)), hstack((m, s)))
             elif self.im_mode == "sg_snn":
                 if self.snn is not None:
-                    self.interest_model.update(hstack((m, self.s)), hstack((m, s)), self.sp - self.snn)
+                    return self.interest_model.update(hstack((m, self.s)), hstack((m, s)), self.sp - self.snn)
             elif self.im_mode == "sp":
                 if self.snn is not None:
-                    self.interest_model.update(hstack((m, self.s)), hstack((m, s)), self.sp - self.snn, self.sp)
+                    return self.interest_model.update(hstack((m, self.s)), hstack((m, s)), self.sp - self.snn, self.sp)
             else:
                 raise NotImplementedError
     
@@ -242,5 +243,5 @@ class Module(Agent):
         #print self.mid, "perceive", s, has_control
         self.update_sm(m, s)
         if has_control:
-            self.update_im(m, s)
+            self.last_interest = self.update_im(m, s)
         self.t += 1
