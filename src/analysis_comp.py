@@ -41,8 +41,8 @@ log_dir = log_dirs["xp1"] + "/"
 
 
 
-n = 300000
-p = 75000
+n = 100000
+p = 25000
 
 gui = False
 xp = None
