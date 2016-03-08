@@ -8,7 +8,7 @@ from explauto.utils import rand_bounds
 ########################################################
 ################### PARAMS #############################
 ########################################################
-d = "2016-03-07_16-35-57-TOOL2-iros_complementary-xp_explo_noise-xp_explo_noise"
+d = "2016-03-03_18-22-11-TOOL2-iros_complementary-xp_long"
 #d = "2016-03-03_18-22-11-TOOL2-iros_complementary-xp_snoise"
 # d = "2016-02-28_13-54-46-TOOL2-iros_100T_14C_100K-xp1"
 n_testcases = 1000
