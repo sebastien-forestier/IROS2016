@@ -15,7 +15,7 @@ from analysis_events import main as main_events
 #                     "M-P-AMB-LWR",
 #                       ]}
 
-d = "2016-03-07_16-35-57-TOOL2-iros_complementary-xp_explo_noise-xp_explo_noise"
+d = "2016-03-07_17-36-32-TOOL2-iros_complementary-xp_credit-xp_credit"
 xp_name = "xp_explo_noise"
 #d = "2016-03-03_18-22-11-TOOL2-iros_complementary-xp_snoise"
 # d = "2016-03-03_18-22-11-TOOL2-iros_complementary-xp_bootstrap"
