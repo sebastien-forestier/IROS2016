@@ -17,7 +17,7 @@ start_date = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 pool_name = sys.argv[1]
 
 
-def write_pbs(config_name, trial, log_dir, time=12):
+def write_pbs(config_name, trial, log_dir, time=16):
     pbs =   """
 #!/bin/sh
 
