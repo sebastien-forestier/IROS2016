@@ -404,7 +404,7 @@ class IROS2016Environment(DynamicEnvironment):
                          s_maxs=[2, 2],
                          length=0.5, 
                          type="magnetic",
-                         handle_tol=0.25, 
+                         handle_tol=0.03, 
                          handle_noise=0.1 if noise == 1 else 0., 
                          rest_state=[-0.75, 0.25, 0.75],
                          perturbation=perturbation)
@@ -415,7 +415,7 @@ class IROS2016Environment(DynamicEnvironment):
                          s_maxs=[2, 2],
                          length=0.5, 
                          type="scratch",
-                         handle_tol=0.25, 
+                         handle_tol=0.03, 
                          handle_noise=0.1 if noise == 1 else 0., 
                          rest_state=[0.75, 0.25, 0.25])
         
@@ -445,7 +445,7 @@ class IROS2016Environment(DynamicEnvironment):
                           m_maxs = list([1.] * 4), 
                           s_mins = [-2., -2.], # new pos
                           s_maxs = [2., 2.],
-                          object_tol1 = 0.25, 
+                          object_tol1 = 0.03, 
                           rest_state = [-0.3, 1.1])
         
         mag_object2_cfg = dict(m_mins = list([-1.] * 4), 
@@ -466,7 +466,7 @@ class IROS2016Environment(DynamicEnvironment):
                           m_maxs = list([1.] * 4), 
                           s_mins = [-1.5, -1.5], # new pos
                           s_maxs = [1.5, 1.5],
-                          object_tol2 = 0.25, 
+                          object_tol2 = 0.03, 
                           rest_state = [0.3, 1.1])
         
         scratch_object2_cfg = dict(m_mins = list([-1.] * 4), 

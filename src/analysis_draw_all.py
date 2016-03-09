@@ -116,6 +116,7 @@ log_dirs = {"xp1":pref + '/scratch/sforestier001/logs/' + d,
             "xp_bootstrap":pref + '/scratch/sforestier001/logs/' + d,
             "xp_long":pref + '/scratch/sforestier001/logs/' + d,
             "xp_snoise":pref + '/scratch/sforestier001/logs/' + d,
+            "xp_explo_noise":pref + '/scratch/sforestier001/logs/' + d,
 }
 
     
@@ -383,6 +384,8 @@ if "explo" in modes:
         list2 = [explo["obj2"][config][trial][-1] for trial in explo["obj2"][config].keys()]
         
         merged = list1 + list2
+        if merged == []:
+            continue
         #print merged
         q0 = min(merged)
         q100 = max(merged)
@@ -396,25 +399,25 @@ if "explo" in modes:
             print "        \multirow{2}{*}{\scriptsize " + config + "} & ", "No", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]\\cline{2-7}"
         else:
             print "        {\scriptsize " + config + "} & ", "No", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]\\cline{2-7}"
-        try:
-            list1 = [explo["obj1"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj1"][config+"-ENVNOISE"].keys()]
-            list2 = [explo["obj2"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj2"][config+"-ENVNOISE"].keys()]
-            
-            merged = list1 + list2
-            #print merged
-            q0 = min(merged)
-            q100 = max(merged)
-            median = np.median(merged)
-            q1 = np.percentile(merged, 25)
-            q3 = np.percentile(merged, 75)
-            
-            
-            stats[config+"-ENVNOISE"] = merged
-            
-            print "        ", " & ", "Yes", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]"
-            print "        " + "\hline"
-        except:
-            pass        
+            try:
+                list1 = [explo["obj1"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj1"][config+"-ENVNOISE"].keys()]
+                list2 = [explo["obj2"][config+"-ENVNOISE"][trial][-1] for trial in explo["obj2"][config+"-ENVNOISE"].keys()]
+                
+                merged = list1 + list2
+                #print merged
+                q0 = min(merged)
+                q100 = max(merged)
+                median = np.median(merged)
+                q1 = np.percentile(merged, 25)
+                q3 = np.percentile(merged, 75)
+                
+                
+                stats[config+"-ENVNOISE"] = merged
+                
+                print "        ", " & ", "Yes", " & $", int(q0), "$ & $", int(q1), "$ & $", int(median), "$ & $", int(q3), "$ & $", int(q100), "$&\\\\[2pt]"
+                print "        " + "\hline"
+            except:
+                pass        
     with open(log_dir + 'stats_explore.pickle', 'wb') as f:
         cPickle.dump(stats, f)
     
