@@ -6,6 +6,13 @@ We provide source code of the experiments (Licence GPLv3), and data analysis.
 We do not provide data as it is 400GB
 
 We explain how to re-generate some of it (generating all the exploration databases is 14 conditions x 100 trials x 5h).
+## Paper
+Here is the IROS [paper](http://sforestier.com/sites/default/files/Forestier2016Modular.pdf).
+## Video 
+Here is a [video](https://www.youtube.com/watch?v=NXXlPAycucY) of the setup. 
+
+## Tutorial on Active Model Babbling
+Here is a Jupyter Notebook explaining the Active Model Babbling algorithm with comparisons to other algorithms: [notebook](http://nbviewer.jupyter.org/github/sebastien-forestier/ExplorationAlgorithms/blob/master/main.ipynb).
 
 ## Experiments ##
 * [notebook](http://nbviewer.jupyter.org/github/sebastien-forestier/IROS2016/blob/master/notebook/experiments.ipynb) describing how to run the experiments
