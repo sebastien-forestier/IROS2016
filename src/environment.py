@@ -1,6 +1,9 @@
 import numpy as np
 import matplotlib
+import matplotlib.image as image
 import matplotlib.pyplot as plt
+from matplotlib.cbook import get_sample_data
+from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
 
 #matplotlib.use('QT4Agg')
 
@@ -21,6 +24,20 @@ colors_config = {"gripper":colors[1],
                  "magnetic":colors[2],
                  "scratch":colors[4],
                  }
+
+animals_folder = '/home/sforesti/scm/Flowers/IROS2016/include/'
+cat = image.imread(animals_folder + 'cat.png')
+dog = image.imread(animals_folder + 'dog.png')
+
+
+#from matplotlib._png import read_png
+#fncat = get_sample_data(animals_folder + 'cat.png', asfileobj=False))
+#fndog = get_sample_data(animals_folder + 'dog.png', asfileobj=False))
+#arr_lena = read_png(fn)
+
+#imagebox = OffsetImage(arr_lena, zoom=0.2)
+    
+    
 
 class GripArmEnvironment(Environment):
     use_process = True
@@ -319,11 +336,13 @@ class Animal(Environment):
     def plot(self, ax, i, **kwargs_plot):
         pos = self.logs[i]
         if self.species == "cat":
-            rectangle = plt.Rectangle((pos[0] - 0.05, pos[1] - 0.05), 0.1, 0.1, fc='grey', **kwargs_plot)
-            ax.add_patch(rectangle)
+            ax.imshow(cat, aspect='auto', extent=(pos[0] - 0.05, pos[0] + 0.05, pos[1]-0.05,  pos[1]+0.05), zorder=-1, cmap='gray')
+            #fig = plt.get_current_fig_manager().canvas.figure
+            #fig.figimage(cat, xo= 100, yo = 100)
+            #rectangle = plt.Rectangle((pos[0] - 0.05, pos[1] - 0.05), 0.1, 0.1, fc='grey', **kwargs_plot)
+            #ax.add_patch(rectangle)
         elif self.species == "dog":
-            rectangle = plt.Rectangle((pos[0] - 0.05, pos[1] - 0.05), 0.1, 0.1, fc='grey', **kwargs_plot)
-            ax.add_patch(rectangle)          
+            ax.imshow(dog, aspect='auto', extent=(pos[0] - 0.05, pos[0] + 0.05, pos[1]-0.05,  pos[1]+0.05), zorder=-1, cmap='gray')
         else:
             raise NotImplementedError       
         

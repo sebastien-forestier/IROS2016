@@ -32,6 +32,7 @@ class DynamicEnvironment(Environment):
         self.optim_initial_position = optim_initial_position
         self.optim_end_position = optim_end_position
         self.gui = gui
+        self.n_mvt = 0
         if self.gui:
             plt.ion()
             self.ax = plt.subplot()
@@ -125,10 +126,7 @@ class DynamicEnvironment(Environment):
             raise NotImplementedError  
         s = s_ag
         if self.gui:
-            #if abs(s[11] - (-0.85)) > 0.1: #Tool1
-            #if s[-2] > 0: # One of the boxes
-            if np.random.rand() < 0.01:
-                self.plot()
+            self.plot()
         return bounds_min_max(s, self.conf.s_mins, self.conf.s_maxs)    
         
     def update(self, m_ag, reset=True, log=False):
@@ -144,43 +142,20 @@ class DynamicEnvironment(Environment):
         return s
         
     def plot(self, **kwargs):
-#         l = [0, 16, 32, 49]
-#         for i in range(1,len(l)):
-#             plt.cla()
-#             for j in range(l[i-1]+1, l[i]-1, 5):
-#                 self.env.plot(self.ax, j, alpha=0.2)
-#             self.env.plot(self.ax, l[i], **kwargs)
-#             plt.xlim([-1.6, 1.6])
-#             plt.ylim([-0.2, 1.6])
-#             self.ax.set_xticklabels([])
-#             self.ax.set_yticklabels([])
-#             plt.gca().yaxis.set_major_locator(plt.NullLocator())
-#             plt.gca().yaxis.set_major_locator(plt.NullLocator())
-#             plt.draw()
-#             if False:
-#                 plt.savefig('/home/sforesti/scm/PhD/cogsci2016/include/test-mvt-' + str(l[i]) + '.pdf', format='pdf', dpi=1000, bbox_inches='tight')
-        plt.xlim([-1.6, 1.6])
-        plt.ylim([-0.5, 1.6])
-        for i in range(self.move_steps):
-            plt.pause(0.0001)
-            plt.cla()
-            self.env.plot(self.ax, i, **kwargs)
-#             plt.xlim([-1.3, 1.3])
-#             plt.ylim([-0.2, 1.6])
-#             plt.xlim([-1.6, 1.6])
-#             plt.ylim([-0.5, 1.6])
-#             plt.gca().set_xticklabels([])
-#             plt.gca().set_yticklabels([])
-#             plt.gca().yaxis.set_major_locator(plt.NullLocator())
-#             plt.gca().yaxis.set_major_locator(plt.NullLocator())
-#             plt.xlabel("")
-#             plt.ylabel("")
-            plt.draw()
-            plt.show(block=False)
-            if False:
-                if i in [16, 32, 49]:
-                    plt.savefig('/home/sforesti/scm/PhD/iros2016/include/test-mvt-' + str(i) + '.pdf', format='pdf', dpi=1000, bbox_inches='tight')
-        #plt.show()
-        #time.sleep(1)
-        
+        if self.n_mvt < 10 or (self.n_mvt > 90010):
+            plt.xlim([-1.6, 1.6])
+            plt.ylim([-0.5, 1.6])
+            for i in range(self.move_steps):
+                plt.pause(0.0001)
+                plt.cla()
+                self.env.plot(self.ax, i, **kwargs)
+                plt.draw()
+                #plt.show(block=False)
+                if True:
+                    plt.savefig('/data/IROS2016/image/M-NN-AMB/mvt-' + str(self.n_mvt) + "-" + '{0:02d}'.format(i) + '.jpg', format='jpg', dpi=50, bbox_inches='tight')
+            print "ploted mvt", self.n_mvt
+        else:
+            print "dont plot mvt", self.n_mvt
+        self.n_mvt = self.n_mvt + 1
+            
 
