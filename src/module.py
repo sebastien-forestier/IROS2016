@@ -143,10 +143,13 @@ class Module(Agent):
             if self.n_bootstrap > 0:
                 self.n_bootstrap -= 1
                 raise ExplautoBootstrapError
-            m, idx = self.sensorimotor_model.infer(expl_dims,
+#             m, idx = self.sensorimotor_model.infer(expl_dims,
+#                                               inf_dims,
+#                                               x.flatten())
+            m = self.sensorimotor_model.infer(expl_dims,
                                               inf_dims,
                                               x.flatten())
-            self.last_module_to_credit = idx
+            #self.last_module_to_credit = idx
             #print "infer", snn, sp
 #             self.snn = snn
 #             self.sp = sp

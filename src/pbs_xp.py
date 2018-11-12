@@ -46,7 +46,7 @@ xp_list = [
 #            "xp_credit",
 ]
 
-log_dir = '/scratch/sforestier001/logs/' + start_date + '-TOOL2-' + pool_name + '-'
+log_dir = '/scratch/sforestier001/logs/' + start_date + '-TOOL-' + pool_name + '-'
 
 
 
