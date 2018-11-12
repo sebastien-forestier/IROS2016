@@ -43,7 +43,7 @@ class Config(object):
         self.n_eval = 0
         self.eval_modes = []
         
-        self.gui = True
+        self.gui = False
         
         self.hierarchy_type = hierarchy_type
         self.babbling_name = babbling_name
@@ -83,17 +83,14 @@ class Config(object):
         self.ims = {'miscRandom_local': (MiscRandomInterest, {
                                   'competence_measure': competence_dist,
                                   #'competence_measure': lambda target, reached, dist_max:competence_exp(target, reached, dist_min=0.01, dist_max=dist_max, power=20.),
-                                   'win_size': 1000,
-                                   'competence_mode': 'knn',
-                                   'k': 20,
-                                   'progress_mode': 'local'}),
-                    'miscRandom_global': (MiscRandomInterest, {
-                                  'competence_measure': competence_dist,
-                                  #'competence_measure': lambda target, reached, dist_max:competence_exp(target, reached, dist_min=0.01, dist_max=dist_max, power=20.),
-                                   'win_size': 1000,
-                                   'competence_mode': 'knn',
-                                   'k': 20,
-                                   'progress_mode': 'global'}),
+                                   'win_size': 1000,}),
+#                     'miscRandom_global': (MiscRandomInterest, {
+#                                   'competence_measure': competence_dist,
+#                                   #'competence_measure': lambda target, reached, dist_max:competence_exp(target, reached, dist_min=0.01, dist_max=dist_max, power=20.),
+#                                    'win_size': 1000,
+#                                    'competence_mode': 'knn',
+#                                    'k': 20,
+#                                    'progress_mode': 'global'}),
             }
         
         self.sms = {

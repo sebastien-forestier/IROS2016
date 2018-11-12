@@ -41,7 +41,8 @@ class Module(Agent):
         self.last_interest = 0
         
         im_cls, kwargs = config.ims[self.mconf['im_name']]
-        kwargs['mode'] = self.im_mode
+        #kwargs['mode'] = self.im_mode
+        #print kwargs, im_cls
         self.im = im_cls(self.conf, self.im_dims, **kwargs)
         
         sm_cls, kwargs = config.sms[self.mconf['sm_name']]
