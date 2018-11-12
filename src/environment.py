@@ -25,7 +25,7 @@ colors_config = {"gripper":colors[1],
                  "scratch":colors[4],
                  }
 
-animals_folder = '/home/sforesti/scm/Flowers/IROS2016/include/'
+animals_folder = '../include/'
 cat = image.imread(animals_folder + 'cat.png')
 dog = image.imread(animals_folder + 'dog.png')
 
