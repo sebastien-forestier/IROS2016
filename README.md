@@ -8,7 +8,7 @@ We do not provide data as it is 400GB
 We explain how to re-generate some of it (generating all the exploration databases is 14 conditions x 100 trials x 5h).
 
 ## Paper
-Here is the IROS [paper](http://sforestier.com/sites/default/files/Forestier2016Modular.pdf).
+Here is the IROS [paper](https://hal.archives-ouvertes.fr/hal-01384566/document).
 ## Video 
 Here is a [video](https://www.youtube.com/watch?v=NXXlPAycucY) of the setup. 
 
